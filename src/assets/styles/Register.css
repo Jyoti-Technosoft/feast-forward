@@ -1,0 +1,60 @@
+.Registration-form {
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 182vh;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image:url(../images\/FDP.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+.form-group {
+  text-align: left;
+}
+
+.transparent-box {
+  background-color: rgba(255, 255, 255, 0.2); 
+  padding: 85px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #fff;
+  margin-right: 800px;
+}
+
+.login-form h2 {
+  text-align: center !important;
+}
+
+input {
+  width: 87%;
+  padding: 10px;
+  margin: 2px !important;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.register-button {
+  margin: 2px !important;
+  background-color: #1f993d;
+  color: #fff;
+  width: 87%;
+  padding: 7px 15px;
+  border-radius: 20px; 
+  margin-right: 16rem !important;
+  
+}
+
+.register-button:hover {
+  background-color: #135b18;
+}
+
+.translate-middle {
+  transform: translate(-115%,0%) !important;
+}

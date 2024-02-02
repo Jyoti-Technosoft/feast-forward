@@ -1,0 +1,21 @@
+.description-container {
+    padding: 20px;
+    margin: auto;
+    max-width: 800px;
+  }
+  
+.container {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+.container h3 {
+    margin-top: 0;
+}
+  
+.container-content {
+    margin-top: 20px;
+}

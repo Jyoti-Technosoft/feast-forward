@@ -1,0 +1,84 @@
+.login-container {
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 182vh;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image:url(../images\/FDP.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  }
+
+  .transparent-box-1 {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 85px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #fff;
+    text-align: left;
+    margin-right: 580px;
+  }
+
+  .loginName {
+    color: white;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+  input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-button  {
+    color: #fff;
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 2px !important;
+    background-color: #1f993d;
+    color: #fff;
+    width: 87%;
+    padding: 7px 15px;
+    border-radius: 20px; 
+    margin-right: 16rem !important;
+  
+  }
+
+  .login-button:hover {
+    background-color: #135b18;
+  }
+
+  .password-container {
+    position: relative;
+  }
+  
+  .toggle-password-visibility {
+    position: absolute;
+    left: 262px;
+    top: 48%;;
+    transform: translateY(-47%);
+    background: none;
+    border: none;
+    color: #5c5b5b;
+  }
+  .error {
+    color: red;
+  }
+  
+  
