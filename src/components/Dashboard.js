@@ -5,15 +5,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import "../assets/styles/Dashboard.css"; 
-import image1 from "../assets/images/image1.jpg";
-import image2 from "../assets/images/image2.jpg";
-import image3 from "../assets/images/image3.jpg";
-import image4 from "../assets/images/image4.jpg";
-import image5 from "../assets/images/image5.jpg";
+import banner_img1 from "../assets/images/banner_img1.jpg";
+import banner_img2 from "../assets/images/banner_img2.jpg";
+import banner_img3 from "../assets/images/banner_img3.jpg";
+import banner_img4 from "../assets/images/banner_img4.jpg";
+import banner_img5 from "../assets/images/banner_img5.jpg";
 import FDPServices from "../assets/images/FDP Services.webp";
-import content1 from "../assets/images/content1.webp";
-import content2 from "../assets/images/content2.webp";
-import content3 from "../assets/images/content3.jpg";
+import poor_child from "../assets/images/poor_child.webp";
+import Donate_food from "../assets/images/Donate_food.jpg";
+import FDP_img from "../assets/images/FDP_img.webp";
 
 function Dashboard() {
   return (
@@ -21,10 +21,10 @@ function Dashboard() {
       <Header />
       <div>
         <Carousel>
-          <Carousel.Item>
+          <Carousel.Item> 
             <img
               className="d-block w-100"
-              src={image1}
+              src={banner_img1}
               alt="First slide"
               style={{height: '90vh'}}
             />
@@ -32,15 +32,15 @@ function Dashboard() {
           <Carousel.Item>
             <img
               className="w-100"
-              src={image2}
+              src={banner_img2}
               alt="Second slide"
-              style={{height: '90vh'}}
+              style={{height:'90vh'}}
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
               className="w-100"
-              src={image3}
+              src={banner_img3}
               alt="Third slide"
               style={{height: '90vh'}}
             />
@@ -48,7 +48,7 @@ function Dashboard() {
           <Carousel.Item>
             <img
               className="w-100"
-              src={image4}
+              src={banner_img4}
               alt="Fourth slide"
               style={{height: '90vh'}}
             />
@@ -56,7 +56,7 @@ function Dashboard() {
           <Carousel.Item>
             <img
               className="w-100"
-              src={image5}
+              src={banner_img5}
               alt="Fifth slide"
               style={{height: '90vh'}}
             />
@@ -66,8 +66,8 @@ function Dashboard() {
       <div
         className="content-1 row"
         style={{
-          textAlign: 'center',
-          backgroundColor: 'aliceblue',
+          textAlign:'center',
+          backgroundColor:'aliceblue',
           paddingTop: '5vh',
         }}
         >
@@ -126,7 +126,7 @@ function Dashboard() {
           <div className="row">
             <div className="col-lg-4">
               <img
-                src={content1}
+                src={poor_child}
                 alt="Donate"
                 style={{
                   backgroundColor: 'aliceblue',
@@ -138,7 +138,7 @@ function Dashboard() {
             </div>
             <div className="col-lg-4">
               <img
-                src={content2}
+                src={Donate_food}
                 alt="content2"
                 style={{
                   backgroundColor: 'aliceblue',
@@ -150,7 +150,7 @@ function Dashboard() {
             </div>
             <div className="col-lg-4">
               <img
-                src={content3}
+                src={FDP_img}
                 alt="content3"
                 style={{
                   backgroundColor: 'aliceblue',

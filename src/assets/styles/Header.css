@@ -1,0 +1,23 @@
+.Header-container{
+    height:90px;
+    justify-content:end;
+}
+
+.navbar {
+    background-color:#333; 
+    width:100%; 
+    position:absolute; 
+    height:90px;
+}
+
+.navbar-nav {
+    align-items: center;
+    margin: auto;
+    .nav-item {
+        margin-right: 2rem;
+    }
+}
+
+.navbar-brand {
+    margin-right: 930px;
+}

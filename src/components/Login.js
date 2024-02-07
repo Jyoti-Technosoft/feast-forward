@@ -54,7 +54,7 @@ function Login() {
         setErrors({ ...errors, credentials: 'Invalid credentials. Login failed.' });
       }
     } else {
-      setErrors({ ...errors, credentials: 'Email not found. Login failed.' });
+      setErrors({ ...errors, credentials: 'Email not found. Login failed.'});
     }
   };
   
@@ -101,8 +101,8 @@ function Login() {
               {showPassword ? <Eye /> : <EyeSlash />}
             </button>
           </div>
-          {errors.password && <p className="error">{errors.password}</p>}
-          {errors.credentials && (
+            {errors.password && <p className="error">{errors.password}</p>}
+            {errors.credentials && (
           <p className="error" style={{ color: 'red' }}>
             {errors.credentials}
         </p>
@@ -116,7 +116,7 @@ function Login() {
         </p>
         <button className="login-button" onClick={handleSubmit}>
           <Link
-            to={isValid === true ? '/register' : ''}
+            to={isValid === true ? '/home' : ''}
             style={{ color: '#ffffff', fontFamily: 'serif', fontSize: 'initial' }}
           >
             LOGIN

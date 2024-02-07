@@ -2,19 +2,18 @@ import React from 'react';
 
 import Header from '../components/Header';
 import Footer from './Footer';
-import "../assets/styles/Dashboard.css";
 import "../assets/styles/AboutUs.css";
 
 const AboutUs = () => {
   return (
-      <div className="About-Us-container" style={{backgroundColor:'aliceblue'}}>
+      <div style={{backgroundColor:'aliceblue'}}>
       <Header/>
-      <section className='container' id="Description" style={{marginTop:'20px', marginLeft:'10px'}}>
-        <h1>Description Section:</h1>
+      <section className= "container" id= "Description" style={{marginTop: '20px', marginLeft: '10px'}}>
+          <h1>Description Section:</h1>
         <ul>
-        <li>This section contains information about the Food Donation Project...</li>
+          <li>This section contains information about the Food Donation Project...</li>
         </ul>
-        <h3>-Our Mission</h3>
+          <h3>-Our Mission</h3>
         <ul>
         <li>Our mission at [Organization Name] is to alleviate hunger and reduce food waste in our community.
             We believe that access to nutritious food is a fundamental human right, and we are dedicated to 
@@ -40,7 +39,7 @@ const AboutUs = () => {
 
       <section className='container' id="Organization" style={{marginLeft: '10px'}}>
         <h1>Organization Section:</h1>
-        <h3>-Who We Are</h3>
+          <h3>-Who We Are</h3>
         <ul>
           <li>Details about the organization behind the project...</li>
           <li>[Organization Name] is a non-profit organization composed of passionate volunteers and 
@@ -48,9 +47,9 @@ const AboutUs = () => {
               we have grown from a small group of dedicated individuals to a robust organization with 
               diverse programs and initiatives.</li>
         </ul>
-        <h3>-Our Impact</h3>
+          <h3>-Our Impact</h3>
         <ul>
-        <li>Since our inception, we have:</li>
+          <li>Since our inception, we have:</li>
         </ul>
         <ul>
           <li>Distributed over [X] meals to families and individuals in need.</li>
@@ -70,7 +69,7 @@ const AboutUs = () => {
         </ul>
       </section>
       
-      <section className='container' id="Contact-Deatils" style={{marginLeft: '10px'}}>
+      <section className= "container" id="Contact-Deatils" style={{marginLeft: '10px'}}>
         <h1>Contact Details Section:</h1>
         <h3>-Get in Touch</h3>
       <ul>
@@ -78,7 +77,7 @@ const AboutUs = () => {
         <li>Phone: (123) 456-7890</li>
         <li>Address: 123 Charity Lane, Kindness City, 12345</li>
       </ul>
-      <h3>-Volunteer with Us</h3>
+        <h3>-Volunteer with Us</h3>
       <ul>
         <li>Join our team of volunteers and make a difference in the fight against hunger. 
             Visit our website to learn more about volunteer opportunities and sign up.</li>

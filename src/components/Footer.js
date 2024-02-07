@@ -1,4 +1,5 @@
 import React from "react";
+import "../assets/styles/Footer.css";
 
 function Footer() {
     const memberCount = 100;
@@ -6,21 +7,12 @@ function Footer() {
   
     return (
       <div
-        className="footer-container"
-        style={{
-          backgroundColor: '#333',
-          color: '#fff',
-          width: '100%',
-          textAlign: 'center',
-          justifyContent: 'center',
-          display: 'flex',
-        }}
-        >
+      className="footer-container">
         <div>
-          <p style={{ marginBottom: '0rem' }}>
+          <p className="footer-text1" >
             &copy; 2024 My App. All rights reserved.
           </p>
-          <p style={{ marginBottom: '0rem' }}>Member count: {memberCount}</p>
+          <p className="footer-text2" >Member count:{memberCount}</p>
           <p>Average counting: {averageCount}</p>
         </div>
         <div className="content-3 row">
