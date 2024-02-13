@@ -1,0 +1,40 @@
+.donation-form-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 200px;
+    text-align: center;
+}
+  
+.donation-form {
+    max-width: 400px;
+    width: 100%;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+.donation-form input[type="text"],
+.donation-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+  
+.donation-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.donation-form button:hover {
+    background-color: #0056b3;
+}
+  
