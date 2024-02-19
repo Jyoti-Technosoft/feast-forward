@@ -97,7 +97,6 @@ const Registration = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(validateUsername());
     e.preventDefault();
     if (
       validateUsername() &&

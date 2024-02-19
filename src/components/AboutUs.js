@@ -1,4 +1,5 @@
-import React from "react";
+import React  from "react";
+import { useState } from "react";
 
 import Header from "../components/Header";
 import Footer from "./Footer";
@@ -11,6 +12,38 @@ import org_img2 from "../assets/images/org_img2.jpg";
 import org_img3 from "../assets/images/org_img3.jpg";
 
 const AboutUs = () => {
+  const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
+  const [message, setMessage] = useState('');
+  
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const handleSubmit1 = (e) => {
+    e.preventDefault();
+    let validationErrors = {};
+    
+    if(!validateEmail(email)) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!number) {
+      errors.number = "Number is required";
+    }
+
+    if (!message) {
+      errors.message = "Message is required";
+    }
+
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      console.log("Form submitted:", { email, number, message });
+    }
+  };
   return (
     <div style={{ backgroundColor: "aliceblue" }}>
       <Header />
@@ -215,7 +248,7 @@ const AboutUs = () => {
           }}
         />
       </section>
-
+      {/** Contact Us section */}
       <section
         className="container"
         id="contact-us-link"
@@ -226,21 +259,26 @@ const AboutUs = () => {
           alignItems: "center",
         }}
       >
-        <form className="Contact-form">
+        <form className="Contact-form" onSubmit={handleSubmit1}>
           <h2>Contact Us</h2>
           <div className="Contact-group">
             <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
           </div>
           <div className="Contact-group">
             <label htmlFor="number">Number:</label>
-            <input type="text" id="number" name="number" required />
+            <input type="text" id="number" name="number" value={number} onChange={(e) => setNumber(e.target.value)} required />
+            {errors.number && <p style={{ color: "red" }}>{errors.number}</p>}
           </div>
           <div className="Contact-group">
             <label htmlFor="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
+            <textarea id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} required></textarea>
+            {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
           </div>
-          <button className="Contact-submit" type="submit">Submit</button>
+          <button className="Contact-submit" type="submit">
+            Submit
+          </button>
         </form>
       </section>
       <Footer />

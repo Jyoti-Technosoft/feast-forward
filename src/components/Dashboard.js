@@ -164,8 +164,6 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="content-3 row">
-      </div>
       <Footer />
     </div>
   );
