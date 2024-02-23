@@ -1,4 +1,5 @@
 .Registration-form {
+  max-width: 1680px !important;
   border-radius: 0px;
   display: flex;
   align-items: center;
@@ -8,53 +9,53 @@
   text-align: center;
   justify-content: center;
   flex-direction: column;
-  background-image:url(../images\/FDP.jpg);
+  background-image: url(../images\/FDP.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-}
-.form-group {
-  text-align: left;
-}
 
-.transparent-box {
-  background-color: rgba(255, 255, 255, 0.2); 
-  padding: 85px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #fff;
-  margin-right: 800px;
-}
+  .form-group {
+    text-align: left;
+    margin-top: 10px;
+  }
 
-.login-form h2 {
-  text-align: center !important;
-}
+  .transparent-box {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #fff;
+    margin-right: 800px;
+  }
 
-input {
-  width: 87%;
-  padding: 10px;
-  margin: 2px !important;
-}
+  .login-form h2 {
+    text-align: center !important;
+  }
 
-.error {
-  color: red;
-  font-size: 14px;
-}
+  input {
+    width: 87%;
+    padding: 10px;
+    margin: 2px !important;
+  }
 
-.register-button {
-  margin: 2px !important;
-  background-color: #1f993d;
-  color: #fff;
-  width: 87%;
-  padding: 7px 15px;
-  border-radius: 20px; 
-  margin-right: 16rem !important;
-  
-}
+  .register-button {
+    color: #fff;
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 10px 16rem 0px 2px !important;
+    color: #fff;
+    width: 87%;
+    background-color: #1f993d !important;
+    border: white !important;
+    padding: 7px 15px;
+    border-radius: 4px;
+  }
 
-.register-button:hover {
-  background-color: #135b18;
-}
+  .register-button:hover {
+    background-color: #135b18 !important;
+  }
 
-.translate-middle {
-  transform: translate(-115%,0%) !important;
+  .translate-middle {
+    transform: translate(-115%, 0%) !important;
+  }
 }

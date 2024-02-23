@@ -13,7 +13,7 @@
 .navbar-nav {
     align-items: center;
     margin: auto;
-    .nav-item {
+        .nav-item {
         margin-right: 2rem;
     }
 }

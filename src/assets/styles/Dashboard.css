@@ -1,23 +1,20 @@
-.Header-container{
- display: flex;
-}
 
 .Dashboard-container{
     text-align: 'center'; 
 }
-
-.dashboard-header {
+    
+    .dashboard-header {
     background-color: #333;
     color: #fff;
     padding: 10px;
     display: flex;
     width: 100%;
 }
-  
+
 .sidebar {
     width: 860px; 
 }
-  
+
 .main-content {
     flex-grow: 1;
     padding: 20px;
@@ -47,11 +44,11 @@
 }
 
 .card-content {
-font-size: 14px;
+    font-size: 14px;
 }
 
 .carousel-indicators {
-margin-bottom: 2rem !important;
+    margin-bottom: 2rem !important;
 }
 
 .content{
@@ -100,7 +97,7 @@ margin-bottom: 2rem !important;
 .box h3 {
     margin-top: 0;
 }
-  
+
 .box-content {
     margin-top: 20px;
 }

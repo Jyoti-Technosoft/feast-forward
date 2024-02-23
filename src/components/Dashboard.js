@@ -131,8 +131,7 @@ function Dashboard() {
                 style={{
                   backgroundColor: 'aliceblue',
                   width: '70%',
-                  marginRight: '100px',
-                  marginBottom: '15px'
+                  marginRight: '15px 100px'
                 }}
               />
             </div>
@@ -143,8 +142,7 @@ function Dashboard() {
                 style={{
                   backgroundColor: 'aliceblue',
                   width: '70%',
-                  marginRight: '0px',
-                  marginBottom: '15px'
+                  marginRight: '0px 15px',
                 }}
               />
             </div>
@@ -155,8 +153,7 @@ function Dashboard() {
                 style={{
                   backgroundColor: 'aliceblue',
                   width: '70%',
-                  marginLeft: '100px',
-                  marginBottom: '15px',
+                  marginLeft: '15px 100px',
                   height: '87%',
                 }}
               />

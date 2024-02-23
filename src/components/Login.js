@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { EnvelopeFill, LockFill, Eye, EyeSlash } from 'react-bootstrap-icons';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { EnvelopeFill, LockFill, Eye, EyeSlash } from "react-bootstrap-icons";
+import {
+  Form,
+  Button,
+  Container,
+  Alert,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 
-import '../assets/styles/Login.css';
+import "../assets/styles/Login.css";
 
 function Login() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const storedCredentials = localStorage.getItem('users');
+    if (storedCredentials) {
+      setFormData(JSON.parse(storedCredentials));
+    }
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -17,114 +33,136 @@ function Login() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 6;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+    let tempErrors = {};
     const { email, password } = formData;
-    const validationErrors = {};
-  
     if (!validateEmail(email)) {
-      validationErrors.email = 'Please! Enter Email First';
-      setErrors(validationErrors);
-      return;
+      tempErrors.email = "Please enter a valid email.";
     }
-  
-    if (password.trim() === '') {
-      validationErrors.password = 'Password is Required';
-      setErrors(validationErrors);
-      return;
+    if (!validatePassword(password)) {
+      tempErrors.password = "Password must be at least 6 characters long.";
     }
-  
-    const storedItems = JSON.parse(localStorage.getItem('users')) || [];
-    const foundItem = storedItems.find((item) => item.email === email);
 
-    if (foundItem) {
-      const storedPassword = foundItem.password;
-      if (password === storedPassword) {
-        setIsValid(true);
-      
+    const storedCredentials = JSON.parse(localStorage.getItem("users"));
+    if (storedCredentials) {
+      const storedItems = JSON.parse(localStorage.getItem("users")) || [];
+      const foundItem = storedItems.find((item) => item.email === email);
+
+      if (foundItem) {
+        const storedPassword = foundItem.password;
+        if (password === storedPassword) {
+          setIsValid(true);
+          navigate("/home");
+        } else {
+          setErrors({
+            ...errors,
+            credentials: "Invalid credentials. Login failed.",
+          });
+        }
       } else {
-        setErrors({ ...errors, credentials: 'Invalid credentials. Login failed.' });
+        tempErrors.credentials = "Invalid email or password.";
       }
-    } else {
-      setErrors({ ...errors, credentials: 'Email not found. Login failed.'});
-    }
-  };
-  
-  return (
-    <div className="login-container">
-      <div className="transparent-box-1">
-        <h1 style={{ color: 'white', textAlign: 'center' }}>Login Account</h1>
-        <div className="input-container">
-          <div>
-            <EnvelopeFill color="white" size={18} />
-            <label>
-              <h6 style={{ color: 'white', marginLeft: '3px' }}>Email*</h6>
-            </label>
-          </div>
-          <input
-            type="text"
-            name="email"
-            placeholder="yourname@email.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          {errors.email && <p className="error">{errors.email}</p>}
-        </div>
-        <div>
-          <LockFill color="white" size={18} />
-          <label>
-            <h6 style={{ color: 'white', marginLeft: '3px' }}>Password*</h6>
-          </label>
-          <div className="password-container">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="Password"
-              value={formData.password}
+
+      setErrors(tempErrors);
+  } else {
+    setErrors("There is no data.");
+  }
+
+  }
+
+    return (
+      <Container className="login-container">
+        <Form className="transparent-box-1" onSubmit={handleSubmit}>
+          <h1 style={{ color: "white", textAlign: "center" }}>Login Account</h1>
+          {/* Email Field */}
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label
+              className="d-flex align-items-center"
+              style={{ marginRight: "10px", color: "white" }}
+            >
+              <EnvelopeFill style={{ marginRight: "5px" }} size={18} />
+              Email
+            </Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
+              isInvalid={!!errors.email}
               required
             />
-            <button
-              type="button"
-              className="toggle-password-visibility"
-              onClick={togglePasswordVisibility}
+            <Form.Control.Feedback type="invalid">
+              {errors.email}
+            </Form.Control.Feedback>
+          </Form.Group>
+          {/* Password Field */}
+          <Form.Group controlId="formBasicPassword" className="mb-3">
+            <Form.Label
+              className="d-flex align-items-center"
+              style={{ color: "white" }}
             >
-              {showPassword ? <Eye /> : <EyeSlash />}
-            </button>
+              <LockFill style={{ marginRight: "5px" }} size={18} />
+              Password
+            </Form.Label>
+            <InputGroup>
+              <FormControl
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                isInvalid={!!errors.password}
+                style={{ borderRadius: "5px" }}
+                required
+              />
+              <InputGroup.Text
+                onClick={togglePasswordVisibility}
+                style={{
+                  cursor: "pointer",
+                  border: "none",
+                  position: "absolute",
+                  right: "0",
+                  top: "20px",
+                }}
+              >
+                {showPassword ? <Eye /> : <EyeSlash />}
+              </InputGroup.Text>
+            </InputGroup>
+            <Form.Control.Feedback type="invalid">
+              {errors.password}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Button variant="primary" type="submit" className="login-button">
+            Login
+          </Button>
+          <div className="mt-3" style={{ color: "#fff", marginLeft: "45px" }}>
+            Don't have an account?{" "}
+            <Link to="/register" style={{ color: "white" }}>
+              Sign Up
+            </Link>
           </div>
-            {errors.password && <p className="error">{errors.password}</p>}
-            {errors.credentials && (
-          <p className="error" style={{ color: 'red' }}>
-            {errors.credentials}
-        </p>
+          {errors.credentials && (
+            <Alert variant="danger" style={{ marginTop: "10px" }}>
+              {errors.credentials}
+            </Alert>
           )}
-        </div>
-        <p style={{color:"white", marginTop:"20px", marginLeft: '33px'}}>
-          Don't have an account?{' '}
-          <Link to="/register" className= "link" style={{ color: 'rgb(5 103 245)' }}>
-              SignUp 
-          </Link>
-        </p>
-        <button className="login-button" onClick={handleSubmit}>
-          <Link
-            to={isValid === true ? '/home' : ''}
-            style={{ color: '#ffffff', fontFamily: 'serif', fontSize: 'initial' }}
-          >
-            LOGIN
-          </Link>
-        </button>
-      </div>
-    </div>
-  );
-}
+        </Form>
+      </Container>
+    );
+  };
+// }
 
 export default Login;

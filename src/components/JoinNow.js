@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 
 import Header from "../components/Header";
@@ -15,20 +15,27 @@ const JoinNowPage = () => {
 
   const [formErrors, setFormErrors] = useState({});
 
+  useEffect(() => {
+    const savedFormData = localStorage.getItem('joinFormData');
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
+    }
+  }, []);
+
   const validateForm = () => {
     const errors = {};
-    if (!formData.fullName.trim()) errors.fullName = "Full name is required.";
+    if (!formData.fullName.trim()) errors.fullName = "Full name is required";
     if (!formData.email) {
-      errors.email = "Email is required.";
+      errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email address is invalid.";
+      errors.email = "Email address is invalid";
     }
     if (!formData.contactNo) {
-      errors.contactNo = "Contact number is required.";
+      errors.contactNo = "Contact number is required";
     } else if (!/^\d+$/.test(formData.contactNo)) {
-      errors.contactNo = "Contact number must be numeric.";
+      errors.contactNo = "Contact number must be numeric";
     }
-    if (!formData.reason.trim()) errors.reason = "This field is required to understand your motivation.";
+    if (!formData.reason.trim()) errors.reason = "This field is required to understand your motivation";
     return errors;
   };
 
@@ -44,7 +51,7 @@ const JoinNowPage = () => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      console.log(formData);
+      localStorage.setItem('joinFormData', JSON.stringify(formData));
     } else {
       setFormErrors(errors);
     }
@@ -55,8 +62,8 @@ const JoinNowPage = () => {
       <Header/>
       <div className="join-now-form" style={{height:'calc(100% - 178px)', display: 'flex', alignItems: 'center'}}>
       <div className='join-div'></div>
-        <Container className="join-now-container"  style={{ backgroundColor:'aliceblue'}}>
-          <Form onSubmit={handleSubmit} noValidate>
+        <Container className="join-now-container">
+          <Form onSubmit={handleSubmit} className="d-flex justify-content-center flex-column">
             <h2>Join Now</h2>
             <Form.Group controlId="fullName">
               <Form.Label>Full Name</Form.Label>
@@ -111,7 +118,7 @@ const JoinNowPage = () => {
                 {formErrors.reason}
               </Form.Control.Feedback>
             </Form.Group>
-            <Button  className="join-button" variant="primary" type="submit">
+            <Button className="join-button" variant="primary" type="submit">
               Submit
             </Button>
           </Form>

@@ -1,5 +1,6 @@
-import React  from "react";
+import React from "react";
 import { useState } from "react";
+import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 
 import Header from "../components/Header";
 import Footer from "./Footer";
@@ -12,38 +13,40 @@ import org_img2 from "../assets/images/org_img2.jpg";
 import org_img3 from "../assets/images/org_img3.jpg";
 
 const AboutUs = () => {
-  const [email, setEmail] = useState('');
-  const [number, setNumber] = useState('');
-  const [message, setMessage] = useState('');
-  
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
-  const validateEmail = (email) => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
-    return re.test(String(email).toLowerCase());
-  };
-
-  const handleSubmit1 = (e) => {
-    e.preventDefault();
-    let validationErrors = {};
-    
-    if(!validateEmail(email)) {
-      errors.email = "Invalid email address";
+  const validateForm = () => {
+    const newErrors = {};
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Valid Email is required";
     }
-
-    if (!number) {
-      errors.number = "Number is required";
+    if (!number || !/^\d+$/.test(number)) {
+      newErrors.number = "Contact number is required";
     }
-
     if (!message) {
-      errors.message = "Message is required";
+      newErrors.message = "Message can't be empty";
     }
+    return newErrors;
+  };
 
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      console.log("Form submitted:", { email, number, message });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+    } else {
+      setSubmitted(true);
+      setEmail("");
+      setNumber("");
+      setMessage("");
+      setErrors({});
     }
   };
+
   return (
     <div style={{ backgroundColor: "aliceblue" }}>
       <Header />
@@ -56,8 +59,7 @@ const AboutUs = () => {
         className="container"
         id="about-us-link"
         style={{
-          marginTop: "20px",
-          marginLeft: "10px",
+          margin: "20px 10px 0px 0px",
           display: "flex",
           color: "#333",
           alignItems: "center",
@@ -253,33 +255,74 @@ const AboutUs = () => {
         className="container"
         id="contact-us-link"
         style={{
-          marginLeft: "10px",
-          marginTop: "70px",
+          marginLeft: "70px 10px",
           color: "#333",
           alignItems: "center",
         }}
       >
-        <form className="Contact-form" onSubmit={handleSubmit1}>
-          <h2>Contact Us</h2>
-          <div className="Contact-group">
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-          </div>
-          <div className="Contact-group">
-            <label htmlFor="number">Number:</label>
-            <input type="text" id="number" name="number" value={number} onChange={(e) => setNumber(e.target.value)} required />
-            {errors.number && <p style={{ color: "red" }}>{errors.number}</p>}
-          </div>
-          <div className="Contact-group">
-            <label htmlFor="message">Message:</label>
-            <textarea id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} required></textarea>
-            {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
-          </div>
-          <button className="Contact-submit" type="submit">
-            Submit
-          </button>
-        </form>
+        <Container className="Contact-form" style={{ marginTop: "20px" }}>
+          <h2 style={{ textAlign:'center'}}>Contact Us</h2>
+          {submitted && (
+            <Alert variant="success">Form submitted successfully!</Alert>
+          )}
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col md={6}>
+                <Form.Group
+                  controlId="formBasicEmail"
+                  className="Contact-group"
+                >
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    isInvalid={!!errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group
+                  controlId="formBasicNumber"
+                  className="Contact-group"
+                >
+                  <Form.Label>Contact number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Contact no."
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value)}
+                    isInvalid={!!errors.number}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.number}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group controlId="formBasicMessage" className="Contact-group">
+              <Form.Label>Message</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                isInvalid={!!errors.message}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Button variant="primary" className="Contact-submit" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Container>
       </section>
       <Footer />
     </div>

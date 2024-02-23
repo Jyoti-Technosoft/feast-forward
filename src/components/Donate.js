@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Form, Button} from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Form, Button } from 'react-bootstrap';
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -11,30 +11,36 @@ const Donate = () => {
     email: '',
     contactNo: '',
     address: '',
-    personContactNo: '',
-    reason: '',
+    personContactNo: ''
   });
 
   const [formErrors, setFormErrors] = useState({});
 
+  useEffect(() => {
+    const savedFormData = localStorage.getItem('donateformData');
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
+    }
+  }, []);
+
   const validateForm = () => {
     const errors = {};
-    if (!formData.fullName.trim()) errors.fullName = "Full name is required.";
+    if (!formData.fullName.trim()) errors.fullName = "Full name is required";
     if (!formData.email) {
       errors.email = "Email is required.";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email address is invalid.";
+      errors.email = "Email address is invalid";
     }
     if (!formData.contactNo) {
-      errors.contactNo = "Contact number is required.";
+      errors.contactNo = "Contact number is required";
     } else if (!/^\d+$/.test(formData.contactNo)) {
-      errors.contactNo = "Contact number must be numeric.";
+      errors.contactNo = "Contact number must be numeric";
     }
-    if (!formData.address.trim()) errors.address = "Pick up address is required.";
+    if (!formData.address.trim()) errors.address = "Pick up address is required";
     if (!formData.personContactNo) {
-      errors.personContactNo = "Contact of person is required.";
+      errors.personContactNo = "Contact of person is required";
     } else if (!/^\d+$/.test(formData.personContactNo)) {
-      errors.personContactNo = "Contact of person must be numeric.";
+      errors.personContactNo = "Contact of person must be numeric";
     }
     return errors;
   };
@@ -46,24 +52,25 @@ const Donate = () => {
       setFormErrors({ ...formErrors, [name]: '' });
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      console.log(formData);
+      localStorage.setItem('donateformData', JSON.stringify(formData));
     } else {
       setFormErrors(errors);
     }
   };
 
   return (
-    <div style={{ height:'100%', backgroundColor:'aliceblue'}}>
+    <div style={{ height: '100%', backgroundColor: 'aliceblue' }}>
       <Header />
-      <div className="donate-form" style={{ height:'calc(100% - 178px)' }}>
+      <div className="donate-form" style={{ height: 'calc(100% - 178px)' }}>
       <div className='image-div'></div>
-        <Container className="donate-container" style={{ backgroundColor:'aliceblue'}}>
-          <Form onSubmit={handleSubmit}>
-            <h2>Donate</h2>
+        <Container className="donate-container" >
+          <Form onSubmit={handleSubmit} className="d-flex justify-content-center flex-column">
+            <h2 style={{textAlign:'center'}}>Donate</h2>
             <Form.Group controlId="fullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
@@ -129,7 +136,7 @@ const Donate = () => {
                 {formErrors.personContactNo}
               </Form.Control.Feedback>
             </Form.Group>
-            <Button  className="donate-button" variant="primary" type="submit">
+            <Button className="donate-button" variant="primary" type="submit">
               Submit
             </Button>
           </Form>

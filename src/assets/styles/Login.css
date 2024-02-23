@@ -1,4 +1,5 @@
 .login-container {
+  max-width: 1680px !important;
   border-radius: 0px;
   display: flex;
   align-items: center;
@@ -8,11 +9,10 @@
   text-align: center;
   justify-content: center;
   flex-direction: column;
-  background-image:url(../images\/FDP.jpg);
+  background-image: url(../images\/FDP.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  }
 
   .transparent-box-1 {
     background-color: rgba(255, 255, 255, 0.2);
@@ -26,17 +26,11 @@
   .loginName {
     color: white;
   }
-  
+
   h2 {
     text-align: center;
   }
-  
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-  }
-  
+
   input {
     width: 100%;
     margin: 10px 0;
@@ -44,41 +38,41 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-  
-  .login-button  {
+
+  .login-button {
     color: #fff;
     padding: 7px 15px;
     cursor: pointer;
     border-radius: 20px;
-    margin: 2px !important;
-    background-color: #1f993d;
+    margin: 10px 16rem 0px 2px !important;
     color: #fff;
-    width: 87%;
+    width: 100%;
+    background-color: #1f993d !important;
+    border: white !important;
     padding: 7px 15px;
-    border-radius: 20px; 
-    margin-right: 16rem !important;
-  
+    border-radius: 4px;
   }
 
   .login-button:hover {
-    background-color: #135b18;
+    background-color: #135b18 !important;
   }
 
   .password-container {
     position: relative;
   }
-  
+
   .toggle-password-visibility {
     position: absolute;
-    left: 262px;
-    top: 48%;;
-    transform: translateY(-47%);
+    top: 50%;
+    left: 671px;
+    transform: translateY(62%);
     background: none;
-    border: none;
-    color: #5c5b5b;
+    border: none !important;
+    --bs-btn-color: #5e5f62;
   }
-  .error {
-    color: red;
+
+  .toggle-password-visibility:hover {
+    color: #5e5f62;
+    background-color: white !important;
   }
-  
-  
+}
