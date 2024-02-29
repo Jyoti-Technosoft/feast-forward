@@ -36,7 +36,7 @@ const Registration = () => {
   const validateForm = () => {
     let isValid = true;
     let newErrors = {};
-    debugger
+
     // Email validation
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       newErrors.email = "Invalid email address";
@@ -86,17 +86,15 @@ const Registration = () => {
   return (
     <Container className="Registration-form">
       <div className="transparent-box">
-        <Form onSubmit={handleSubmit} style={{ minWidth: "320px" }}>
+        <Form onSubmit={handleSubmit} className="main-div">
           {/* Username Field */}
           <Form.Group className="form-group" controlId="username">
             <Form.Label
               className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
             >
               <PersonCircle
                 color="white"
                 size={18}
-                style={{ marginRight: "5px" }}
               />
               Username
             </Form.Label>
@@ -116,13 +114,10 @@ const Registration = () => {
           {/* Email Field */}
           <Form.Group className="form-group" controlId= "email">
             <Form.Label
-              className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
-            >
+              className="d-flex align-items-center">
               <EnvelopeFill
                 color="white"
                 size={18}
-                style={{ marginRight: "5px" }}
               />
               Email
             </Form.Label>
@@ -143,12 +138,10 @@ const Registration = () => {
           <Form.Group className="form-group" controlId="contactNo">
             <Form.Label
               className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
             >
               <TelephoneFill
                 color="white"
                 size={18}
-                style={{ marginRight: "5px" }}
               />
               Contact No
             </Form.Label>
@@ -169,12 +162,10 @@ const Registration = () => {
           <Form.Group className="form-group" controlId="city">
             <Form.Label
               className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
             >
               <PinMapFill
                 color="white"
                 size={18}
-                style={{ marginRight: "5px" }}
               />
               City
             </Form.Label>
@@ -195,12 +186,10 @@ const Registration = () => {
           <Form.Group className="form-group" controlId="address">
             <Form.Label
               className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
             >
               <GeoAltFill
                 color="white"
                 size={18}
-                style={{ marginRight: "5px" }}
               />
               Address
             </Form.Label>
@@ -221,9 +210,8 @@ const Registration = () => {
           <Form.Group className="form-group" controlId="password">
             <Form.Label
               className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
             >
-              <Lock color="white" size={18} style={{ marginRight: "5px" }} />
+              <Lock color="white" size={18} />
               Password
             </Form.Label>
             <FormControl
@@ -243,12 +231,10 @@ const Registration = () => {
           <Form.Group className="form-group" controlId="confirmPassword">
             <Form.Label
               className="d-flex align-items-center"
-              style={{ marginRight: "10px", color: "white" }}
             >
               <FileEarmarkLock2
                 color="white"
                 size={18}
-                style={{ marginRight: "5px" }}
               />
               Confirm Password
             </Form.Label>
@@ -265,14 +251,14 @@ const Registration = () => {
               {errors.confirmPassword}
             </Form.Control.Feedback>
           </Form.Group>
-          <div className="w-100 mt-3" style={{ margin: "auto !important" }}>
+          <div className="w-100 mt-3" >
             <Button variant="primary" className="register-button" type="submit">
               Register
             </Button>
           </div>
-          <div className="mt-3" style={{ color: "#fff", marginRight: "20px" }}>
+          <div className="mt-3" >
             Already have an Account?{" "}
-            <Link to="/" style={{ color: "white" }}>
+            <Link to="/" className="login-link">
               Login
             </Link>
           </div>

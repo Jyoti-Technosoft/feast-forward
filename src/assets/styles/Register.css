@@ -4,8 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 182vh;
+  height: 100%;
   text-align: center;
   justify-content: center;
   flex-direction: column;
@@ -25,6 +24,23 @@
     border-radius: 10px;
     box-shadow: 0 0 10px #fff;
     margin-right: 800px;
+  }
+
+  .main-div {
+    color: white;
+  }
+
+  .form-label {
+    font-weight: unset;
+    margin-bottom: 8px;
+  }
+
+  .mt-3 {
+    width: 87%;
+  }
+
+  .form-group svg {
+    margin-right: 5px;
   }
 
   .login-form h2 {
@@ -53,6 +69,10 @@
 
   .register-button:hover {
     background-color: #135b18 !important;
+  }
+
+  .login-link {
+    color: white;
   }
 
   .translate-middle {

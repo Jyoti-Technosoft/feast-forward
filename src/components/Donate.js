@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,27 +7,20 @@ import "../assets/styles/Donate.css";
 
 const Donate = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    contactNo: '',
-    address: '',
-    personContactNo: ''
+    fullName: "",
+    email: "",
+    contactNo: "",
+    address: "",
+    personContactNo: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
-
-  useEffect(() => {
-    const savedFormData = localStorage.getItem('donateformData');
-    if (savedFormData) {
-      setFormData(JSON.parse(savedFormData));
-    }
-  }, []);
 
   const validateForm = () => {
     const errors = {};
     if (!formData.fullName.trim()) errors.fullName = "Full name is required";
     if (!formData.email) {
-      errors.email = "Email is required.";
+      errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = "Email address is invalid";
     }
@@ -36,7 +29,8 @@ const Donate = () => {
     } else if (!/^\d+$/.test(formData.contactNo)) {
       errors.contactNo = "Contact number must be numeric";
     }
-    if (!formData.address.trim()) errors.address = "Pick up address is required";
+    if (!formData.address.trim())
+      errors.address = "Pick up address is required";
     if (!formData.personContactNo) {
       errors.personContactNo = "Contact of person is required";
     } else if (!/^\d+$/.test(formData.personContactNo)) {
@@ -49,7 +43,7 @@ const Donate = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: '' });
+      setFormErrors({ ...formErrors, [name]: "" });
     }
   };
 
@@ -57,25 +51,34 @@ const Donate = () => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      localStorage.setItem('donateformData', JSON.stringify(formData));
+      let donateformData = localStorage.getItem("donateformData");
+      donateformData = donateformData ? JSON.parse(donateformData) : [];
+      donateformData.push(formData);
+      const updatedFormData = JSON.stringify(donateformData);
+      localStorage.setItem("donateformData", updatedFormData);
+      setFormData({ fullName: "", email: "", contactNo: "", address: "", personContactNo: ""});
     } else {
       setFormErrors(errors);
     }
   };
 
   return (
-    <div style={{ height: '100%', backgroundColor: 'aliceblue' }}>
+    <div className="donate-header">
       <Header />
-      <div className="donate-form" style={{ height: 'calc(100% - 178px)' }}>
-      <div className='image-div'></div>
-        <Container className="donate-container" >
-          <Form onSubmit={handleSubmit} className="d-flex justify-content-center flex-column">
-            <h2 style={{textAlign:'center'}}>Donate</h2>
+      <div className="donate-form">
+        <div className="image-div"></div>
+        <Container className="donate-container">
+          <Form
+            onSubmit={handleSubmit}
+            className="d-flex justify-content-center flex-column"
+          >
+            <h2>Donate</h2>
             <Form.Group controlId="fullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
                 name="fullName"
+                placeholder="Enter FullName"
                 value={formData.fullName}
                 onChange={handleChange}
                 isInvalid={!!formErrors.fullName}
@@ -89,6 +92,7 @@ const Donate = () => {
               <Form.Control
                 type="email"
                 name="email"
+                placeholder="Enter Email"
                 value={formData.email}
                 onChange={handleChange}
                 isInvalid={!!formErrors.email}
@@ -102,6 +106,7 @@ const Donate = () => {
               <Form.Control
                 type="text"
                 name="contactNo"
+                placeholder="Enter Contact No."
                 value={formData.contactNo}
                 onChange={handleChange}
                 isInvalid={!!formErrors.contactNo}
@@ -115,6 +120,7 @@ const Donate = () => {
               <Form.Control
                 type="text"
                 name="address"
+                placeholder="Enter Address"
                 value={formData.address}
                 onChange={handleChange}
                 isInvalid={!!formErrors.address}
@@ -128,6 +134,7 @@ const Donate = () => {
               <Form.Control
                 type="text"
                 name="personContactNo"
+                placeholder="Enter Contact of Person"
                 value={formData.personContactNo}
                 onChange={handleChange}
                 isInvalid={!!formErrors.personContactNo}

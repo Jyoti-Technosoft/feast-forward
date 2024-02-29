@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,20 +7,13 @@ import "../assets/styles/JoinNow.css";
 
 const JoinNowPage = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    contactNo: '',
-    reason: '',
+    fullName: "",
+    email: "",
+    contactNo: "",
+    reason: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
-
-  useEffect(() => {
-    const savedFormData = localStorage.getItem('joinFormData');
-    if (savedFormData) {
-      setFormData(JSON.parse(savedFormData));
-    }
-  }, []);
 
   const validateForm = () => {
     const errors = {};
@@ -35,7 +28,8 @@ const JoinNowPage = () => {
     } else if (!/^\d+$/.test(formData.contactNo)) {
       errors.contactNo = "Contact number must be numeric";
     }
-    if (!formData.reason.trim()) errors.reason = "This field is required to understand your motivation";
+    if (!formData.reason.trim())
+      errors.reason = "This field is required to understand your motivation";
     return errors;
   };
 
@@ -43,7 +37,7 @@ const JoinNowPage = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: '' });
+      setFormErrors({ ...formErrors, [name]: "" });
     }
   };
 
@@ -51,25 +45,34 @@ const JoinNowPage = () => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      localStorage.setItem('joinFormData', JSON.stringify(formData));
+      let joinFormData = localStorage.getItem("joinFormData");
+      joinFormData = joinFormData ? JSON.parse(joinFormData) : [];
+      joinFormData.push(formData);
+      const updatedFormData = JSON.stringify(joinFormData);
+      localStorage.setItem("joinFormData", updatedFormData);
+      setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
     } else {
       setFormErrors(errors);
     }
   };
 
   return (
-    <div style={{ height:'100%', backgroundColor:'aliceblue'}}>
-      <Header/>
-      <div className="join-now-form" style={{height:'calc(100% - 178px)', display: 'flex', alignItems: 'center'}}>
-      <div className='join-div'></div>
+    <div className="join-now-header">
+      <Header />
+      <div className="join-now-form d-flex align-item-center">
+        <div className="join-div"></div>
         <Container className="join-now-container">
-          <Form onSubmit={handleSubmit} className="d-flex justify-content-center flex-column">
+          <Form
+            onSubmit={handleSubmit}
+            className="d-flex justify-content-center flex-column"
+          >
             <h2>Join Now</h2>
             <Form.Group controlId="fullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
                 name="fullName"
+                placeholder="Enter FullName"
                 value={formData.fullName}
                 onChange={handleChange}
                 isInvalid={!!formErrors.fullName}
@@ -83,6 +86,7 @@ const JoinNowPage = () => {
               <Form.Control
                 type="email"
                 name="email"
+                placeholder="Enter Email"
                 value={formData.email}
                 onChange={handleChange}
                 isInvalid={!!formErrors.email}
@@ -96,6 +100,7 @@ const JoinNowPage = () => {
               <Form.Control
                 type="text"
                 name="contactNo"
+                placeholder="Enter Contact No."
                 value={formData.contactNo}
                 onChange={handleChange}
                 isInvalid={!!formErrors.contactNo}
@@ -109,6 +114,7 @@ const JoinNowPage = () => {
               <Form.Control
                 as="textarea"
                 name="reason"
+                placeholder="Write a Reason..."
                 value={formData.reason}
                 onChange={handleChange}
                 rows={3}
@@ -124,7 +130,7 @@ const JoinNowPage = () => {
           </Form>
         </Container>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -2,9 +2,9 @@ import React from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import "../assets/styles/Dashboard.css"; 
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import "../assets/styles/Dashboard.css";
 import banner_img1 from "../assets/images/banner_img1.jpg";
 import banner_img2 from "../assets/images/banner_img2.jpg";
 import banner_img3 from "../assets/images/banner_img3.jpg";
@@ -21,56 +21,28 @@ function Dashboard() {
       <Header />
       <div>
         <Carousel>
-          <Carousel.Item> 
+          <Carousel.Item className="dashboard-container">
             <img
               className="d-block w-100"
               src={banner_img1}
               alt="First slide"
-              style={{height: '90vh'}}
             />
           </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="w-100"
-              src={banner_img2}
-              alt="Second slide"
-              style={{height:'90vh'}}
-            />
+          <Carousel.Item className="dashboard-container">
+            <img className="w-100" src={banner_img2} alt="Second slide" />
           </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="w-100"
-              src={banner_img3}
-              alt="Third slide"
-              style={{height: '90vh'}}
-            />
+          <Carousel.Item className="dashboard-container">
+            <img className="w-100" src={banner_img3} alt="Third slide" />
           </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="w-100"
-              src={banner_img4}
-              alt="Fourth slide"
-              style={{height: '90vh'}}
-            />
+          <Carousel.Item className="dashboard-container">
+            <img className="w-100" src={banner_img4} alt="Fourth slide" />
           </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="w-100"
-              src={banner_img5}
-              alt="Fifth slide"
-              style={{height: '90vh'}}
-            />
+          <Carousel.Item className="dashboard-container">
+            <img className="w-100" src={banner_img5} alt="Fifth slide" />
           </Carousel.Item>
         </Carousel>
       </div>
-      <div
-        className="content-1 row"
-        style={{
-          textAlign:'center',
-          backgroundColor:'aliceblue',
-          paddingTop: '5vh',
-        }}
-        >
+      <div className="content-1 row">
         <div className="col-lg-6">
           <h3>Helps people and communities</h3>
           <p>
@@ -101,62 +73,30 @@ function Dashboard() {
             countries.
           </p>
         </div>
-        <div className="img col-lg-6" style={{marginTop: '6px' }}>
-          <img
-            src={FDPServices}
-            alt="Food Donation Content"
-            style={{marginTop: '0px' }}
-          />
+        <div className="img col-lg-6">
+          <img src={FDPServices} alt="Food Donation Content" />
         </div>
       </div>
-      <div
-        className='conetent-2 row'
-        style={{
-          backgroundColor: 'aliceblue',
-          padding: '3vh',
-          textAlign: 'center'
-        }}
-      >
+      <div className="content-2 row">
         <div className="box">
           <p>
-            <h1 style={{color:'white', backgroundColor: 'rgb(51, 51, 51)'}}>
-              <i>“No one has ever become poor from giving.“</i>
+            <h1 className="text-box">
+              <i>“No one has ever become poor from giving.”</i>
             </h1>
           </p>
           <div className="row">
             <div className="col-lg-4">
-              <img
-                src={poor_child}
-                alt="Donate"
-                style={{
-                  backgroundColor: 'aliceblue',
-                  width: '70%',
-                  marginRight: '15px 100px'
-                }}
-              />
+              <img className="poor-child-image" src={poor_child} alt="Donate" />
             </div>
             <div className="col-lg-4">
               <img
+                className="donate-food-image"
                 src={Donate_food}
                 alt="content2"
-                style={{
-                  backgroundColor: 'aliceblue',
-                  width: '70%',
-                  marginRight: '0px 15px',
-                }}
               />
             </div>
             <div className="col-lg-4">
-              <img
-                src={FDP_img}
-                alt="content3"
-                style={{
-                  backgroundColor: 'aliceblue',
-                  width: '70%',
-                  marginLeft: '15px 100px',
-                  height: '87%',
-                }}
-              />
+              <img className="fdp-iamge" src={FDP_img} alt="content3" />
             </div>
           </div>
         </div>

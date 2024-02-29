@@ -36,12 +36,11 @@ function Header() {
   return (
     <div className="Header-container">
       <nav className="navbar navbar-expand-lg navbar-dark">
-        <img
+        <img className="logo-image"
           src={foodDonationLogo}
           alt="Food Donation Logo"
           width="80px"
           height="85px"
-          style={{ marginLeft: "4rem" }}
         />
         <div className="navbar-brand"></div>
 
@@ -76,7 +75,6 @@ function Header() {
                   as="div"
                   className="nav-link dropdown-toggle"
                   id="aboutUsDropdown"
-                  style={{ cursor: "pointer" }}
                 >
                   About Us
                 </Dropdown.Toggle>
@@ -112,7 +110,6 @@ function Header() {
               <div
                 className="nav-link"
                 onClick={handleDonate}
-                style={{ cursor: "pointer" }}
               >
                 Donate
               </div>
@@ -121,7 +118,6 @@ function Header() {
               <div
                 className="nav-link"
                 onClick={handleJoinNow}
-                style={{ cursor: "pointer" }}
               >
                 Join Now
               </div>
@@ -129,7 +125,7 @@ function Header() {
             <li className="nav-item dropdown user-info">
               <Dropdown>
                 <Dropdown.Toggle as="div" className="nav-link dropdown-toggle">
-                  <PersonCircle size={25} style={{ cursor: "pointer" }} />
+                  <PersonCircle size={25} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
@@ -139,17 +135,7 @@ function Header() {
               </Dropdown>
             </li>
             {show ? (
-              <Toast
-                style={{
-                  position: "absolute",
-                  top: 20,
-                  right: 20,
-                  zIndex: 1051,
-                  backgroundColor: "#d4edda",
-                  color: "#155724",
-                  borderLeft: "5px solid #28a745",
-                }}
-              >
+              <Toast className="toaster-alert">
                 <ToastBody>Successfully logged out!</ToastBody>
               </Toast>
             ) : null}

@@ -1,23 +1,40 @@
-.Header-container{
-    height:90px;
-    justify-content:end;
+.Header-container {
+  height: 90px;
+  justify-content: end;
+}
+
+.logo-image {
+  margin-left: 4rem;
 }
 
 .navbar {
-    background-color:#333; 
-    width:100%; 
-    position:absolute; 
-    height:90px;
+  background-color: #333;
+  width: 100%;
+  position: absolute;
+  height: 90px;
 }
 
 .navbar-nav {
-    align-items: center;
-    margin: auto;
-        .nav-item {
-        margin-right: 2rem;
-    }
+  align-items: center;
+  margin: auto;
+  .nav-item {
+    margin-right: 2rem;
+  }
 }
 
 .navbar-brand {
-    margin-right: 930px;
+  margin-right: 930px;
+}
+
+.toaster-alert {
+  position: absolute;
+  margin-left: 195px;
+  z-index: 1051;
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 5px solid #28a745;
+}
+
+.nav-link {
+  cursor: pointer;
 }

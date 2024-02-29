@@ -48,23 +48,14 @@ const AboutUs = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "aliceblue" }}>
+    <div className="header">
       <Header />
-      <h1 style={{ textAlign: "center", color: "#333" }}>
+      <h1 className="about-us-text">
         <b>
           <u>About Us</u>
         </b>
       </h1>
-      <section
-        className="container"
-        id="about-us-link"
-        style={{
-          margin: "20px 10px 0px 0px",
-          display: "flex",
-          color: "#333",
-          alignItems: "center",
-        }}
-      >
+      <section className="container-section1 d-flex" id="about-us-link">
         <div>
           <h3>Our Mission</h3>
           <ul>
@@ -122,52 +113,18 @@ const AboutUs = () => {
             </li>
           </ul>
         </div>
-        <div style={{ marginLeft: "50px" }}>
-          <img
-            src={round_img}
-            alt="Description"
-            style={{
-              width: "200px",
-              height: "200px",
-              borderRadius: "50%",
-              objectFit: "cover",
-              border: "2px solid rgb(8 8 8)",
-              marginLeft: "100px",
-              marginTop: "10px",
-            }}
-          />
+        <div>
+          <img className="round-image1" src={round_img} alt="Description" />
           <div>
-            <img
-              src={round_img2}
-              alt="Description"
-              style={{
-                width: "200px",
-                height: "200px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "2px solid rgb(8 8 8)",
-              }}
-            />
+            <img className="round-image2" src={round_img2} alt="Description" />
           </div>
-          <img
-            src={round_img3}
-            alt="Description"
-            style={{
-              width: "200px",
-              height: "200px",
-              borderRadius: "50%",
-              objectFit: "cover",
-              border: "2px solid rgb(8 8 8)",
-              marginLeft: "100px",
-            }}
-          />
+          <img className="round-image3" src={round_img3} alt="Description" />
         </div>
       </section>
 
       <section
-        className="container"
+        className="container-section2 align-items-center"
         id="organization-link"
-        style={{ marginLeft: "10px", color: "#333", alignItems: "center" }}
       >
         <h1>Organization</h1>
         <h3>Who We Are</h3>
@@ -213,57 +170,18 @@ const AboutUs = () => {
             donors and partners.
           </li>
         </ul>
-        <img
-          src={org_img1}
-          alt="Organization"
-          style={{
-            width: "200px",
-            height: "200px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "2px solid rgb(8 8 8)",
-            marginLeft: "100px",
-          }}
-        />
-        <img
-          src={org_img2}
-          alt="Organization"
-          style={{
-            width: "200px",
-            height: "200px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "2px solid rgb(8 8 8)",
-            marginLeft: "100px",
-          }}
-        />
-        <img
-          src={org_img3}
-          alt="Organization"
-          style={{
-            width: "200px",
-            height: "200px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "2px solid rgb(8 8 8)",
-            marginLeft: "100px",
-          }}
-        />
+        <img className="organization-image" src={org_img1} alt="Organization" />
+        <img className="organization-image" src={org_img2} alt="Organization" />
+        <img className="organization-image" src={org_img3} alt="Organization" />
       </section>
       {/** Contact Us section */}
-      <section
-        className="container"
-        id="contact-us-link"
-        style={{
-          marginLeft: "70px 10px",
-          color: "#333",
-          alignItems: "center",
-        }}
-      >
-        <Container className="Contact-form" style={{ marginTop: "20px" }}>
-          <h2 style={{ textAlign:'center'}}>Contact Us</h2>
+      <section className="container-section3" id="contact-us-link">
+        <Container className="Contact-form">
+          <h2 className="text-center">Contact Us</h2>
           {submitted && (
-            <Alert variant="success">Form submitted successfully!</Alert>
+            <Alert className="text-center" variant="success">
+              Form submitted successfully!
+            </Alert>
           )}
           <Form onSubmit={handleSubmit}>
             <Row>
