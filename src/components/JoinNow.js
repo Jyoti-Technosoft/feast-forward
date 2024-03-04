@@ -67,7 +67,7 @@ const JoinNowPage = () => {
             className="d-flex justify-content-center flex-column"
           >
             <h2>Join Now</h2>
-            <Form.Group controlId="fullName">
+            <Form.Group className="joinNow-label" controlId="fullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
@@ -76,12 +76,13 @@ const JoinNowPage = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 isInvalid={!!formErrors.fullName}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.fullName}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="email">
+            <Form.Group className="joinNow-label" controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -90,12 +91,13 @@ const JoinNowPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 isInvalid={!!formErrors.email}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="contactNo">
+            <Form.Group className="joinNow-label" controlId="contactNo">
               <Form.Label>Contact No.</Form.Label>
               <Form.Control
                 type="text"
@@ -104,12 +106,13 @@ const JoinNowPage = () => {
                 value={formData.contactNo}
                 onChange={handleChange}
                 isInvalid={!!formErrors.contactNo}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.contactNo}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="reason">
+            <Form.Group className="joinNow-label" controlId="reason">
               <Form.Label>Why do you want to join us?</Form.Label>
               <Form.Control
                 as="textarea"
@@ -119,6 +122,7 @@ const JoinNowPage = () => {
                 onChange={handleChange}
                 rows={3}
                 isInvalid={!!formErrors.reason}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.reason}

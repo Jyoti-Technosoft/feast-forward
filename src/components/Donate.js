@@ -11,10 +11,15 @@ const Donate = () => {
     email: "",
     contactNo: "",
     address: "",
-    personContactNo: "",
+    mealQuantity: "",
+    foodType: "",
+    donationDate: "",
+    donorType: "",
+    organizationName: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [isOrganization, setIsOrganization] = useState(false);
 
   const validateForm = () => {
     const errors = {};
@@ -26,21 +31,37 @@ const Donate = () => {
     }
     if (!formData.contactNo) {
       errors.contactNo = "Contact number is required";
-    } else if (!/^\d+$/.test(formData.contactNo)) {
-      errors.contactNo = "Contact number must be numeric";
+    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      errors.contactNo = "Invalid Indian contact number. Must be 10 digits starting with 6-9";
     }
     if (!formData.address.trim())
       errors.address = "Pick up address is required";
-    if (!formData.personContactNo) {
-      errors.personContactNo = "Contact of person is required";
-    } else if (!/^\d+$/.test(formData.personContactNo)) {
-      errors.personContactNo = "Contact of person must be numeric";
+    if (!formData.mealQuantity) {
+      errors.mealQuantity = "Meal quantity selection is required";
     }
+    if (!formData.foodType) {
+      errors.foodType = "Food type selection is required";
+    }
+    if (!formData.donorType) {
+      errors.donorType = "Donor type selection is required";
+    }
+    if (isOrganization && !formData.organizationName.trim()) {
+      errors.organizationName = "Organization name is required";
+    }
+    if (!formData.donationDate) errors.donationDate = "Donation date is required"; 
+  
     return errors;
   };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (name === "donorType") {
+      setIsOrganization(value === "organization"); 
+    }
+    if (formErrors[name]) {
+      setFormErrors({ ...formErrors, [name]: "" });
+    }
     setFormData({ ...formData, [name]: value });
     if (formErrors[name]) {
       setFormErrors({ ...formErrors, [name]: "" });
@@ -56,7 +77,17 @@ const Donate = () => {
       donateformData.push(formData);
       const updatedFormData = JSON.stringify(donateformData);
       localStorage.setItem("donateformData", updatedFormData);
-      setFormData({ fullName: "", email: "", contactNo: "", address: "", personContactNo: ""});
+      setFormData({
+        fullName: "",
+        email: "",
+        contactNo: "",
+        address: "",
+        mealQuantity: "",
+        foodType: "",
+        donationDate: "",
+        donorType: "",
+        organizationName: "",
+      });
     } else {
       setFormErrors(errors);
     }
@@ -73,7 +104,7 @@ const Donate = () => {
             className="d-flex justify-content-center flex-column"
           >
             <h2>Donate</h2>
-            <Form.Group controlId="fullName">
+            <Form.Group className="donate-form-lable" controlId="fullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
@@ -82,12 +113,13 @@ const Donate = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 isInvalid={!!formErrors.fullName}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.fullName}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="email">
+            <Form.Group className="donate-form-lable" controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -96,12 +128,13 @@ const Donate = () => {
                 value={formData.email}
                 onChange={handleChange}
                 isInvalid={!!formErrors.email}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="contactNo">
+            <Form.Group className="donate-form-lable" controlId="contactNo">
               <Form.Label>Contact No.</Form.Label>
               <Form.Control
                 type="text"
@@ -110,12 +143,13 @@ const Donate = () => {
                 value={formData.contactNo}
                 onChange={handleChange}
                 isInvalid={!!formErrors.contactNo}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.contactNo}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="address">
+            <Form.Group className="donate-form-lable" controlId="address">
               <Form.Label>Pick Up Address</Form.Label>
               <Form.Control
                 type="text"
@@ -124,25 +158,97 @@ const Donate = () => {
                 value={formData.address}
                 onChange={handleChange}
                 isInvalid={!!formErrors.address}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {formErrors.address}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="personContactNo">
-              <Form.Label>Contact of Person</Form.Label>
-              <Form.Control
-                type="text"
-                name="personContactNo"
-                placeholder="Enter Contact of Person"
-                value={formData.personContactNo}
+            <Form.Group className="donate-form-lable" controlId="mealQuantity">
+              <Form.Label>Meal Quantity</Form.Label>
+              <Form.Select
+                name="mealQuantity"
+                placeholder="Select Meal Quantity"
+                value={formData.mealQuantity}
                 onChange={handleChange}
-                isInvalid={!!formErrors.personContactNo}
-              />
+                isInvalid={!!formErrors.mealQuantity}
+                required
+              >
+                <option value="">Select Meal Quantity</option>
+                <option value="50-200">50-200 Meals</option>
+                <option value="200-500">200-500 Meals</option>
+                <option value="1000+">1000+ Meals</option>
+              </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {formErrors.personContactNo}
+                {formErrors.mealQuantity}
               </Form.Control.Feedback>
             </Form.Group>
+            <Form.Group className="donate-form-lable" controlId="foodType">
+              <Form.Label>Food Type</Form.Label>
+              <Form.Select
+                name="foodType"
+                value={formData.foodType}
+                onChange={handleChange}
+                isInvalid={!!formErrors.foodType}
+                required
+              >
+                <option value="">Select Food Type</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="fullMeals">Full Meals</option>
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {formErrors.foodType}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="donate-form-lable" controlId="donationDate">
+              <Form.Label>Donation Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="donationDate"
+                value={formData.donationDate}
+                onChange={handleChange}
+                isInvalid={!!formErrors.donationDate}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {formErrors.donationDate}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="donate-form-lable" controlId="donorType">
+              <Form.Label>Donor Type</Form.Label>
+              <Form.Select
+                name="donorType"
+                value={formData.donorType}
+                onChange={handleChange}
+                isInvalid={!!formErrors.donorType}
+                required
+              >
+                <option value="">Select Donor Type</option>
+                <option value="individual">Individual</option>
+                <option value="organization">Organization</option>
+                <option value="socialFunction">Social Function</option>
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {formErrors.donorType}
+              </Form.Control.Feedback>
+            </Form.Group>
+            {formData.donorType === "organization" && (
+               <Form.Group className="donate-form-lable" controlId="organizationName">
+               <Form.Label>Organization Name</Form.Label>
+               <Form.Control
+                 type="text"
+                 name="organizationName"
+                 placeholder="Enter Organization Name"
+                 value={formData.organizationName}
+                 onChange={handleChange}
+                 isInvalid={!!formErrors.organizationName}
+                 required
+               />
+               <Form.Control.Feedback type="invalid">
+                 {formErrors.organizationName}
+               </Form.Control.Feedback>
+             </Form.Group>
+             )}
             <Button className="donate-button" variant="primary" type="submit">
               Submit
             </Button>
