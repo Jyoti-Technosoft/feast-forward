@@ -19,7 +19,7 @@ const Donate = () => {
   });
 
   const [formErrors, setFormErrors] = useState({});
-  const [isOrganization, setIsOrganization] = useState(false);
+  const [setIsOrganization] = useState(false);
 
   const validateForm = () => {
     const errors = {};
@@ -32,40 +32,22 @@ const Donate = () => {
     if (!formData.contactNo) {
       errors.contactNo = "Contact number is required";
     } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
-      errors.contactNo = "Invalid Indian contact number. Must be 10 digits starting with 6-9";
+      errors.contactNo =
+        "Invalid Indian contact number. Must be 10 digits starting with 6-9";
     }
-    if (!formData.address.trim())
-      errors.address = "Pick up address is required";
-    if (!formData.mealQuantity) {
-      errors.mealQuantity = "Meal quantity selection is required";
-    }
-    if (!formData.foodType) {
-      errors.foodType = "Food type selection is required";
-    }
-    if (!formData.donorType) {
-      errors.donorType = "Donor type selection is required";
-    }
-    if (isOrganization && !formData.organizationName.trim()) {
-      errors.organizationName = "Organization name is required";
-    }
-    if (!formData.donationDate) errors.donationDate = "Donation date is required"; 
-  
     return errors;
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === "donorType") {
-      setIsOrganization(value === "organization"); 
+      setIsOrganization(value === "organization");
     }
     if (formErrors[name]) {
       setFormErrors({ ...formErrors, [name]: "" });
     }
     setFormData({ ...formData, [name]: value });
-    if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: "" });
-    }
   };
 
   const handleSubmit = (e) => {
@@ -104,7 +86,7 @@ const Donate = () => {
             className="d-flex justify-content-center flex-column"
           >
             <h2>Donate</h2>
-            <Form.Group className="donate-form-lable" controlId="fullName">
+            <Form.Group className="donate-form-label" controlId="fullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
@@ -119,7 +101,7 @@ const Donate = () => {
                 {formErrors.fullName}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="email">
+            <Form.Group className="donate-form-label" controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -134,7 +116,7 @@ const Donate = () => {
                 {formErrors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="contactNo">
+            <Form.Group className="donate-form-label" controlId="contactNo">
               <Form.Label>Contact No.</Form.Label>
               <Form.Control
                 type="text"
@@ -149,7 +131,7 @@ const Donate = () => {
                 {formErrors.contactNo}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="address">
+            <Form.Group className="donate-form-label" controlId="address">
               <Form.Label>Pick Up Address</Form.Label>
               <Form.Control
                 type="text"
@@ -164,7 +146,7 @@ const Donate = () => {
                 {formErrors.address}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="mealQuantity">
+            <Form.Group className="donate-form-label" controlId="mealQuantity">
               <Form.Label>Meal Quantity</Form.Label>
               <Form.Select
                 name="mealQuantity"
@@ -183,7 +165,7 @@ const Donate = () => {
                 {formErrors.mealQuantity}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="foodType">
+            <Form.Group className="donate-form-label" controlId="foodType">
               <Form.Label>Food Type</Form.Label>
               <Form.Select
                 name="foodType"
@@ -200,7 +182,7 @@ const Donate = () => {
                 {formErrors.foodType}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="donationDate">
+            <Form.Group className="donate-form-label" controlId="donationDate">
               <Form.Label>Donation Date</Form.Label>
               <Form.Control
                 type="date"
@@ -214,7 +196,7 @@ const Donate = () => {
                 {formErrors.donationDate}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="donate-form-lable" controlId="donorType">
+            <Form.Group className="donate-form-label" controlId="donorType">
               <Form.Label>Donor Type</Form.Label>
               <Form.Select
                 name="donorType"
@@ -233,22 +215,25 @@ const Donate = () => {
               </Form.Control.Feedback>
             </Form.Group>
             {formData.donorType === "organization" && (
-               <Form.Group className="donate-form-lable" controlId="organizationName">
-               <Form.Label>Organization Name</Form.Label>
-               <Form.Control
-                 type="text"
-                 name="organizationName"
-                 placeholder="Enter Organization Name"
-                 value={formData.organizationName}
-                 onChange={handleChange}
-                 isInvalid={!!formErrors.organizationName}
-                 required
-               />
-               <Form.Control.Feedback type="invalid">
-                 {formErrors.organizationName}
-               </Form.Control.Feedback>
-             </Form.Group>
-             )}
+              <Form.Group
+                className="donate-form-label"
+                controlId="organizationName"
+              >
+                <Form.Label>Organization Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="organizationName"
+                  placeholder="Enter Organization Name"
+                  value={formData.organizationName}
+                  onChange={handleChange}
+                  isInvalid={!!formErrors.organizationName}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formErrors.organizationName}
+                </Form.Control.Feedback>
+              </Form.Group>
+            )}
             <Button className="donate-button" variant="primary" type="submit">
               Submit
             </Button>

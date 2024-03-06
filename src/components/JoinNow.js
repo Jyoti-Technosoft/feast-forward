@@ -25,8 +25,9 @@ const JoinNowPage = () => {
     }
     if (!formData.contactNo) {
       errors.contactNo = "Contact number is required";
-    } else if (!/^\d+$/.test(formData.contactNo)) {
-      errors.contactNo = "Contact number must be numeric";
+    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      errors.contactNo =
+        "Invalid contact number. Must be 10 digits starting with 6-9";
     }
     if (!formData.reason.trim())
       errors.reason = "This field is required to understand your motivation";

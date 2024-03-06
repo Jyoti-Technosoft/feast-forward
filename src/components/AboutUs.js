@@ -24,8 +24,8 @@ const AboutUs = () => {
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Valid Email is required";
     }
-    if (!number || !/^\d+$/.test(number)) {
-      newErrors.number = "Contact number is required";
+    if (!number || !/^[6789]\d{9}$/.test(number)) {
+      newErrors.number = "A valid contact number is required";
     }
     if (!message) {
       newErrors.message = "Message can't be empty";

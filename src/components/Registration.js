@@ -9,7 +9,7 @@ import {
   FileEarmarkLock2,
   TelephoneFill,
 } from "react-bootstrap-icons";
-import { Container, Form, Button, FormControl } from 'react-bootstrap';
+import { Container, Form, Button, FormControl } from "react-bootstrap";
 
 import "../assets/styles/Register.css";
 
@@ -18,7 +18,7 @@ const Registration = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    contactNo: "", 
+    contactNo: "",
     city: "",
     address: "",
     password: "",
@@ -44,8 +44,11 @@ const Registration = () => {
     }
 
     // Contact number validation
-    if (isNaN(formData.contactNo) || formData.contactNo <= 0) {
-      newErrors.contactNo = "Please enter a valid positive contact number";
+    if (!formData.contactNo) {
+      newErrors.contactNo = "Contact number is required";
+      isValid = false;
+    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      newErrors.contactNo = "Must be 10 digits starting with 6-9";
       isValid = false;
     }
 
@@ -60,12 +63,17 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) { 
+    if (validateForm()) {
       const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-      const isEmailRegistered = existingUsers.some(user => user.email === formData.email);
+      const isEmailRegistered = existingUsers.some(
+        (user) => user.email === formData.email
+      );
       if (isEmailRegistered) {
-        setErrors({ ...errors, email: "Email is already registered. Please use a different email." });
+        setErrors({
+          ...errors,
+          email: "Email is already registered. Please use a different email.",
+        });
         return;
       }
 
@@ -79,7 +87,7 @@ const Registration = () => {
       };
       existingUsers.push(newUser);
       localStorage.setItem("users", JSON.stringify(existingUsers));
-      navigate("/"); 
+      navigate("/");
     }
   };
 
@@ -89,13 +97,8 @@ const Registration = () => {
         <Form onSubmit={handleSubmit} className="main-div">
           {/* Username Field */}
           <Form.Group className="form-group" controlId="username">
-            <Form.Label
-              className="d-flex align-items-center"
-            >
-              <PersonCircle
-                color="white"
-                size={18}
-              />
+            <Form.Label className="d-flex align-items-center">
+              <PersonCircle color="white" size={18} />
               Username
             </Form.Label>
             <FormControl
@@ -112,13 +115,9 @@ const Registration = () => {
             </Form.Control.Feedback>
           </Form.Group>
           {/* Email Field */}
-          <Form.Group className="form-group" controlId= "email">
-            <Form.Label
-              className="d-flex align-items-center">
-              <EnvelopeFill
-                color="white"
-                size={18}
-              />
+          <Form.Group className="form-group" controlId="email">
+            <Form.Label className="d-flex align-items-center">
+              <EnvelopeFill color="white" size={18} />
               Email
             </Form.Label>
             <FormControl
@@ -136,17 +135,12 @@ const Registration = () => {
           </Form.Group>
           {/* Contact Number Field */}
           <Form.Group className="form-group" controlId="contactNo">
-            <Form.Label
-              className="d-flex align-items-center"
-            >
-              <TelephoneFill
-                color="white"
-                size={18}
-              />
+            <Form.Label className="d-flex align-items-center">
+              <TelephoneFill color="white" size={18} />
               Contact No
             </Form.Label>
             <FormControl
-              type="number"
+              type="text"
               placeholder="Contact No"
               name="contactNo"
               value={formData.contactNo}
@@ -160,13 +154,8 @@ const Registration = () => {
           </Form.Group>
           {/* City Field */}
           <Form.Group className="form-group" controlId="city">
-            <Form.Label
-              className="d-flex align-items-center"
-            >
-              <PinMapFill
-                color="white"
-                size={18}
-              />
+            <Form.Label className="d-flex align-items-center">
+              <PinMapFill color="white" size={18} />
               City
             </Form.Label>
             <FormControl
@@ -184,13 +173,8 @@ const Registration = () => {
           </Form.Group>
           {/* Address Field */}
           <Form.Group className="form-group" controlId="address">
-            <Form.Label
-              className="d-flex align-items-center"
-            >
-              <GeoAltFill
-                color="white"
-                size={18}
-              />
+            <Form.Label className="d-flex align-items-center">
+              <GeoAltFill color="white" size={18} />
               Address
             </Form.Label>
             <FormControl
@@ -208,9 +192,7 @@ const Registration = () => {
           </Form.Group>
           {/* Password Field */}
           <Form.Group className="form-group" controlId="password">
-            <Form.Label
-              className="d-flex align-items-center"
-            >
+            <Form.Label className="d-flex align-items-center">
               <Lock color="white" size={18} />
               Password
             </Form.Label>
@@ -229,13 +211,8 @@ const Registration = () => {
           </Form.Group>
           {/* Confirm Password Field */}
           <Form.Group className="form-group" controlId="confirmPassword">
-            <Form.Label
-              className="d-flex align-items-center"
-            >
-              <FileEarmarkLock2
-                color="white"
-                size={18}
-              />
+            <Form.Label className="d-flex align-items-center">
+              <FileEarmarkLock2 color="white" size={18} />
               Confirm Password
             </Form.Label>
             <FormControl
@@ -251,12 +228,12 @@ const Registration = () => {
               {errors.confirmPassword}
             </Form.Control.Feedback>
           </Form.Group>
-          <div className="w-100 mt-3" >
+          <div className="w-100 mt-3">
             <Button variant="primary" className="register-button" type="submit">
               Register
             </Button>
           </div>
-          <div className="mt-3" >
+          <div className="mt-3">
             Already have an Account?{" "}
             <Link to="/" className="login-link">
               Login
