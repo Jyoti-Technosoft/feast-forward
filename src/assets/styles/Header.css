@@ -35,6 +35,10 @@
   border-left: 5px solid #28a745;
 }
 
+#aboutUsDropdown {
+  margin-left: 5px;
+}
+
 .nav-link {
   cursor: pointer;
 }

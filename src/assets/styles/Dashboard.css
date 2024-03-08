@@ -93,7 +93,6 @@
 }
 
 .nav-link.active {
-  padding: 0 !important;
   text-decoration: underline;
 }
 
@@ -142,4 +141,8 @@
 
 .nav-link:hover {
   text-decoration: underline;
+}
+
+.nav-link {
+  padding: 0 !important;
 }

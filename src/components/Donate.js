@@ -40,14 +40,13 @@ const Donate = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({...formData, [name]: value });
     if (name === "donorType") {
       setIsOrganization(value === "organization");
     }
     if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: "" });
+      setFormErrors({...formErrors, [name]: "" });
     }
-    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {

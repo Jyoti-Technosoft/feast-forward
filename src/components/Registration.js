@@ -44,11 +44,8 @@ const Registration = () => {
     }
 
     // Contact number validation
-    if (!formData.contactNo) {
-      newErrors.contactNo = "Contact number is required";
-      isValid = false;
-    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
-      newErrors.contactNo = "Must be 10 digits starting with 6-9";
+    if (formData.contactNo && (!/^[6-9]\d{9}$/.test(formData.contactNo))) {
+      newErrors.contactNo = "Invalid Indian contact number. Must be 10 digits starting with 6-9";
       isValid = false;
     }
 

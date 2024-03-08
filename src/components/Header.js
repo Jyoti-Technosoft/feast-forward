@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Dropdown, Toast, ToastBody } from "react-bootstrap";
 import { PersonCircle } from "react-bootstrap-icons";
@@ -11,19 +11,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [show, setShow] = useState(false);
-
-  const handleHome = () => {
-    navigate("/home");
-  };
-
-  const handleDonate = () => {
-    navigate("/donate");
-  };
-
-  const handleJoinNow = () => {
-    navigate("/join-now");
-  };
 
   const handleLogout = () => {
     setShow(true);
@@ -33,10 +22,13 @@ function Header() {
     }, 2000);
   };
 
+  const startsWithPath = (path) => location.pathname.startsWith(path);
+
   return (
     <div className="Header-container">
       <nav className="navbar navbar-expand-lg navbar-dark">
-        <img className="logo-image"
+        <img
+          className="logo-image"
           src={foodDonationLogo}
           alt="Food Donation Logo"
           width="80px"
@@ -59,38 +51,41 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <div className="nav-link" onClick={handleHome}>
-                <NavLink
-                  to="/home"
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  Home
-                </NavLink>
-              </div>
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                Home
+              </NavLink>
             </li>
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown d-flex">
+            <NavLink
+                to="/about-us#description"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                 About Us
+              </NavLink>
               <Dropdown>
                 <Dropdown.Toggle
+                  to="/about-us#description"
                   as="div"
-                  className="nav-link dropdown-toggle"
                   id="aboutUsDropdown"
+                  className={`nav-link dropdown-toggle ${
+                    startsWithPath("/about-us") ? "active" : ""
+                  }`}
                 >
-                  About Us
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
-                      to="/about-us#description"
-                      className="dropdown-item"
-                    >
-                      Description
-                    </HashLink>
-                  </Dropdown.Item>
-                  <Dropdown.Item as="div">
-                    <HashLink
                       to="/about-us#organization-link"
-                      className="dropdown-item"
+                      className={`dropdown-item ${
+                        location.hash === "#organization-link" ? "active" : ""
+                      }`}
                     >
                       Organization
                     </HashLink>
@@ -98,7 +93,9 @@ function Header() {
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#contact-us-link"
-                      className="dropdown-item"
+                      className={`dropdown-item ${
+                        location.hash === "#contact-us-link" ? "active" : ""
+                      }`}
                     >
                       Contact Us
                     </HashLink>
@@ -107,20 +104,24 @@ function Header() {
               </Dropdown>
             </li>
             <li className="nav-item">
-              <div
-                className="nav-link"
-                onClick={handleDonate}
+              <NavLink
+                to="/donate"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
               >
                 Donate
-              </div>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <div
-                className="nav-link"
-                onClick={handleJoinNow}
+              <NavLink
+                to="/join-now"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
               >
                 Join Now
-              </div>
+              </NavLink>
             </li>
             <li className="nav-item dropdown user-info">
               <Dropdown>
@@ -131,19 +132,18 @@ function Header() {
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>Help?</Dropdown.Item>
-                </Dropdown.Menu> 
+                </Dropdown.Menu>
               </Dropdown>
             </li>
-            {show ? (
-              <Toast className="toaster-alert">
-                <ToastBody>Successfully logged out!</ToastBody>
-              </Toast>
-            ) : null}
           </ul>
+          {show && (
+            <Toast className="toaster-alert">
+              <ToastBody>Successfully logged out!</ToastBody>
+            </Toast>
+          )}
         </div>
       </nav>
     </div>
   );
 }
-
 export default Header;
