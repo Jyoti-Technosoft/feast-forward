@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { Dropdown, Toast, ToastBody } from "react-bootstrap";
+import { Dropdown, Toast, ToastBody, ToastContainer } from "react-bootstrap";
 import { PersonCircle } from "react-bootstrap-icons";
 import { HashLink } from "react-router-hash-link";
 
@@ -61,13 +61,13 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item dropdown d-flex">
-            <NavLink
+              <NavLink
                 to="/about-us#description"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                 About Us
+                About Us
               </NavLink>
               <Dropdown>
                 <Dropdown.Toggle
@@ -77,8 +77,7 @@ function Header() {
                   className={`nav-link dropdown-toggle ${
                     startsWithPath("/about-us") ? "active" : ""
                   }`}
-                >
-                </Dropdown.Toggle>
+                ></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
@@ -136,14 +135,17 @@ function Header() {
               </Dropdown>
             </li>
           </ul>
-          {show && (
-            <Toast className="toaster-alert">
-              <ToastBody>Successfully logged out!</ToastBody>
-            </Toast>
-          )}
         </div>
       </nav>
+      {show && (
+        <ToastContainer position="top-end" className="p-3">
+          <Toast className="toaster-alert">
+            <ToastBody>Successfully logged out!</ToastBody>
+          </Toast>
+        </ToastContainer>
+      )}
     </div>
   );
 }
+
 export default Header;

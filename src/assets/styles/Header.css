@@ -1,6 +1,11 @@
 .Header-container {
   height: 90px;
   justify-content: end;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 0;
 }
 
 .logo-image {
@@ -16,7 +21,8 @@
 
 .navbar-nav {
   align-items: center;
-  margin: auto;
+  font-size: large;
+  margin-left: 90px;
   .nav-item {
     margin-right: 2rem;
   }
@@ -27,9 +33,6 @@
 }
 
 .toaster-alert {
-  position: absolute;
-  margin-left: 195px;
-  z-index: 1051;
   background-color: #d4edda;
   color: #155724;
   border-left: 5px solid #28a745;

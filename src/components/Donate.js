@@ -19,7 +19,6 @@ const Donate = () => {
   });
 
   const [formErrors, setFormErrors] = useState({});
-  const [setIsOrganization] = useState(false);
 
   const validateForm = () => {
     const errors = {};
@@ -41,9 +40,6 @@ const Donate = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({...formData, [name]: value });
-    if (name === "donorType") {
-      setIsOrganization(value === "organization");
-    }
     if (formErrors[name]) {
       setFormErrors({...formErrors, [name]: "" });
     }
