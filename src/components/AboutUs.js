@@ -48,7 +48,7 @@ const AboutUs = () => {
   };
 
   return (
-    <div className="header">
+    <div className="about-us-header">
       <Header />
       <h1 className="about-us-text">
         <b>
@@ -56,7 +56,7 @@ const AboutUs = () => {
         </b>
       </h1>
       <section className="container-section1 d-flex" id="about-us-link">
-        <div>
+        <div className="w-100">
           <h3>Our Mission</h3>
           <ul>
             <li>
@@ -116,9 +116,9 @@ const AboutUs = () => {
         <div>
           <img className="round-image1" src={round_img} alt="Description" />
           <div>
-            <img className="round-image2" src={round_img2} alt="Description" />
+            <img className="round-image1 round-image2" src={round_img2} alt="Description" />
           </div>
-          <img className="round-image3" src={round_img3} alt="Description" />
+          <img className="round-image1" src={round_img3} alt="Description" />
         </div>
       </section>
 

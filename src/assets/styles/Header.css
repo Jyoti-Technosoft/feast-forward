@@ -1,11 +1,5 @@
 .Header-container {
   height: 90px;
-  justify-content: end;
-  width: 100%;
-  text-align: center;
-  justify-content: center;
-  display: flex;
-  margin-bottom: 0;
 }
 
 .logo-image {
@@ -14,22 +8,19 @@
 
 .navbar {
   background-color: #333;
-  width: 100%;
-  position: absolute;
   height: 90px;
 }
 
 .navbar-nav {
   align-items: center;
   font-size: large;
-  margin-left: 90px;
   .nav-item {
     margin-right: 2rem;
   }
 }
 
-.navbar-brand {
-  margin-right: 930px;
+.navbar-expand-lg .navbar-collapse {
+  flex-direction: row-reverse;
 }
 
 .toaster-alert {

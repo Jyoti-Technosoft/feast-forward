@@ -236,7 +236,7 @@ const Donate = () => {
         </Container>
       </div>
       <Footer />
-    </div>
+      </div>
   );
 };
 

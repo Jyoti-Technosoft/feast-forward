@@ -60,13 +60,13 @@ const JoinNowPage = () => {
   return (
     <div className="join-now-header">
       <Header />
-      <div className="join-now-form d-flex align-item-center">
-        <div className="join-div"></div>
+      <div className="align-item-center">
+        <div className="join-div">
         <Container className="join-now-container">
           <Form
             onSubmit={handleSubmit}
             className="d-flex justify-content-center flex-column"
-          >
+            >
             <h2>Join Now</h2>
             <Form.Group className="joinNow-label" controlId="fullName">
               <Form.Label>Full Name</Form.Label>
@@ -93,7 +93,7 @@ const JoinNowPage = () => {
                 onChange={handleChange}
                 isInvalid={!!formErrors.email}
                 required
-              />
+                />
               <Form.Control.Feedback type="invalid">
                 {formErrors.email}
               </Form.Control.Feedback>
@@ -108,7 +108,7 @@ const JoinNowPage = () => {
                 onChange={handleChange}
                 isInvalid={!!formErrors.contactNo}
                 required
-              />
+                />
               <Form.Control.Feedback type="invalid">
                 {formErrors.contactNo}
               </Form.Control.Feedback>
@@ -124,7 +124,7 @@ const JoinNowPage = () => {
                 rows={3}
                 isInvalid={!!formErrors.reason}
                 required
-              />
+                />
               <Form.Control.Feedback type="invalid">
                 {formErrors.reason}
               </Form.Control.Feedback>
@@ -136,6 +136,7 @@ const JoinNowPage = () => {
         </Container>
       </div>
       <Footer />
+    </div>
     </div>
   );
 };

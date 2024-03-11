@@ -34,7 +34,7 @@ function Header() {
           width="80px"
           height="85px"
         />
-        <div className="navbar-brand"></div>
+        <div className="navbar-expand-lg .navbar-collapse"></div>
 
         <button
           className="navbar-toggler"
