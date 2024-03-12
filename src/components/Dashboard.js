@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import "../assets/styles/Dashboard.css";
 import banner_img1 from "../assets/images/banner_img1.jpg";
 import banner_img2 from "../assets/images/banner_img2.jpg";
@@ -16,32 +15,43 @@ import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
 
 function Dashboard() {
+  const [isToken, setIsToken] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, []);
+
+  const checkUserLoggedIn = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user && user.token ? true : false;
+    setIsToken(token);
+    if (token) {
+      navigate("/home");
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
-      <Header />
-      <div>
-        <Carousel>
-          <Carousel.Item className="dashboard-container">
-            <img
-              className="d-block w-100"
-              src={banner_img1}
-              alt="First slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item className="dashboard-container">
-            <img className="w-100" src={banner_img2} alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item className="dashboard-container">
-            <img className="w-100" src={banner_img3} alt="Third slide" />
-          </Carousel.Item>
-          <Carousel.Item className="dashboard-container">
-            <img className="w-100" src={banner_img4} alt="Fourth slide" />
-          </Carousel.Item>
-          <Carousel.Item className="dashboard-container">
-            <img className="w-100" src={banner_img5} alt="Fifth slide" />
-          </Carousel.Item>
-        </Carousel>
-      </div>
+      <Carousel>
+        <Carousel.Item className="dashboard-container">
+          <img className="w-100" src={banner_img1} alt="First slide" />
+        </Carousel.Item>
+        <Carousel.Item className="dashboard-container">
+          <img className="w-100" src={banner_img2} alt="Second slide" />
+        </Carousel.Item>
+        <Carousel.Item className="dashboard-container">
+          <img className="w-100" src={banner_img3} alt="Third slide" />
+        </Carousel.Item>
+        <Carousel.Item className="dashboard-container">
+          <img className="w-100" src={banner_img4} alt="Fourth slide" />
+        </Carousel.Item>
+        <Carousel.Item className="dashboard-container">
+          <img className="w-100" src={banner_img5} alt="Fifth slide" />
+        </Carousel.Item>
+      </Carousel>
       <div className="content-1 row">
         <div className="col-lg-6">
           <h3>Helps people and communities</h3>
@@ -79,11 +89,9 @@ function Dashboard() {
       </div>
       <div className="content-2 row">
         <div className="box">
-          <p>
-            <h1 className="text-box">
-              <i>“No one has ever become poor from giving.”</i>
-            </h1>
-          </p>
+          <h1 className="text-box">
+            <i>“No one has ever become poor from giving.”</i>
+          </h1>
           <div className="row">
             <div className="col-lg-4">
               <img className="poor-child-image" src={poor_child} alt="Donate" />
@@ -101,7 +109,6 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -9,9 +9,19 @@ import {
   FileEarmarkLock2,
   TelephoneFill,
 } from "react-bootstrap-icons";
-import { Container, Form, Button, FormControl } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  FormControl,
+  Toast,
+  ToastBody,
+  ToastContainer
+} from "react-bootstrap";
+import axios from "axios";
 
-import "../assets/styles/Register.css";
+import { BASE_URL } from "../../app-endpoint";
+import "../../assets/styles/Register.css";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -24,8 +34,8 @@ const Registration = () => {
     password: "",
     confirmPassword: "",
   });
-
   const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +54,11 @@ const Registration = () => {
     }
 
     // Contact number validation
-    if (formData.contactNo && (!/^[6-9]\d{9}$/.test(formData.contactNo))) {
-      newErrors.contactNo = "Invalid Indian contact number. Must be 10 digits starting with 6-9";
+    if (!formData.contactNo) {
+      newErrors.contactNo = "Contact number is required";
+      isValid = false;
+    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      newErrors.contactNo = "Must be 10 digits starting with 6-9";
       isValid = false;
     }
 
@@ -58,34 +71,63 @@ const Registration = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+      // const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-      const isEmailRegistered = existingUsers.some(
-        (user) => user.email === formData.email
-      );
-      if (isEmailRegistered) {
-        setErrors({
-          ...errors,
-          email: "Email is already registered. Please use a different email.",
-        });
-        return;
+      // const isEmailRegistered = existingUsers.some(
+      //   (user) => user.email === formData.email
+      // );
+      // if (isEmailRegistered) {
+      //   setErrors({
+      //     ...errors,
+      //     email: "Email is already registered. Please use a different email.",
+      //   });
+      //   return;
+      // }
+
+      // const newUser = {
+      //   username: formData.username,
+      //   email: formData.email,
+      //   contactNo: formData.contactNo,
+      //   city: formData.city,
+      //   address: formData.address,
+      //   password: formData.password,
+      // };
+      // existingUsers.push(newUser);
+      // localStorage.setItem("users", JSON.stringify(existingUsers));
+      // navigate("/");
+
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/register`,
+          JSON.stringify(formData),
+          { headers: { "Content-Type": "application/json" } }
+        );
+        if (response.status === 200) {
+          setMessage(response.data.message);
+          navigate("/");
+          setTimeout(() => {
+            resetFormValues();
+          }, 2000);
+        }
+      } catch (error) {
+        setMessage("Not able to register due to some error.");
+        resetFormValues();
       }
-
-      const newUser = {
-        username: formData.username,
-        email: formData.email,
-        contactNo: formData.contactNo,
-        city: formData.city,
-        address: formData.address,
-        password: formData.password,
-      };
-      existingUsers.push(newUser);
-      localStorage.setItem("users", JSON.stringify(existingUsers));
-      navigate("/");
     }
+  };
+
+  const resetFormValues = () => {
+    setFormData({
+      username: "",
+      email: "",
+      contactNo: "",
+      city: "",
+      address: "",
+      password: "",
+    });
   };
 
   return (
@@ -238,6 +280,13 @@ const Registration = () => {
           </div>
         </Form>
       </div>
+      {message !== "" ? (
+        <ToastContainer position="top-end" className="p-3">
+          <Toast className="toaster-alert">
+            <ToastBody>Registered Successfully!</ToastBody>
+          </Toast>
+        </ToastContainer>
+      ) : null}
     </Container>
   );
 };

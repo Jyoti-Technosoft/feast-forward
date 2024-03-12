@@ -9,10 +9,10 @@ function Footer() {
       <div
       className="footer-container">
         <div>
-          <p className="footer-text1" >
+          <p className="footer-text">
             &copy; 2024 My App. All rights reserved.
           </p>
-          <p className="footer-text2" >Member count:{memberCount}</p>
+          <p className="footer-text">Member count:{memberCount}</p>
           <p>Average counting: {averageCount}</p>
         </div>
         <div className="content-3 row">

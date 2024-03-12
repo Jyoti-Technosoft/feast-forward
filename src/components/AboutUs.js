@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 
-import Header from "../components/Header";
-import Footer from "./Footer";
 import "../assets/styles/AboutUs.css";
 import round_img from "../assets/images/round_img.jpg";
 import round_img2 from "../assets/images/round_img2.jpg";
@@ -48,8 +46,7 @@ const AboutUs = () => {
   };
 
   return (
-    <div className="about-us-header">
-      <Header />
+    <div>
       <h1 className="about-us-text">
         <b>
           <u>About Us</u>
@@ -242,7 +239,6 @@ const AboutUs = () => {
           </Form>
         </Container>
       </section>
-      <Footer />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import axios from "axios";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { BASE_URL } from "../app-endpoint";
 import "../assets/styles/JoinNow.css";
 
 const JoinNowPage = () => {
@@ -12,7 +12,6 @@ const JoinNowPage = () => {
     contactNo: "",
     reason: "",
   });
-
   const [formErrors, setFormErrors] = useState({});
 
   const validateForm = () => {
@@ -42,31 +41,41 @@ const JoinNowPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      let joinFormData = localStorage.getItem("joinFormData");
-      joinFormData = joinFormData ? JSON.parse(joinFormData) : [];
-      joinFormData.push(formData);
-      const updatedFormData = JSON.stringify(joinFormData);
-      localStorage.setItem("joinFormData", updatedFormData);
-      setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
+      // let joinFormData = localStorage.getItem("joinFormData");
+      // joinFormData = joinFormData ? JSON.parse(joinFormData) : [];
+      // joinFormData.push(formData);
+      // const updatedFormData = JSON.stringify(joinFormData);
+      // localStorage.setItem("joinFormData", updatedFormData);
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/joinNowUsers`,
+          JSON.stringify(formData),
+          { headers: { "Content-Type": "application/json" } }
+        );
+        if (response.status === 200) {
+          setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
+        }
+      } catch (error) {
+        setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
+      }
     } else {
       setFormErrors(errors);
     }
   };
 
   return (
-    <div className="join-now-header">
-      <Header />
+    <div>
       <div className="align-item-center">
-        <div className="join-div">
+        <div className="join-div"></div>
         <Container className="join-now-container">
           <Form
             onSubmit={handleSubmit}
             className="d-flex justify-content-center flex-column"
-            >
+          >
             <h2>Join Now</h2>
             <Form.Group className="joinNow-label" controlId="fullName">
               <Form.Label>Full Name</Form.Label>
@@ -93,7 +102,7 @@ const JoinNowPage = () => {
                 onChange={handleChange}
                 isInvalid={!!formErrors.email}
                 required
-                />
+              />
               <Form.Control.Feedback type="invalid">
                 {formErrors.email}
               </Form.Control.Feedback>
@@ -108,7 +117,7 @@ const JoinNowPage = () => {
                 onChange={handleChange}
                 isInvalid={!!formErrors.contactNo}
                 required
-                />
+              />
               <Form.Control.Feedback type="invalid">
                 {formErrors.contactNo}
               </Form.Control.Feedback>
@@ -124,7 +133,7 @@ const JoinNowPage = () => {
                 rows={3}
                 isInvalid={!!formErrors.reason}
                 required
-                />
+              />
               <Form.Control.Feedback type="invalid">
                 {formErrors.reason}
               </Form.Control.Feedback>
@@ -135,8 +144,6 @@ const JoinNowPage = () => {
           </Form>
         </Container>
       </div>
-      <Footer />
-    </div>
     </div>
   );
 };

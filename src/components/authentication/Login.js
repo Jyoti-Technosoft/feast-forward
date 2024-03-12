@@ -8,22 +8,41 @@ import {
   Alert,
   InputGroup,
   FormControl,
+  Toast,
+  ToastBody,
+  ToastContainer
 } from "react-bootstrap";
+import axios from "axios";
 
-import "../assets/styles/Login.css";
+import { BASE_URL } from "../../app-endpoint";
+import "../../assets/styles/Login.css";
 
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isToken, setIsToken] = useState(false);
 
   useEffect(() => {
-    const storedCredentials = localStorage.getItem("users");
-    if (storedCredentials) {
-      setFormData(JSON.parse(storedCredentials));
-    }
+    // const storedCredentials = localStorage.getItem("users");
+    // if (storedCredentials) {
+    //   setFormData(JSON.parse(storedCredentials));
+    // }
+    checkUserLoggedIn();
   }, []);
+
+  const checkUserLoggedIn = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user && user.token ? true : false;
+    setIsToken(token);
+    if (token) {
+      navigate("/home");
+    } else {
+      navigate("/");
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -32,7 +51,7 @@ function Login() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
+    // setErrors({ ...errors, [name]: "" });
   };
 
   const validateEmail = (email) => {
@@ -43,39 +62,55 @@ function Login() {
     return password.length >= 6;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let tempErrors = {};
     const { email, password } = formData;
     if (!validateEmail(email)) {
-      tempErrors.email = "Please enter a valid email.";
+      setErrors({ email: "Please enter a valid email." });
     }
     if (!validatePassword(password)) {
-      tempErrors.password = "Password must be at least 6 characters long.";
+      setErrors({ password: "Password must be at least 6 characters long." });
     }
-
-    const storedCredentials = JSON.parse(localStorage.getItem("users"));
-    if (storedCredentials) {
-      const storedItems = JSON.parse(localStorage.getItem("users")) || [];
-      const foundItem = storedItems.find((item) => item.email === email);
-
-      if (foundItem) {
-        const storedPassword = foundItem.password;
-        if (password === storedPassword) {
-          navigate("/home");
-        } else {
-          setErrors({
-            ...errors,
-            credentials: "Invalid credentials. Login failed.",
-          });
-        }
+    // const storedCredentials = JSON.parse(localStorage.getItem("users"));
+    // if (storedCredentials) {
+    //   const storedItems = JSON.parse(localStorage.getItem("users")) || [];
+    //   const foundItem = storedItems.find((item) => item.email === email);
+    //   if (foundItem) {
+    //     const storedPassword = foundItem.password;
+    //     if (password === storedPassword) {
+    //       navigate("/home");
+    //     } else {
+    //       setErrors({
+    //         ...errors,
+    //         credentials: "Invalid credentials. Login failed.",
+    //       });
+    //     }
+    //   } else {
+    //     tempErrors.credentials = "Invalid email or password.";
+    //   }
+    //   setErrors(tempErrors);
+    // } else {
+    //   setErrors("There is no data.");
+    // }
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/login`,
+        JSON.stringify(formData),
+        { headers: { "Content-Type": "application/json" } }
+      );
+      if (response.status === 200) {
+        setMessage(response.data.message);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        navigate("/home");
+        setTimeout(() => {
+          setFormData({ email: "", password: "" });
+        }, 2000);
       } else {
-        tempErrors.credentials = "Invalid email or password.";
+        setErrors({ credentials: response.data.message });
       }
-
-      setErrors(tempErrors);
-    } else {
-      setErrors("There is no data.");
+    } catch (error) {
+      setErrors({ credentials: error.response.data.message });
+      setFormData({ email: "", password: "" });
     }
   };
 
@@ -144,6 +179,13 @@ function Login() {
           </Alert>
         )}
       </Form>
+      {message !== "" && (
+        <ToastContainer position="top-end" className="p-3">
+          <Toast className="toaster-alert">
+            <ToastBody>Login Successfully done!</ToastBody>
+          </Toast>
+        </ToastContainer>
+      )}
     </Container>
   );
 }

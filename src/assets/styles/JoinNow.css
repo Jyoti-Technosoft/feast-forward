@@ -5,12 +5,12 @@
   border-radius: 8px;
   background-color: aliceblue;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
 
-.join-now-container h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #000;
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #000;
+  }
 }
 
 .join-div {
@@ -20,32 +20,4 @@
   height: 100%;
   filter: blur(4px);
   width: 100%;
-}
-
-.form-label {
-  font-weight: bold;
-  margin-bottom: 0px;
-}
-
-.form-control {
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-}
-
-.joinNow-label {
-  margin-bottom: 10px;
-}
-
-.join-button[type="submit"] {
-  background-color: #004494;
-  color: white;
-  padding: 10px 0;
-  border: none;
-  border-radius: 5px;
-  margin: 10px 0px 10px !important;
-  cursor: pointer;
-}
-
-.join-button[type="submit"]:hover {
-  background-color: #004494;
 }

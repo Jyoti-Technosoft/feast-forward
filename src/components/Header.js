@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 import { Dropdown, Toast, ToastBody, ToastContainer } from "react-bootstrap";
 import { PersonCircle } from "react-bootstrap-icons";
 import { HashLink } from "react-router-hash-link";
+import axios from "axios";
 
+import { BASE_URL } from "../app-endpoint";
 import "../assets/styles/Header.css";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,18 +16,24 @@ function Header() {
   const location = useLocation();
   const [show, setShow] = useState(false);
 
-  const handleLogout = () => {
-    setShow(true);
-    setTimeout(() => {
-      setShow(false);
-      navigate("/");
-    }, 2000);
+  const handleLogout = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.email) {
+      try {
+        await axios.delete(`${BASE_URL}/logout/${user.email}`);
+        setShow(true);
+        localStorage.removeItem("user");
+        navigate("/");
+      } catch (error) {
+        console.error("error", error);
+      }
+    }
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);
 
   return (
-    <div className="Header-container">
+    <div className="header-container">
       <nav className="navbar navbar-expand-lg navbar-dark">
         <img
           className="logo-image"
@@ -34,21 +42,10 @@ function Header() {
           width="80px"
           height="85px"
         />
-        <div className="navbar-expand-lg .navbar-collapse"></div>
-
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+        <div
+          className="collapse navbar-collapse"
+          id="navbarSupportedContent"
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink
@@ -137,13 +134,17 @@ function Header() {
           </ul>
         </div>
       </nav>
-      {show && (
-        <ToastContainer position="top-end" className="p-3">
-          <Toast className="toaster-alert">
-            <ToastBody>Successfully logged out!</ToastBody>
-          </Toast>
-        </ToastContainer>
-      )}
+      {show
+        ? setTimeout(() => {
+            return (
+              <ToastContainer position="top-end" className="p-3">
+                <Toast className="toaster-alert">
+                  <ToastBody>Successfully logged out!</ToastBody>
+                </Toast>
+              </ToastContainer>
+            );
+          }, 8000)
+        : ""}
     </div>
   );
 }

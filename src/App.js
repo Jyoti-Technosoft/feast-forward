@@ -1,29 +1,72 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 
-import Login from "./components/Login";
-import Registration from "./components/Registration";
+import Login from "./components/authentication/Login";
+import Registration from "./components/authentication/Registration";
 import Dashboard from "./components/Dashboard";
-import AboutUs from './components/AboutUs';
-import Donate from './components/Donate';
+import AboutUs from "./components/AboutUs";
+import Donate from "./components/Donate";
 import JoinNow from "./components/JoinNow";
-import './App.css';
+import Layout from "./components/Layout";
+import "./App.css";
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-          <Route index element={<Login path="/login" />} />
-          <Route element={<Registration />} path="/register" />
-          <Route element={<Dashboard />} path="/home" />
-          <Route element={<AboutUs />} path="/about-us"  />
-          <Route element={<Donate />} path="/donate" />
-          <Route element={<JoinNow />} path="/join-now" />
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isLoggedIn = user && user.token ? true : false;
 
+  const ProtectedRoute = () => {
+    return isLoggedIn ? <Outlet key={Math.random()} /> : <Navigate to="/" />;
+  };
+
+  return (
+    <Router>
+      <Routes>
+        <Route index element={<Login />} path="/" />
+        <Route element={<Registration />} path="/register" />
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path="/home"
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
+          <Route
+            path="/about-us"
+            element={
+              <Layout>
+                <AboutUs />
+              </Layout>
+            }
+          />
+          <Route
+            path="/join-now"
+            element={
+              <Layout>
+                <JoinNow />
+              </Layout>
+            }
+          />
+          <Route
+            path="/donate"
+            element={
+              <Layout>
+                <Donate />
+              </Layout>
+            }
+          />
+        </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
