@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
+import axios from "axios";
 
+import { BASE_URL } from "../app-endpoint";
 import "../assets/styles/AboutUs.css";
 import round_img from "../assets/images/round_img.jpg";
 import round_img2 from "../assets/images/round_img2.jpg";
@@ -11,37 +13,61 @@ import org_img2 from "../assets/images/org_img2.jpg";
 import org_img3 from "../assets/images/org_img3.jpg";
 
 const AboutUs = () => {
-  const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    contactType: "",
+    email: "",
+    contactNo: "",
+    message: "",
+  });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Valid Email is required";
     }
-    if (!number || !/^[6789]\d{9}$/.test(number)) {
-      newErrors.number = "A valid contact number is required";
+    if (formData.contactNo && !/^[6789]\d{9}$/.test(formData.contactNo)) {
+      newErrors.contactNo =
+        "Invalid contact formData.contactNo. Must be 10 digits starting with 6-9";
     }
-    if (!message) {
-      newErrors.message = "Message can't be empty";
-    }
+    setErrors(newErrors);
     return newErrors;
   };
 
-  const handleSubmit = (event) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
     } else {
-      setSubmitted(true);
-      setEmail("");
-      setNumber("");
-      setMessage("");
-      setErrors({});
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/contactUs`,
+          JSON.stringify(formData),
+          { headers: { "Content-Type": "application/json" } }
+        );
+        if (response.status === 200) {
+          setSubmitted(true);
+          setFormData({
+            contactType: "",
+            email: "",
+            contactNo: "",
+            message: "",
+          });
+        }
+      } catch (error) {
+        setFormData({ contactType: "", email: "", contactNo: "", message: "" });
+      }
+      setSubmitted(false);
     }
   };
 
@@ -113,7 +139,11 @@ const AboutUs = () => {
         <div>
           <img className="round-image1" src={round_img} alt="Description" />
           <div>
-            <img className="round-image1 round-image2" src={round_img2} alt="Description" />
+            <img
+              className="round-image1 round-image2"
+              src={round_img2}
+              alt="Description"
+            />
           </div>
           <img className="round-image1" src={round_img3} alt="Description" />
         </div>
@@ -183,17 +213,16 @@ const AboutUs = () => {
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col md={6}>
-                <Form.Group
-                  controlId="formBasicEmail"
-                  className="Contact-group"
-                >
+                <Form.Group controlId="email" className="Contact-group">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
                     type="email"
+                    name="email"
                     placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={handleChange}
                     isInvalid={!!errors.email}
+                    required
                   />
                   <Form.Control.Feedback type="invalid">
                     {errors.email}
@@ -201,33 +230,34 @@ const AboutUs = () => {
                 </Form.Group>
               </Col>
               <Col md={6}>
-                <Form.Group
-                  controlId="formBasicNumber"
-                  className="Contact-group"
-                >
+                <Form.Group controlId="contactNo" className="Contact-group">
                   <Form.Label>Contact number</Form.Label>
                   <Form.Control
                     type="text"
+                    name="contactNo"
                     placeholder="Contact no."
-                    value={number}
-                    onChange={(e) => setNumber(e.target.value)}
-                    isInvalid={!!errors.number}
+                    value={formData.contactNo}
+                    onChange={handleChange}
+                    isInvalid={!!errors.contactNo}
+                    required
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.number}
+                    {errors.contactNo}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group controlId="formBasicMessage" className="Contact-group">
+            <Form.Group controlId="message" className="Contact-group">
               <Form.Label>Message</Form.Label>
               <Form.Control
                 as="textarea"
+                name="message"
                 rows={3}
                 placeholder="Message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={formData.message}
+                onChange={handleChange}
                 isInvalid={!!errors.message}
+                required
               />
               <Form.Control.Feedback type="invalid">
                 {errors.message}

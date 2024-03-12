@@ -7,6 +7,7 @@ require("dotenv").config();
 const userRoute = require("./routes/users");
 const joinNowUsersRoute = require("./routes/joinNowUsers");
 const donateRoute = require("./routes/donate");
+const contactUsRoute = require("./routes/contactUs");
 
 const app = express();
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -24,6 +25,7 @@ app.use(cors(corsOptions));
 app.use("/", userRoute);
 app.use("/", joinNowUsersRoute);
 app.use("/", donateRoute);
+app.use("/", contactUsRoute);
 
 // Connect to MongoDB
 mongoose

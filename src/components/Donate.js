@@ -21,17 +21,11 @@ const Donate = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.fullName.trim()) errors.fullName = "Full name is required";
-    if (!formData.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = "Email address is invalid";
     }
-    if (!formData.contactNo) {
-      errors.contactNo = "Contact number is required";
-    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
-      errors.contactNo =
-        "Invalid Indian contact number. Must be 10 digits starting with 6-9";
+    if (formData.contactNo && !/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      errors.contactNo = "Invalid contact number. Must be 10 digits starting with 6-9";
     }
     return errors;
   };

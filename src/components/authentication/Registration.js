@@ -48,20 +48,15 @@ const Registration = () => {
     let newErrors = {};
 
     // Email validation
-    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (formData.email && !formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       newErrors.email = "Invalid email address";
       isValid = false;
     }
-
     // Contact number validation
-    if (!formData.contactNo) {
-      newErrors.contactNo = "Contact number is required";
-      isValid = false;
-    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
-      newErrors.contactNo = "Must be 10 digits starting with 6-9";
+    if (formData.contactNo && !/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      newErrors.contactNo = "Invalid contact number. Must be 10 digits starting with 6-9";
       isValid = false;
     }
-
     // Passwords match validation
     if (formData.confirmPassword !== formData.password) {
       newErrors.confirmPassword = "Passwords do not match";

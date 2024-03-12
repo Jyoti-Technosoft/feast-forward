@@ -30,14 +30,19 @@ const donateSchema = new mongoose.Schema({
   },
   donationDate: {
     type: String,
-    required: false
+    required: true
+  },
+  expirationDate: {
+    type: String,
+    required: true
   },
   donorType: {
     type: String,
     required: true
   },
   organizationName: {
-    type: String
+    type: String,
+    required: false
   }
 });
 
