@@ -59,9 +59,9 @@ const JoinNowPage = () => {
 
   return (
     <div className="join-now-header">
-      <Header />
-      <div className="align-item-center">
         <div className="join-div">
+      <Header />
+      <div className="join-now align-item-center">
         <Container className="join-now-container">
           <Form
             onSubmit={handleSubmit}
