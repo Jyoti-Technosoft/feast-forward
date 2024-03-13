@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Dropdown, Toast, ToastBody, ToastContainer } from "react-bootstrap";
@@ -13,13 +13,29 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [show, setShow] = useState(false);
+  // const [isSticky, setIsSticky] = useState(false);
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 0) {
+  //       setIsSticky(true);
+  //     } else {
+  //       setIsSticky(false);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   const handleLogout = () => {
     setShow(true);
     setTimeout(() => {
       setShow(false);
       navigate("/");
-    }, 2000);
+    }, 1000);
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);

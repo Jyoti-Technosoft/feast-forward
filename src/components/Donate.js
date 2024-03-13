@@ -171,6 +171,7 @@ const Donate = () => {
                   required
                 >
                   <option value="">Select Food Type</option>
+                  <option value="foodPackets">Food Packets</option>
                   <option value="breakfast">Breakfast</option>
                   <option value="fullMeals">Full Meals</option>
                 </Form.Select>

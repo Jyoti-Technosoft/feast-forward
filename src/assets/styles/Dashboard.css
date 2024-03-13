@@ -88,8 +88,9 @@
   --bs-gutter-x: 0 !important;
 }
 
-.img {
+.img img {
   margin-top: 6px;
+  width: -webkit-fill-available;
 }
 
 .nav-link.active {
