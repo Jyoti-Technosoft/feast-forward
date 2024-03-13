@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/feast-forward/static/css/main.faaa93bd.css",
+    "main.js": "/feast-forward/static/js/main.4e3a0d7b.js",
+    "static/js/787.0c3f432a.chunk.js": "/feast-forward/static/js/787.0c3f432a.chunk.js",
+    "static/media/round_img3.jpg": "/feast-forward/static/media/round_img3.8e41fa383895d1494f1a.jpg",
+    "static/media/banner_img4.jpg": "/feast-forward/static/media/banner_img4.36fa7b64537fe965c71d.jpg",
+    "static/media/banner_img3.jpg": "/feast-forward/static/media/banner_img3.241caafb15f97a965016.jpg",
+    "static/media/banner_img5.jpg": "/feast-forward/static/media/banner_img5.f9727b0d6e4b3ee7ab61.jpg",
+    "static/media/banner_img2.jpg": "/feast-forward/static/media/banner_img2.d83234e4f9262e11e70f.jpg",
+    "static/media/banner_img1.jpg": "/feast-forward/static/media/banner_img1.5e51f41751f0d13d6202.jpg",
+    "static/media/FDP.jpg": "/feast-forward/static/media/FDP.219cc1467e5d67df7027.jpg",
+    "static/media/poor_child.webp": "/feast-forward/static/media/poor_child.cefb6085d879d23984d0.webp",
+    "static/media/FDP_img.webp": "/feast-forward/static/media/FDP_img.8666c82bd9ed3a0e80e8.webp",
+    "static/media/round_img2.jpg": "/feast-forward/static/media/round_img2.4902afd7c935f5f0b11d.jpg",
+    "static/media/round_img.jpg": "/feast-forward/static/media/round_img.0228cbdce48119d8e179.jpg",
+    "static/media/org_img2.jpg": "/feast-forward/static/media/org_img2.08b4d803e1a5dcc7c0e2.jpg",
+    "static/media/org_img1.jpg": "/feast-forward/static/media/org_img1.5c3474c5b475ab6edbae.jpg",
+    "static/media/donate_img.jpg": "/feast-forward/static/media/donate_img.71ccf4c96be32d0d7621.jpg",
+    "static/media/FDP Services.webp": "/feast-forward/static/media/FDP Services.60b708f507d7ddcd2498.webp",
+    "static/media/org_img3.jpg": "/feast-forward/static/media/org_img3.99d3517d34ae714fc0a4.jpg",
+    "static/media/Join_now_img.jpg": "/feast-forward/static/media/Join_now_img.03bca0a93b519eadb835.jpg",
+    "static/media/Donate_food.jpg": "/feast-forward/static/media/Donate_food.03eb677a038c5d849f2f.jpg",
+    "index.html": "/feast-forward/index.html",
+    "main.faaa93bd.css.map": "/feast-forward/static/css/main.faaa93bd.css.map",
+    "main.4e3a0d7b.js.map": "/feast-forward/static/js/main.4e3a0d7b.js.map",
+    "787.0c3f432a.chunk.js.map": "/feast-forward/static/js/787.0c3f432a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.faaa93bd.css",
+    "static/js/main.4e3a0d7b.js"
+  ]
+}
