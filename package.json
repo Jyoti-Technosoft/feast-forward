@@ -25,9 +25,10 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://Jyoti-Technosoft.github.io/feast-forward",
   "scripts": {
     "start": "SET PORT=3000 && react-scripts start",
-    "build": "react-scripts build && cp build/index.html build/404.html",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node ./backend/server.js",
