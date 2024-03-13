@@ -14,7 +14,7 @@ import org_img3 from "../assets/images/org_img3.jpg";
 
 const AboutUs = () => {
   const [formData, setFormData] = useState({
-    contactType: "",
+    requestType: "",
     email: "",
     contactNo: "",
     message: "",
@@ -58,14 +58,14 @@ const AboutUs = () => {
         if (response.status === 200) {
           setSubmitted(true);
           setFormData({
-            contactType: "",
+            requestType: "",
             email: "",
             contactNo: "",
             message: "",
           });
         }
       } catch (error) {
-        setFormData({ contactType: "", email: "", contactNo: "", message: "" });
+        setFormData({ requestType: "", email: "", contactNo: "", message: "" });
       }
       setSubmitted(false);
     }
@@ -213,6 +213,20 @@ const AboutUs = () => {
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col md={6}>
+                <Form.Group
+                  controlId="requestType"
+                  className="Contact-group"
+                >
+                  <Form.Control
+                    as="select"
+                    value={formData.requestType}
+                    name="requestType"
+                    onChange={handleChange}
+                  >
+                    <option value="support">Support request</option>
+                    <option value="feedback">Feedback</option>
+                  </Form.Control>
+                </Form.Group>
                 <Form.Group controlId="email" className="Contact-group">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
