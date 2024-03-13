@@ -17,12 +17,13 @@ const addUsers = async (req, res) => {
   const user = req.body;
   try {
     const newUser = new usersSchema({
-      username: user.username,
+      fullName: user.fullName,
       email: user.email,
       contactNo: user.contactNo,
       city: user.city,
       address: user.address,
       password: user.password,
+      role: user.role,
     });
     const userSave = await newUser.save();
     if (userSave) {
@@ -37,7 +38,8 @@ const addUsers = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { username, email, contactNo, city, address, password } = req.body;
+  const { fullName, email, contactNo, city, address, password, role } =
+    req.body;
   try {
     const checkUserAlreadyExist = await usersSchema.findOne({ email });
     if (checkUserAlreadyExist) {
@@ -47,11 +49,12 @@ const registerUser = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newSignUp = new usersSchema({
-      username,
+      fullName,
       email,
       contactNo,
       city,
       address,
+      role: role || "volunteer",
       password: hashedPassword,
     });
     await newSignUp.save();
@@ -78,7 +81,13 @@ const loginUser = async (req, res) => {
       await checkUser.save();
       return res.status(200).json({
         message: "Login succesfully done",
-        user: { email, password, token },
+        user: {
+          fullName: checkUser.fullName,
+          email,
+          password,
+          token,
+          role: checkUser.role,
+        },
       });
     } else {
       return res

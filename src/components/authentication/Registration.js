@@ -26,7 +26,7 @@ import "../../assets/styles/Register.css";
 const Registration = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    fullName: "",
     email: "",
     contactNo: "",
     city: "",
@@ -83,7 +83,7 @@ const Registration = () => {
       // }
 
       // const newUser = {
-      //   username: formData.username,
+      //   fullName: formData.fullName,
       //   email: formData.email,
       //   contactNo: formData.contactNo,
       //   city: formData.city,
@@ -116,7 +116,7 @@ const Registration = () => {
 
   const resetFormValues = () => {
     setFormData({
-      username: "",
+      fullName: "",
       email: "",
       contactNo: "",
       city: "",
@@ -129,23 +129,23 @@ const Registration = () => {
     <Container className="Registration-form">
       <div className="transparent-box">
         <Form onSubmit={handleSubmit} className="main-div">
-          {/* Username Field */}
-          <Form.Group className="form-group" controlId="username">
+          {/* FullName Field */}
+          <Form.Group className="form-group" controlId="fullName">
             <Form.Label className="d-flex align-items-center">
               <PersonCircle color="white" size={18} />
-              Username
+              FullName
             </Form.Label>
             <FormControl
               type="text"
-              placeholder="Username"
-              name="username"
-              value={formData.username}
+              placeholder="Full Name"
+              name="fullName"
+              value={formData.fullName}
               onChange={handleInputChange}
-              isInvalid={!!errors.username}
+              isInvalid={!!errors.fullName}
               required
             />
             <Form.Control.Feedback type="invalid">
-              {errors.username}
+              {errors.fullName}
             </Form.Control.Feedback>
           </Form.Group>
           {/* Email Field */}

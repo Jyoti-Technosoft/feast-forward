@@ -14,7 +14,7 @@ const addContactUs = async (req, res) => {
   const contact = req.body;
   try {
     const newContact = new contactUsSchema({
-      contactType: contact.contactType,
+      requestType: contact.requestType,
       email: contact.email,
       contactNo: contact.contactNo,
       message: contact.message,

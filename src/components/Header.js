@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Dropdown, Toast, ToastBody, ToastContainer } from "react-bootstrap";
@@ -15,6 +15,7 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [show, setShow] = useState(false);
+  const [userName, setUserName] = useState("");
 
   const handleLogout = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -29,6 +30,11 @@ function Header() {
       }
     }
   };
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    user && setUserName(user.fullName);
+  })
 
   const startsWithPath = (path) => location.pathname.startsWith(path);
 
@@ -121,8 +127,9 @@ function Header() {
             </li>
             <li className="nav-item dropdown user-info">
               <Dropdown>
-                <Dropdown.Toggle as="div" className="nav-link dropdown-toggle">
+                <Dropdown.Toggle as="div" className="d-flex align-items-center nav-link dropdown-toggle">
                   <PersonCircle size={25} />
+                  <span>&nbsp;{userName}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>

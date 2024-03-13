@@ -156,22 +156,25 @@ const AboutUs = () => {
         <h1>Organization</h1>
         <h3>Who We Are</h3>
         <ul>
-          <li>Details about the organization behind the project...</li>
           <li>
-            [Organization Name] is a non-profit organization composed of
-            passionate volunteers and staff committed to making a meaningful
-            impact in our community.
+            We are a non-profit organization composed of passionate volunteers
+            and staff committed to making a meaningful impact in our community.
           </li>
           <li>
-            Founded in [Year], we have grown from a small group of dedicated
+            Founded in 2023, we have grown from a small group of dedicated
             individuals to a robust organization with diverse programs and
             initiatives.
           </li>
+          <li>
+            We have been collaborated to many individuals, organizations and
+            NGO's through whom we serve foods.
+          </li>
+          <li>
+            We also serve foods we get from social functions like weddings and
+            parties.
+          </li>
         </ul>
         <h3>Our Impact</h3>
-        <ul>
-          <li>Since our inception, we have:</li>
-        </ul>
         <ul>
           <li>
             Distributed over [X] meals to families and individuals in need.
@@ -197,9 +200,23 @@ const AboutUs = () => {
             donors and partners.
           </li>
         </ul>
-        <img className="organization-image" src={org_img1} alt="Organization" />
-        <img className="organization-image" src={org_img2} alt="Organization" />
-        <img className="organization-image" src={org_img3} alt="Organization" />
+        <div className="d-flex justify-content-between">
+          <img
+            className="organization-image"
+            src={org_img1}
+            alt="Organization"
+          />
+          <img
+            className="organization-image"
+            src={org_img2}
+            alt="Organization"
+          />
+          <img
+            className="organization-image"
+            src={org_img3}
+            alt="Organization"
+          />
+        </div>
       </section>
       {/** Contact Us section */}
       <section className="container-section3" id="contact-us-link">
@@ -212,23 +229,19 @@ const AboutUs = () => {
           )}
           <Form onSubmit={handleSubmit}>
             <Row>
-              <Col md={6}>
-                <Form.Group
-                  controlId="requestType"
-                  className="Contact-group"
+              <Form.Group controlId="requestType" className="Contact-group">
+                <Form.Control
+                  as="select"
+                  value={formData.requestType}
+                  name="requestType"
+                  onChange={handleChange}
                 >
-                  <Form.Control
-                    as="select"
-                    value={formData.requestType}
-                    name="requestType"
-                    onChange={handleChange}
-                  >
-                    <option value="support">Support request</option>
-                    <option value="feedback">Feedback</option>
-                  </Form.Control>
-                </Form.Group>
+                  <option value="support">Support request</option>
+                  <option value="feedback">Feedback</option>
+                </Form.Control>
+              </Form.Group>
+              <Col md={6}>
                 <Form.Group controlId="email" className="Contact-group">
-                  <Form.Label>Email address</Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
@@ -245,7 +258,6 @@ const AboutUs = () => {
               </Col>
               <Col md={6}>
                 <Form.Group controlId="contactNo" className="Contact-group">
-                  <Form.Label>Contact number</Form.Label>
                   <Form.Control
                     type="text"
                     name="contactNo"
@@ -262,7 +274,6 @@ const AboutUs = () => {
               </Col>
             </Row>
             <Form.Group controlId="message" className="Contact-group">
-              <Form.Label>Message</Form.Label>
               <Form.Control
                 as="textarea"
                 name="message"

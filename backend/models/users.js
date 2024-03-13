@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const usersSchema = new mongoose.Schema({
   userId: { type: String },
-  username: {
+  fullName: {
     type: String,
     required: true,
   },
@@ -20,6 +20,10 @@ const usersSchema = new mongoose.Schema({
     required: true,
   },
   address: {
+    type: String,
+    required: true,
+  },
+  role: {
     type: String,
     required: true,
   },

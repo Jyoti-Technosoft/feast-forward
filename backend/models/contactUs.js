@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const contactUsSchema = new mongoose.Schema({
   contactUsId: { type: String },
-  contactType: {
+  requestType: {
     type: String,
-    required: false, // change to true
+    required: true,
   },
   email: {
     type: String,
