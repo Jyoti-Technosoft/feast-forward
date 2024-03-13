@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const bodyparser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -21,11 +22,16 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
+app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/", userRoute);
 app.use("/", joinNowUsersRoute);
 app.use("/", donateRoute);
 app.use("/", contactUsRoute);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/build/index.html"));
+});
 
 // Connect to MongoDB
 mongoose
