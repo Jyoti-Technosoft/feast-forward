@@ -1,5 +1,20 @@
 .header-container {
   height: 90px;
+  width: 100%;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1000;
+  transition: top 0.3s ease-in-out;
+  position: sticky;
+}
+
+.logo-image {
+  margin-left: 10px;
+}
+
+.toaster-alert {
+  top: 60px;
+  right: 20px;
 }
 
 .logo-image {
@@ -14,9 +29,10 @@
 .navbar-nav {
   align-items: center;
   font-size: large;
-  .nav-item {
-    margin-right: 2rem;
-  }
+}
+
+.navbar-nav .nav-item {
+  margin-right: 2rem;
 }
 
 .navbar-expand-lg .navbar-collapse {
@@ -25,7 +41,6 @@
 
 .toaster-alert {
   background-color: #d4edda;
-  color: #155724;
   border-left: 5px solid #28a745;
 }
 

@@ -16,6 +16,22 @@ function Header() {
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState("");
+  // const [isSticky, setIsSticky] = useState(false);
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 0) {
+  //       setIsSticky(true);
+  //     } else {
+  //       setIsSticky(false);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   const handleLogout = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
