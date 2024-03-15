@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
 const joinNowUsersRoute = require("./routes/joinNowUsers");
 const donateRoute = require("./routes/donate");
 const contactUsRoute = require("./routes/contactUs");
@@ -25,6 +26,7 @@ app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/", userRoute);
+app.use("/", authRoute);
 app.use("/", joinNowUsersRoute);
 app.use("/", donateRoute);
 app.use("/", contactUsRoute);

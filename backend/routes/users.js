@@ -7,10 +7,4 @@ userRoutes.get("/users", userController.getUsers);
 
 userRoutes.post("/users", userController.addUsers);
 
-userRoutes.post("/register", userController.registerUser);
-
-userRoutes.post("/login", userController.loginUser);
-
-userRoutes.delete("/logout/:email", userController.logoutUser);
-
 module.exports = userRoutes;

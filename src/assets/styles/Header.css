@@ -18,7 +18,7 @@
 }
 
 .logo-image {
-  margin-left: 4rem;
+  margin-left: 1rem;
 }
 
 .navbar {
@@ -48,6 +48,11 @@
   margin-left: 5px;
 }
 
-.nav-link {
-  cursor: pointer;
+.user-info .nav-link::after {
+  display: none;
 }
+
+.nav-link {
+  padding: 0 !important;
+}
+

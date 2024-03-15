@@ -81,14 +81,6 @@
   width: -webkit-fill-available;
 }
 
-.nav-link.active {
-  text-decoration: underline;
-}
-
-.user-info .nav-link::after {
-  display: none;
-}
-
 .poor-child-image {
   background-color: aliceblue;
   width: 70%;
@@ -126,12 +118,4 @@
 .text-box {
   color: white;
   background-color: rgb(51, 51, 51);
-}
-
-.nav-link:hover {
-  text-decoration: underline;
-}
-
-.nav-link {
-  padding: 0 !important;
 }
