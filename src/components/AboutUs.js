@@ -175,15 +175,15 @@ const AboutUs = () => {
         <img className="organization-image" src={org_img2} alt="Organization" />
         <img className="organization-image" src={org_img3} alt="Organization" />
       </section>
-      {/** Contact Us section */}
+
       <section className="container-section3" id="contact-us-link">
-      <Container className="Contact-form">
-        <h2 className="text-center">Contact Us</h2>
-        {submitted && (
-          <Alert className="text-center" variant="success">
-            Form submitted successfully!
-          </Alert>
-        )}
+        <Container className="Contact-form">
+          <h2 className="text-center">Contact Us</h2>
+          {submitted && (
+            <Alert className="text-center" variant="success">
+              Form submitted successfully!
+            </Alert>
+          )}
           <Form.Group controlId="formBasicRequestType" className="Contact-group">
             <Form.Control
               as="select"
@@ -194,56 +194,56 @@ const AboutUs = () => {
               <option value="feedback">Feedback</option>
             </Form.Control>
           </Form.Group>
-        <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col md={6}>
-              <Form.Group controlId="formBasicEmail" className="Contact-group">
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  isInvalid={!!errors.email}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.email}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group controlId="formBasicNumber" className="Contact-group">
-                <Form.Control
-                  type="text"
-                  placeholder="Contact Number"
-                  value={number}
-                  onChange={(e) => setNumber(e.target.value)}
-                  isInvalid={!!errors.number}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.number}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Form.Group controlId="formBasicMessage" className="Contact-group">
-            <Form.Control
-              as="textarea"
-              rows={3}
-              placeholder="Message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              isInvalid={!!errors.message}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Button variant="primary" className="Contact-submit" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </Container>
-    </section>
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col md={6}>
+                <Form.Group controlId="formBasicEmail" className="Contact-group">
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    isInvalid={!!errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group controlId="formBasicNumber" className="Contact-group">
+                  <Form.Control
+                    type="text"
+                    placeholder="Contact Number"
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value)}
+                    isInvalid={!!errors.number}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.number}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group controlId="formBasicMessage" className="Contact-group">
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                isInvalid={!!errors.message}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Button variant="primary" className="Contact-submit" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Container>
+      </section>
       <Footer />
     </div>
   );

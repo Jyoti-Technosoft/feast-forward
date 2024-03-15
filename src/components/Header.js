@@ -13,22 +13,6 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [show, setShow] = useState(false);
-  // const [isSticky, setIsSticky] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 0) {
-  //       setIsSticky(true);
-  //     } else {
-  //       setIsSticky(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
 
   const handleLogout = () => {
     setShow(true);
@@ -136,6 +120,16 @@ function Header() {
                 }
               >
                 Join Now
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/feedback"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                Feedback
               </NavLink>
             </li>
             <li className="nav-item dropdown user-info">

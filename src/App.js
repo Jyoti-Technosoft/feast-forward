@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 import AboutUs from './components/AboutUs';
 import Donate from './components/Donate';
 import JoinNow from "./components/JoinNow";
+import Feedback from "./components/Feedback";
 import './App.css';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route element={<AboutUs />} path="/about-us"  />
           <Route element={<Donate />} path="/donate" />
           <Route element={<JoinNow />} path="/join-now" />
+          <Route element={<Feedback />} path="/feedback" />
 
       </Routes>
     </BrowserRouter>
