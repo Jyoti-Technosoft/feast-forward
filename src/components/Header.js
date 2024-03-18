@@ -19,7 +19,7 @@ function Header() {
     setTimeout(() => {
       setShow(false);
       navigate("/");
-    }, 1000);
+    }, 2000);
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);

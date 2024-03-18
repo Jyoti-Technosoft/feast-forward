@@ -147,3 +147,9 @@
 .nav-link {
   padding: 0 !important;
 }
+
+.Feedback-list {
+  background-color: aliceblue;
+  margin-bottom: -1rem;
+  padding: 10px;
+}

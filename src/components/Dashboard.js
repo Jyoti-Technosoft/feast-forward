@@ -15,6 +15,28 @@ import poor_child from "../assets/images/poor_child.webp";
 import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
 
+{/* Feedback Form */ }
+function FeedbackListing() {
+  const feedbackData = [
+    { id: 1, name: "John", message: "Great service!" },
+    { id: 2, name: "Alice", message: "Love the website design." },
+    { id: 3, name: "Bob", message: "Very informative content." },
+  ];
+
+  return (
+    <div className="Feedback-list">
+      <h2>Feedback</h2>
+      <ul>
+        {feedbackData.map((feedback) => {
+          return <li key={feedback.id}>
+            <strong>{feedback.name}:</strong> {feedback.message}
+          </li>
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function Dashboard() {
   return (
     <div>
@@ -101,6 +123,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <FeedbackListing />
       <Footer />
     </div>
   );
