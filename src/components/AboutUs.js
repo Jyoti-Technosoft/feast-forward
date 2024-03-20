@@ -51,11 +51,6 @@ const AboutUs = () => {
   return (
     <div className="about-us-header">
       <Header />
-      <h1 className="about-us-text">
-        <b>
-          <u>About Us</u>
-        </b>
-      </h1>
       <section className="container-section1 d-flex" id="about-us-link">
         <div className="w-100">
           <h3>Our Mission</h3>

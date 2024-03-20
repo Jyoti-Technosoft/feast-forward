@@ -15,23 +15,36 @@ import poor_child from "../assets/images/poor_child.webp";
 import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
 
-{/* Feedback Form */ }
+function RatingStar({ rating }) {
+  const stars = [];
+    for (let i = 0; i < 5; i++) {
+    if (i < rating) {
+      stars.push(<span key={i}>&#9733;</span>); 
+    } else {
+      stars.push(<span key={i}>&#9734;</span>); 
+    }
+  }
+  return <div>{stars}</div>;
+}
+
 function FeedbackListing() {
   const feedbackData = [
-    { id: 1, name: "John", message: "Great service!" },
-    { id: 2, name: "Alice", message: "Love the website design." },
-    { id: 3, name: "Bob", message: "Very informative content." },
+    { firstName: 'Charmi Chauhan', description: '-Great service, very satisfied!', rating: 5 },
+    { firstName: 'Admin', description: '-Could use some improvements.', rating: 3 },
+    { firstName: 'User125', description: '-Excellent experience overall.', rating: 4 }
   ];
 
   return (
-    <div className="Feedback-list">
-      <h2>Feedback</h2>
+    <div >
+      <h2 className="text-center" >Feedback</h2>
       <ul>
-        {feedbackData.map((feedback) => {
-          return <li key={feedback.id}>
-            <strong>{feedback.name}:</strong> {feedback.message}
-          </li>
-        })}
+        {feedbackData.map((feedback, index) => (
+          <div key={index}>
+            <strong>{feedback.firstName}</strong>
+            <RatingStar rating={feedback.rating} />
+            <p>{feedback.description}</p>
+          </div>
+        ))}
       </ul>
     </div>
   );
