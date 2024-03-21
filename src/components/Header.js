@@ -16,22 +16,6 @@ function Header() {
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState("");
-  // const [isSticky, setIsSticky] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 0) {
-  //       setIsSticky(true);
-  //     } else {
-  //       setIsSticky(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
 
   const handleLogout = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -45,7 +29,7 @@ function Header() {
         console.error("error", error);
       }
     }
-  };
+  }
 
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -139,6 +123,16 @@ function Header() {
                 }
               >
                 Join Now
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/feedback"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                Feedback
               </NavLink>
             </li>
             <li className="nav-item dropdown user-info">

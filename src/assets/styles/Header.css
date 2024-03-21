@@ -1,20 +1,11 @@
-.header-container {
-  height: 90px;
-  width: 100%;
+.Header-container {
   top: 0;
-  background-color: #ffffff;
   z-index: 1000;
-  transition: top 0.3s ease-in-out;
   position: sticky;
 }
 
 .logo-image {
   margin-left: 10px;
-}
-
-.toaster-alert {
-  top: 60px;
-  right: 20px;
 }
 
 .logo-image {

@@ -14,6 +14,41 @@ import poor_child from "../assets/images/poor_child.webp";
 import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
 
+function RatingStar({ rating }) {
+  const stars = [];
+    for (let i = 0; i < 5; i++) {
+    if (i < rating) {
+      stars.push(<span key={i}>&#9733;</span>); 
+    } else {
+      stars.push(<span key={i}>&#9734;</span>); 
+    }
+  }
+  return <div>{stars}</div>;
+}
+
+function FeedbackListing() {
+  const feedbackData = [
+    { firstName: 'Charmi Chauhan', description: '-Great service, very satisfied!', rating: 5 },
+    { firstName: 'Admin', description: '-Could use some improvements.', rating: 3 },
+    { firstName: 'User125', description: '-Excellent experience overall.', rating: 4 }
+  ];
+
+  return (
+    <div >
+      <h2 className="text-center" >Feedback</h2>
+      <ul>
+        {feedbackData.map((feedback, index) => (
+          <div key={index}>
+            <strong>{feedback.firstName}</strong>
+            <RatingStar rating={feedback.rating} />
+            <p>{feedback.description}</p>
+          </div>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Dashboard() {
   const [isToken, setIsToken] = useState(false);
   const navigate = useNavigate();
@@ -109,6 +144,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <FeedbackListing />
     </div>
   );
 }

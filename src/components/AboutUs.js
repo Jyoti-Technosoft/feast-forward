@@ -213,7 +213,7 @@ const AboutUs = () => {
           />
         </div>
       </section>
-      {/** Contact Us section */}
+
       <section className="container-section3" id="contact-us-link">
         <Container className="Contact-form">
           <h2 className="text-center">Contact Us</h2>

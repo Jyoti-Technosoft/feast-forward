@@ -14,6 +14,7 @@ import AboutUs from "./components/AboutUs";
 import Donate from "./components/Donate";
 import JoinNow from "./components/JoinNow";
 import Layout from "./components/Layout";
+import Feedback from "./components/Feedback";
 import "./App.css";
 
 export default function App() {
@@ -61,6 +62,14 @@ export default function App() {
                 <Donate />
               </Layout>
             }
+          />
+          <Route
+            element={
+              <Layout>
+                <Feedback />
+              </Layout>
+            }
+            path="/feedback"
           />
         </Route>
       </Routes>
