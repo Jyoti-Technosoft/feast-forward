@@ -23,7 +23,6 @@ const Feedback = () => {
 
   return (
     <div>
-      <Header />
       <div className="Feedback-form-container">
         <h2 className=" text-center">Feedback</h2>
         <Form onSubmit={handleSubmit}>
@@ -76,7 +75,6 @@ const Feedback = () => {
           </Button>
         </Form>
       </div>
-      <Footer />
     </div>
   );
 };
