@@ -17,11 +17,11 @@ import FDP_img from "../assets/images/FDP_img.webp";
 
 function RatingStar({ rating }) {
   const stars = [];
-    for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     if (i < rating) {
-      stars.push(<span key={i}>&#9733;</span>); 
+      stars.push(<span key={i} className="star">&#9733;</span>);
     } else {
-      stars.push(<span key={i}>&#9734;</span>); 
+      stars.push(<span key={i} className="star">&#9734;</span>);
     }
   }
   return <div>{stars}</div>;
@@ -29,21 +29,26 @@ function RatingStar({ rating }) {
 
 function FeedbackListing() {
   const feedbackData = [
-    { firstName: 'Charmi Chauhan', description: '-Great service, very satisfied!', rating: 5 },
+    { firstName: 'ABC', description: '-Great service, very satisfied!', rating: 5 },
     { firstName: 'Admin', description: '-Could use some improvements.', rating: 3 },
     { firstName: 'User125', description: '-Excellent experience overall.', rating: 4 }
   ];
 
   return (
-    <div >
-      <h2 className="text-center" >Feedback</h2>
-      <ul>
+    <div>
+      <h2 className="text-center">Feedback</h2>
+      <ul className="list-group">
         {feedbackData.map((feedback, index) => (
-          <div key={index}>
-            <strong>{feedback.firstName}</strong>
-            <RatingStar rating={feedback.rating} />
-            <p>{feedback.description}</p>
-          </div>
+          <li key={index} className="list-group-item">
+            <div className="d-flex align-items-center">
+              <span className="bi bi-person me-2"></span>
+              <div>
+                <strong>{feedback.firstName}</strong>
+                <RatingStar rating={feedback.rating} />
+                <p>{feedback.description}</p>
+              </div>
+            </div>
+          </li>
         ))}
       </ul>
     </div>

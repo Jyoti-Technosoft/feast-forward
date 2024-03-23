@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import '../assets/styles/Feedback.css';
+
 import Header from "../components/Header";
 import Footer from "./Footer";
+import '../assets/styles/Feedback.css';
 
 const Feedback = () => {
   const [formData, setFormData] = useState({
-    satisfaction: '',
+    rating: '',
     foodQuality: '',
     experience: '',
     suggestion: '',
@@ -17,29 +18,55 @@ const Feedback = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleStarClick = (ratingValue) => {
+    setFormData({ ...formData, rating: ratingValue });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+  };
+
+  const renderStars = (numStars) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= numStars) {
+        stars.push(
+          <span
+            key={i}
+            className="star"
+            onClick={() => handleStarClick(i)}
+            role="button"
+          >
+            &#9733;
+          </span>
+        );
+      } else {
+        stars.push(
+          <span
+            key={i}
+            className="star"
+            onClick={() => handleStarClick(i)}
+            role="button"
+          >
+            &#9734;
+          </span>
+        );
+      }
+    }
+    return stars;
   };
 
   return (
     <div>
       <Header />
       <div className="Feedback-form-container">
-        <h2 className=" text-center">Feedback</h2>
+        <h2 className="text-center">Feedback</h2>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBasicServiceSatisfaction" className="Feedback-group">
-            <Form.Label>Service Satisfaction</Form.Label>
-            <Form.Control
-              as="select"
-              name="satisfaction"
-              value={formData.satisfaction}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="satisfied">Satisfied</option>
-              <option value="dissatisfied">Dissatisfied</option>
-              <option value="neutral">Neutral</option>
-            </Form.Control>
+          <Form.Group controlId="formBasicRating" className="Feedback-group">
+            <Form.Label>Rating</Form.Label>
+            <div className='FeedbackForm-star'>
+              {renderStars(formData.rating)}
+            </div>
           </Form.Group>
           <Form.Group controlId="formBasicFoodQuality" className="Feedback-group">
             <Form.Label>Food Quality</Form.Label>
@@ -71,7 +98,7 @@ const Feedback = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button variant="primary" className="Contact-submit" type="submit">
+          <Button className="Feedback-button" variant="primary" type="submit">
             Submit
           </Button>
         </Form>
