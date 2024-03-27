@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 import Header from "../components/Header";
-import Footer from "./Footer";
 import '../assets/styles/Feedback.css';
+import Footer from "./Footer";
 
 const Feedback = () => {
   const [formData, setFormData] = useState({
@@ -57,9 +57,9 @@ const Feedback = () => {
   };
 
   return (
-    <div>
+    <div className='feedback-div'>
       <Header />
-      <div className="Feedback-form-container">
+      <div className="Feedback-form-container align-item-center">
         <h2 className="text-center">Feedback</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicRating" className="Feedback-group">

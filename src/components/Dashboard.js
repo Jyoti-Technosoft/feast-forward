@@ -1,7 +1,8 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "react-multi-carousel/lib/styles.css";
+import CarouselMulti from "react-multi-carousel";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../assets/styles/Dashboard.css";
@@ -14,6 +15,31 @@ import FDPServices from "../assets/images/FDP Services.webp";
 import poor_child from "../assets/images/poor_child.webp";
 import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
+import admin_1 from "../assets/images/admin_1.jpeg";
+import admin_2 from "../assets/images/admin_2.webp";
+import admin_3 from "../assets/images/admin_3.jpeg";
+import admin_4 from "../assets/images/admin_4.webp";
+import admin_5 from "../assets/images/admin_5.webp";
+import admin_6 from "../assets/images/admin_6.jpeg";
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 
 function RatingStar({ rating }) {
   const stars = [];
@@ -36,7 +62,7 @@ function FeedbackListing() {
 
   return (
     <div>
-      <h2 className="text-center">Feedback</h2>
+      <h2 className="Feedback-div text-center">Feedback</h2>
       <ul className="list-group">
         {feedbackData.map((feedback, index) => (
           <li key={index} className="list-group-item">
@@ -141,6 +167,32 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      <div>
+        <h2 className="text-center">View Recent Activities</h2>
+        <CarouselMulti responsive={responsive}>
+          <div>
+            <img src={admin_1} alt="Admin 1" />
+          </div>
+          <div>
+            <img src={admin_2} alt="Admin 2" />
+          </div>
+          <div>
+            <img src={admin_3} alt="Admin 3" />
+          </div>
+          <div>
+            <img src={admin_4} alt="Admin 4" />
+          </div>
+          <div>
+            <img src={admin_5} alt="Admin 5" />
+          </div>
+          <div>
+            <img src={admin_6} alt="Admin 6" />
+          </div>
+        </CarouselMulti>
+      </div>
+
+
       <FeedbackListing />
       <Footer />
     </div>

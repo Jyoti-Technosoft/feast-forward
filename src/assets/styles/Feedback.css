@@ -1,6 +1,6 @@
 .Feedback-form-container {
   max-width: 550px;
-  margin: auto;
+  margin: 0px auto;
   padding: 20px;
   border-radius: 8px;
   background-color: aliceblue;
@@ -62,6 +62,12 @@
   align-items: center;
   justify-content: center;
   font-size: xx-large;
+}
+
+.feedback-div{
+  background-image: url(../images/foodies.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .Feedback-button {
