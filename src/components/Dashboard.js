@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { BASE_URL } from "../app-endpoint";
 import "../assets/styles/Dashboard.css";
 import banner_img1 from "../assets/images/banner_img1.jpg";
 import banner_img2 from "../assets/images/banner_img2.jpg";
@@ -14,52 +16,14 @@ import poor_child from "../assets/images/poor_child.webp";
 import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
 
-function RatingStar({ rating }) {
-  const stars = [];
-  for (let i = 0; i < 5; i++) {
-    if (i < rating) {
-      stars.push(<span key={i} className="star">&#9733;</span>);
-    } else {
-      stars.push(<span key={i} className="star">&#9734;</span>);
-    }
-  }
-  return <div>{stars}</div>;
-}
-
-function FeedbackListing() {
-  const feedbackData = [
-    { firstName: 'ABC', description: '-Great service, very satisfied!', rating: 5 },
-    { firstName: 'Admin', description: '-Could use some improvements.', rating: 3 },
-    { firstName: 'User125', description: '-Excellent experience overall.', rating: 4 }
-  ];
-
-  return (
-    <div>
-      <h2 className="text-center">Feedback</h2>
-      <ul className="list-group">
-        {feedbackData.map((feedback, index) => (
-          <li key={index} className="list-group-item">
-            <div className="d-flex align-items-center">
-              <span className="bi bi-person me-2"></span>
-              <div>
-                <strong>{feedback.firstName}</strong>
-                <RatingStar rating={feedback.rating} />
-                <p>{feedback.description}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 function Dashboard() {
   const [isToken, setIsToken] = useState(false);
+  const [feedbackData, setFeedbackData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     checkUserLoggedIn();
+    getFeedbackData();
   }, []);
 
   const checkUserLoggedIn = () => {
@@ -71,6 +35,32 @@ function Dashboard() {
     } else {
       navigate("/");
     }
+  };
+
+  const getFeedbackData = () => {
+    axios.get(`${BASE_URL}/feedback`).then((res) => {
+      setFeedbackData(res.data.feedback);
+    });
+  };
+
+  const RatingStar = ({ ratings }) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < ratings) {
+        stars.push(
+          <span key={i} className="star">
+            &#9733;
+          </span>
+        );
+      } else {
+        stars.push(
+          <span key={i} className="star">
+            &#9734;
+          </span>
+        );
+      }
+    }
+    return <div>{stars}</div>;
   };
 
   return (
@@ -149,7 +139,24 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <FeedbackListing />
+      <div>
+        {/* Feedback section */}
+        <h2 className="text-center">Feedback</h2>
+        <ul className="list-group">
+          {feedbackData.map((feedback, index) => (
+            <li key={index} className="list-group-item">
+              <div className="d-flex align-items-center">
+                <span className="bi bi-person me-2"></span>
+                <div>
+                  <strong>ABC</strong>
+                  <RatingStar ratings={feedback.ratings} />
+                  <p>{feedback.experience}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

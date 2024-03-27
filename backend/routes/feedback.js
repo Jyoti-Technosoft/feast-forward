@@ -3,8 +3,8 @@ const feedbackRoutes = express.Router();
 
 const feedbackController = require("../controllers/feedback");
 
-feedbackRoutes.get("/feedback", feedbackController.getContactUs);
+feedbackRoutes.get("/feedback", feedbackController.getFeedback);
 
-feedbackRoutes.post("/feedback", feedbackController.addContactUs);
+feedbackRoutes.post("/feedback", feedbackController.addFeedback);
 
 module.exports = feedbackRoutes;

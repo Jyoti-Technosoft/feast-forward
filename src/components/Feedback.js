@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Form,
+  Button,
+  Toast,
+  ToastBody,
+  ToastContainer,
+} from "react-bootstrap";
 import axios from "axios";
 
 import { BASE_URL } from "../app-endpoint";
@@ -10,9 +16,17 @@ const Feedback = () => {
     ratings: "",
     foodQuality: "",
     experience: "",
-    suggestion: "",
+    suggestions: "",
+    userName: "",
   });
   const [file, setFile] = useState(null);
+  const [message, setMessage] = useState("");
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    user && setUserName(user.fullName);
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,9 +35,9 @@ const Feedback = () => {
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
-  }
+  };
 
-  const handleSubmit = (event) => {
+  const handleUploadImage = (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("myImage", file);
@@ -34,18 +48,41 @@ const Feedback = () => {
     };
     axios
       .post(`${BASE_URL}/upload-images`, formData, config)
-      .then((response) => {
-        console.log("response:::", response);
-      })
-      .catch((error) => {
-        console.log("error::", error);
-      });
+      .then((response) => {})
+      .catch((error) => {});
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      formData.userName = userName;
+      const response = await axios.post(
+        `${BASE_URL}/feedback`,
+        JSON.stringify(formData),
+        { headers: { "Content-Type": "application/json" } }
+      );
+      if (response.status === 200) {
+        setMessage("Your feedback sent Successfully!");
+      }
+    } catch (error) {
+      setMessage("Not able to send feedback due to some error.");
+      resetFormValues();
+    }
+  };
+
+  const resetFormValues = () => {
+    setFormData({
+      ratings: "",
+      foodQuality: "",
+      experience: "",
+      suggestions: "",
+    });
   };
 
   const handleStarClick = (ratingValue) => {
-    setFormData({ ...formData, rating: ratingValue });
+    setFormData({ ...formData, ratings: ratingValue });
   };
-  
+
   const renderStars = (numStars) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -78,7 +115,7 @@ const Feedback = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUploadImage}>
         <input
           filename={file}
           onChange={onChange}
@@ -93,7 +130,7 @@ const Feedback = () => {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="ratings" className="Feedback-group">
             <Form.Label>Ratings</Form.Label>
-            <div className='FeedbackForm-star'>
+            <div className="FeedbackForm-star">
               {renderStars(formData.ratings)}
             </div>
           </Form.Group>
@@ -117,13 +154,13 @@ const Feedback = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="suggestion" className="Feedback-group">
+          <Form.Group controlId="suggestions" className="Feedback-group">
             <Form.Label>Suggestion for Improvement</Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
-              name="suggestion"
-              value={formData.suggestion}
+              name="suggestions"
+              value={formData.suggestions}
               onChange={handleChange}
             />
           </Form.Group>
@@ -132,6 +169,13 @@ const Feedback = () => {
           </Button>
         </Form>
       </div>
+      {message !== "" && (
+        <ToastContainer position="top-end" className="p-3">
+          <Toast className="toaster-alert">
+            <ToastBody>Your feedback sent Successfully!</ToastBody>
+          </Toast>
+        </ToastContainer>
+      )}
     </div>
   );
 };

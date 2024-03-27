@@ -14,6 +14,7 @@ const addFeedback = async (req, res) => {
   const feedback = req.body;
   try {
     const newFeedback = new feedbackSchema({
+      userName: feedback.userName,
       ratings: feedback.ratings,
       foodQuality: feedback.foodQuality,
       experience: feedback.experience,

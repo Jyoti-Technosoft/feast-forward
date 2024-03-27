@@ -11,6 +11,7 @@ const authRoute = require("./routes/auth");
 const joinNowUsersRoute = require("./routes/joinNowUsers");
 const donateRoute = require("./routes/donate");
 const contactUsRoute = require("./routes/contactUs");
+const feedbackRoute = require("./routes/feedback");
 
 const app = express();
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -31,6 +32,7 @@ app.use("/", authRoute);
 app.use("/", joinNowUsersRoute);
 app.use("/", donateRoute);
 app.use("/", contactUsRoute);
+app.use("/", feedbackRoute);
 app.use('/images', express.static('images'))
 
 const storage = multer.diskStorage({
