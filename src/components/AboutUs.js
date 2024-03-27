@@ -148,7 +148,7 @@ const AboutUs = () => {
         className="container-section2 align-items-center"
         id="organization-link"
       >
-        <h1>Organization</h1>
+        <h1 className="text-center">Organization</h1>
         <h3>Who We Are</h3>
         <ul>
           <li>

@@ -56,3 +56,18 @@
 .Contact-submit:hover {
   background-color: #0056b3; 
 }
+
+.FeedbackForm-star {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+}
+
+.Feedback-button {
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 5px;
+  background-color: #004494;
+  color: white;
+}

@@ -21,7 +21,7 @@ const Feedback = () => {
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
-  };
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,6 +42,40 @@ const Feedback = () => {
       });
   };
 
+  const handleStarClick = (ratingValue) => {
+    setFormData({ ...formData, rating: ratingValue });
+  };
+  
+  const renderStars = (numStars) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= numStars) {
+        stars.push(
+          <span
+            key={i}
+            className="star"
+            onClick={() => handleStarClick(i)}
+            role="button"
+          >
+            &#9733;
+          </span>
+        );
+      } else {
+        stars.push(
+          <span
+            key={i}
+            className="star"
+            onClick={() => handleStarClick(i)}
+            role="button"
+          >
+            &#9734;
+          </span>
+        );
+      }
+    }
+    return stars;
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -55,23 +89,13 @@ const Feedback = () => {
         <button type="submit">Submit</button>
       </form>
       <div className="Feedback-form-container">
-        <h2 className=" text-center">Feedback</h2>
+        <h2 className="text-center">Feedback</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="ratings" className="Feedback-group">
-            <Form.Label>Service Satisfaction</Form.Label>
-            <Form.Control
-              as="select"
-              name="ratings"
-              value={formData.ratings}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Form.Control>
+            <Form.Label>Ratings</Form.Label>
+            <div className='FeedbackForm-star'>
+              {renderStars(formData.ratings)}
+            </div>
           </Form.Group>
           <Form.Group controlId="foodQuality" className="Feedback-group">
             <Form.Label>Food Quality</Form.Label>
@@ -103,7 +127,7 @@ const Feedback = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button variant="primary" className="Contact-submit" type="submit">
+          <Button className="Feedback-button" variant="primary" type="submit">
             Submit
           </Button>
         </Form>
