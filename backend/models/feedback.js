@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const feedbackSchema = new mongoose.Schema({
   feedbackId: { type: String },
-  serviceSatisfaction: {
+  ratings: {
     type: String,
     required: true,
   },

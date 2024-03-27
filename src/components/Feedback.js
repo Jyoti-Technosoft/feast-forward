@@ -1,46 +1,79 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import '../assets/styles/Feedback.css';
-import Header from "../components/Header";
-import Footer from "./Footer";
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import axios from "axios";
+
+import { BASE_URL } from "../app-endpoint";
+import "../assets/styles/Feedback.css";
 
 const Feedback = () => {
   const [formData, setFormData] = useState({
-    satisfaction: '',
-    foodQuality: '',
-    experience: '',
-    suggestion: '',
+    ratings: "",
+    foodQuality: "",
+    experience: "",
+    suggestion: "",
   });
+  const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("myImage", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    axios
+      .post(`${BASE_URL}/upload-images`, formData, config)
+      .then((response) => {
+        console.log("response:::", response);
+      })
+      .catch((error) => {
+        console.log("error::", error);
+      });
   };
 
   return (
     <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          filename={file}
+          onChange={onChange}
+          type="file"
+          name="myImage"
+          accept="image/*"
+        ></input>
+        <button type="submit">Submit</button>
+      </form>
       <div className="Feedback-form-container">
         <h2 className=" text-center">Feedback</h2>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBasicServiceSatisfaction" className="Feedback-group">
+          <Form.Group controlId="ratings" className="Feedback-group">
             <Form.Label>Service Satisfaction</Form.Label>
             <Form.Control
               as="select"
-              name="satisfaction"
-              value={formData.satisfaction}
+              name="ratings"
+              value={formData.ratings}
               onChange={handleChange}
             >
               <option value="">Select</option>
-              <option value="satisfied">Satisfied</option>
-              <option value="dissatisfied">Dissatisfied</option>
-              <option value="neutral">Neutral</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group controlId="formBasicFoodQuality" className="Feedback-group">
+          <Form.Group controlId="foodQuality" className="Feedback-group">
             <Form.Label>Food Quality</Form.Label>
             <Form.Control
               type="text"
@@ -50,7 +83,7 @@ const Feedback = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicExperience" className="Feedback-group">
+          <Form.Group controlId="experience" className="Feedback-group">
             <Form.Label>Experience</Form.Label>
             <Form.Control
               type="text"
@@ -60,7 +93,7 @@ const Feedback = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicSuggestion" className="Feedback-group">
+          <Form.Group controlId="suggestion" className="Feedback-group">
             <Form.Label>Suggestion for Improvement</Form.Label>
             <Form.Control
               as="textarea"
