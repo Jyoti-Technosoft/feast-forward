@@ -53,6 +53,17 @@ function RatingStar({ rating }) {
   return <div>{stars}</div>;
 }
 
+function adminCarouselData() {
+  return [
+    { image: admin_1, alt: "Admin 1", text: "Admin 1 Text" },
+    { image: admin_2, alt: "Admin 2", text: "Admin 2 Text" },
+    { image: admin_3, alt: "Admin 3", text: "Admin 3 Text" },
+    { image: admin_4, alt: "Admin 4", text: "Admin 4 Text" },
+    { image: admin_5, alt: "Admin 5", text: "Admin 5 Text" },
+    { image: admin_6, alt: "Admin 6", text: "Admin 6 Text" }
+  ];
+}
+
 function FeedbackListing() {
   const feedbackData = [
     { firstName: 'ABC', description: '-Great service, very satisfied!', rating: 5 },
@@ -82,6 +93,8 @@ function FeedbackListing() {
 }
 
 function Dashboard() {
+  const carouselData = adminCarouselData();
+
   return (
     <div>
       <Header />
@@ -170,29 +183,17 @@ function Dashboard() {
 
       <div>
         <h2 className="text-center">View Recent Activities</h2>
-        <CarouselMulti responsive={responsive}>
-          <div>
-            <img src={admin_1} alt="Admin 1" />
-          </div>
-          <div>
-            <img src={admin_2} alt="Admin 2" />
-          </div>
-          <div>
-            <img src={admin_3} alt="Admin 3" />
-          </div>
-          <div>
-            <img src={admin_4} alt="Admin 4" />
-          </div>
-          <div>
-            <img src={admin_5} alt="Admin 5" />
-          </div>
-          <div>
-            <img src={admin_6} alt="Admin 6" />
-          </div>
+        <CarouselMulti responsive={responsive} autoPlay={true} autoPlaySpeed={3000}>
+          {carouselData.map((item, index) => (
+            <div key={index} className="image-container">
+              <img src={item.image} alt={item.alt} className="image" />
+              <div className="overlay">
+                <div className="text">{item.text}</div>
+              </div>
+            </div>
+          ))}
         </CarouselMulti>
       </div>
-
-
       <FeedbackListing />
       <Footer />
     </div>
