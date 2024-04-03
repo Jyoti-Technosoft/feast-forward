@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Dropdown, Toast, ToastBody, ToastContainer } from "react-bootstrap";
@@ -18,8 +18,12 @@ function Header() {
     setShow(true);
     setTimeout(() => {
       setShow(false);
-      navigate("/");
+      navigate("/login");
     }, 2000);
+  };
+
+  const handleResetPassword = () => {
+    navigate("/reset-password");
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);
@@ -74,17 +78,15 @@ function Header() {
                   to="/about-us#description"
                   as="div"
                   id="aboutUsDropdown"
-                  className={`nav-link dropdown-toggle ${
-                    startsWithPath("/about-us") ? "active" : ""
-                  }`}
+                  className={`nav-link dropdown-toggle ${startsWithPath("/about-us") ? "active" : ""
+                    }`}
                 ></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#organization-link"
-                      className={`dropdown-item ${
-                        location.hash === "#organization-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
+                        }`}
                     >
                       Organization
                     </HashLink>
@@ -92,9 +94,8 @@ function Header() {
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#contact-us-link"
-                      className={`dropdown-item ${
-                        location.hash === "#contact-us-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#contact-us-link" ? "active" : ""
+                        }`}
                     >
                       Contact Us
                     </HashLink>
@@ -138,6 +139,9 @@ function Header() {
                   <PersonCircle size={25} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  <Dropdown.Item onClick={handleResetPassword}>
+                      Change Password
+                  </Dropdown.Item>
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>Help?</Dropdown.Item>

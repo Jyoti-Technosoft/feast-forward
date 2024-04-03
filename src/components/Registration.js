@@ -49,7 +49,6 @@ const Registration = () => {
       isValid = false;
     }
 
-    // Passwords match validation
     if (formData.confirmPassword !== formData.password) {
       newErrors.confirmPassword = "Passwords do not match";
       isValid = false;
@@ -84,7 +83,7 @@ const Registration = () => {
       };
       existingUsers.push(newUser);
       localStorage.setItem("users", JSON.stringify(existingUsers));
-      navigate("/");
+      navigate("/login");
     }
   };
 
@@ -232,7 +231,7 @@ const Registration = () => {
           </div>
           <div className="mt-3">
             Already have an Account?{" "}
-            <Link to="/" className="login-link">
+            <Link to="/login" className="login-link">
               Login
             </Link>
           </div>
