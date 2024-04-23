@@ -26,6 +26,14 @@ function Header() {
     navigate("/reset-password");
   };
 
+  const handleUsers = () => {
+    navigate("/users");
+  };
+
+  const handleVolunteers = () => {
+    navigate("/volunteers");
+  };
+
   const startsWithPath = (path) => location.pathname.startsWith(path);
 
   return (
@@ -84,9 +92,9 @@ function Header() {
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
-                      to="/about-us#organization-link"
-                      className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
-                        }`}
+                    to="/about-us#organization-link"
+                    className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
+                      }`}
                     >
                       Organization
                     </HashLink>
@@ -140,9 +148,16 @@ function Header() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleResetPassword}>
-                      Change Password
+                    Change Password
                   </Dropdown.Item>
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleUsers}>
+                    Join-Now Users
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={handleVolunteers}>
+                    Volunteer
+                  </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>Help?</Dropdown.Item>
                 </Dropdown.Menu>
