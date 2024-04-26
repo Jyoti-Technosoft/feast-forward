@@ -14,7 +14,7 @@ const Volunteers = () => {
         <div>
             <Header />
             <h2>Volunteers</h2>
-            <Table striped bordered hover>
+            <Table className='table striped bordered hover'>
                 <thead>
                     <tr>
                         <th>#</th>

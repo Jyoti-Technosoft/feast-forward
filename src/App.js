@@ -9,7 +9,7 @@ import Donate from './components/Donate';
 import JoinNow from "./components/JoinNow";
 import Feedback from "./components/Feedback";
 import ResetPassword from "./components/ResetPassword";
-import Users from "./components/Users";
+import JoinNowUsers from "./components/JoinNowUsers";
 import Volunteers from "./components/Volunteers";
 import './App.css';
 
@@ -25,7 +25,7 @@ export default function App() {
           <Route element={<JoinNow />} path="/join-now" />
           <Route element={<Feedback />} path="/feedback" />
           <Route element={<ResetPassword />} path="/reset-password" /> 
-          <Route element={<Users />} path="/users" /> 
+          <Route element={<JoinNowUsers />} path="/join-now-users" /> 
           <Route element={<Volunteers />} path="/volunteers" /> 
       </Routes>
     </BrowserRouter>

@@ -27,7 +27,7 @@ function Header() {
   };
 
   const handleUsers = () => {
-    navigate("/users");
+    navigate("/join-now-users");
   };
 
   const handleVolunteers = () => {
