@@ -99,6 +99,42 @@
   height: 93%;
 }
 
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: -20px;
+  bottom: 0;
+  right: -20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}
+
+.image-container:hover .image {
+  transform: scale(1.1);
+}
+
+
 .box {
   border: 1px solid #ddd;
   border-radius: 4px;

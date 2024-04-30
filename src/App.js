@@ -15,6 +15,8 @@ import Donate from "./components/Donate";
 import JoinNow from "./components/JoinNow";
 import Layout from "./components/Layout";
 import Feedback from "./components/Feedback";
+import Volunteers from "./components/Volunteers";
+import JoinNowUsers from "./components/JoinNowUsers";
 import "./App.css";
 
 export default function App() {
@@ -71,6 +73,8 @@ export default function App() {
             }
             path="/feedback"
           />
+            <Route element={ <Layout><JoinNowUsers /></Layout>} path="/join-now-users" /> 
+          <Route element={<Layout><Volunteers /></Layout>} path="/volunteers" /> 
         </Route>
       </Routes>
     </Router>

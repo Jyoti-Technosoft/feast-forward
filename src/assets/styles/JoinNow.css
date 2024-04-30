@@ -1,6 +1,5 @@
 .join-now-container {
   max-width: 550px;
-  margin: 10px auto;
   padding: 20px;
   border-radius: 8px;
   background-color: aliceblue;
@@ -22,7 +21,6 @@
   height: calc(100vh - 178px);
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .join-div {

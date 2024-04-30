@@ -36,6 +36,18 @@ function Header() {
     user && setUserName(user.fullName);
   })
 
+  const handleResetPassword = () => {
+    navigate("/reset-password");
+  };
+
+  const handleUsers = () => {
+    navigate("/join-now-users");
+  };
+
+  const handleVolunteers = () => {
+    navigate("/volunteers");
+  };
+
   const startsWithPath = (path) => location.pathname.startsWith(path);
 
   return (
@@ -77,16 +89,14 @@ function Header() {
                   to="/about-us#description"
                   as="div"
                   id="aboutUsDropdown"
-                  className={`nav-link dropdown-toggle ${
-                    startsWithPath("/about-us") ? "active" : ""
-                  }`}
+                  className={`nav-link dropdown-toggle ${startsWithPath("/about-us") ? "active" : ""
+                    }`}
                 ></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
-                      to="/about-us#organization-link"
-                      className={`dropdown-item ${
-                        location.hash === "#organization-link" ? "active" : ""
+                    to="/about-us#organization-link"
+                    className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
                       }`}
                     >
                       Organization
@@ -95,9 +105,8 @@ function Header() {
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#contact-us-link"
-                      className={`dropdown-item ${
-                        location.hash === "#contact-us-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#contact-us-link" ? "active" : ""
+                        }`}
                     >
                       Contact Us
                     </HashLink>
@@ -142,7 +151,17 @@ function Header() {
                   <span>&nbsp;{userName}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  <Dropdown.Item onClick={handleResetPassword}>
+                    Change Password
+                  </Dropdown.Item>
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleUsers}>
+                    Join-Now Users
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={handleVolunteers}>
+                    Volunteer
+                  </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>Help?</Dropdown.Item>
                 </Dropdown.Menu>

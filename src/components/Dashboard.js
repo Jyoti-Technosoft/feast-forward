@@ -15,6 +15,31 @@ import FDPServices from "../assets/images/FDP Services.webp";
 import poor_child from "../assets/images/poor_child.webp";
 import Donate_food from "../assets/images/Donate_food.jpg";
 import FDP_img from "../assets/images/FDP_img.webp";
+import admin_1 from "../assets/images/admin_1.jpeg";
+import admin_2 from "../assets/images/admin_2.webp";
+import admin_3 from "../assets/images/admin_3.jpeg";
+import admin_4 from "../assets/images/admin_4.webp";
+import admin_5 from "../assets/images/admin_5.webp";
+import admin_6 from "../assets/images/admin_6.jpeg";
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 
 function Dashboard() {
   const [isToken, setIsToken] = useState(false);
