@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { BASE_URL } from "../app-endpoint";
+import { getFeedback } from "../Services/CommonServices";
 import "../assets/styles/Dashboard.css";
 import banner_img1 from "../assets/images/banner_img1.jpg";
 import banner_img2 from "../assets/images/banner_img2.jpg";
@@ -25,20 +24,20 @@ import admin_6 from "../assets/images/admin_6.jpeg";
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 5
+    items: 5,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
+    items: 3,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1
-  }
+    items: 1,
+  },
 };
 
 function Dashboard() {
@@ -62,10 +61,17 @@ function Dashboard() {
     }
   };
 
-  const getFeedbackData = () => {
-    axios.get(`${BASE_URL}/feedback`).then((res) => {
-      setFeedbackData(res.data.feedback);
-    });
+  const getFeedbackData = async () => {
+    try {
+      const response = await getFeedback();
+      if (response?.status === 200) {
+        setFeedbackData(response?.data?.feedback);
+      } else {
+        setFeedbackData([]);
+      }
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
 
   const RatingStar = ({ ratings }) => {

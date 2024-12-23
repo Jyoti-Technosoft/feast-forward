@@ -3,7 +3,6 @@ const path = require("path");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const multer = require("multer");
 
 const userRoute = require("./routes/users");
@@ -13,6 +12,7 @@ const donateRoute = require("./routes/donate");
 const contactUsRoute = require("./routes/contactUs");
 const feedbackRoute = require("./routes/feedback");
 
+require("dotenv").config();
 const app = express();
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -33,7 +33,7 @@ app.use("/", joinNowUsersRoute);
 app.use("/", donateRoute);
 app.use("/", contactUsRoute);
 app.use("/", feedbackRoute);
-app.use('/images', express.static('images'))
+app.use("/images", express.static("images"));
 
 const storage = multer.diskStorage({
   destination: "./public/uploads/",
@@ -63,8 +63,9 @@ app.get("*", (req, res) => {
 });
 
 // Connect to MongoDB
+const dbUri = process.env.DB_URI;
 mongoose
-  .connect(process.env.DB_URI)
+  .connect(dbUri)
   .then(() => {
     console.log("Connected to the MongoDB database");
   })
@@ -72,7 +73,7 @@ mongoose
     console.error("Error while connecting to the database", err);
   });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

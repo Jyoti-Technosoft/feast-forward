@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
-import axios from "axios";
 
-import { BASE_URL } from "../app-endpoint";
+import CustomToast from "./ReusableComponents/CustomToast";
+import { upsertContactUs } from "../Services/CommonServices";
+import { errorMessage } from "../Services/axiosinstance";
 import "../assets/styles/AboutUs.css";
 import round_img from "../assets/images/round_img.jpg";
 import round_img2 from "../assets/images/round_img2.jpg";
@@ -20,7 +21,7 @@ const AboutUs = () => {
     message: "",
   });
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const [message, setMessage] = useState({ type: "", message: "" });
 
   const validateForm = () => {
     const newErrors = {};
@@ -50,13 +51,9 @@ const AboutUs = () => {
       setErrors(errors);
     } else {
       try {
-        const response = await axios.post(
-          `${BASE_URL}/contactUs`,
-          JSON.stringify(formData),
-          { headers: { "Content-Type": "application/json" } }
-        );
-        if (response.status === 200) {
-          setSubmitted(true);
+        const response = await upsertContactUs(JSON.stringify(formData));
+        if (response?.status === 200) {
+          setMessage({ type: "success", message: response.data.message });
           setFormData({
             requestType: "",
             email: "",
@@ -66,8 +63,8 @@ const AboutUs = () => {
         }
       } catch (error) {
         setFormData({ requestType: "", email: "", contactNo: "", message: "" });
+        setMessage({ type: "warning", message: errorMessage });
       }
-      setSubmitted(false);
     }
   };
 
@@ -217,11 +214,12 @@ const AboutUs = () => {
       <section className="container-section3" id="contact-us-link">
         <Container className="Contact-form">
           <h2 className="text-center">Contact Us</h2>
-          {submitted && (
+          {/* {submitted && (
             <Alert className="text-center" variant="success">
               Form submitted successfully!
             </Alert>
-          )}
+          )} */}
+          {message !== "" ? <CustomToast message={message} /> : null}
           <Form onSubmit={handleSubmit}>
             <Row>
               <Form.Group controlId="requestType" className="Contact-group">

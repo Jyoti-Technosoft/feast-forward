@@ -5,16 +5,13 @@ import {
   Form,
   Button,
   Container,
-  Alert,
   InputGroup,
   FormControl,
-  Toast,
-  ToastBody,
-  ToastContainer
 } from "react-bootstrap";
-import axios from "axios";
 
-import { BASE_URL } from "../../app-endpoint";
+import CustomToast from "../ReusableComponents/CustomToast";
+import { upsertLogin } from "../../Services/AuthenticationServices";
+import { errorMessage } from "../../Services/axiosinstance";
 import "../../assets/styles/Login.css";
 
 function Login() {
@@ -22,14 +19,10 @@ function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ type: "", message: "" });
   const [isToken, setIsToken] = useState(false);
 
   useEffect(() => {
-    // const storedCredentials = localStorage.getItem("users");
-    // if (storedCredentials) {
-    //   setFormData(JSON.parse(storedCredentials));
-    // }
     checkUserLoggedIn();
   }, []);
 
@@ -51,7 +44,7 @@ function Login() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    // setErrors({ ...errors, [name]: "" });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateEmail = (email) => {
@@ -59,58 +52,55 @@ function Login() {
   };
 
   const validatePassword = (password) => {
-    return password.length >= 6;
+    return password?.length >= 6;
+  };
+
+  const resetForm = () => {
+    setFormData({ email: "", password: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
-    if (!validateEmail(email)) {
-      setErrors({ email: "Please enter a valid email." });
+    let validationErrors = {};
+
+    if (!email || email.trim() === "") {
+      validationErrors.email = "Please enter email.";
+    } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      validationErrors.email = "Please enter a valid email.";
     }
-    if (!validatePassword(password)) {
-      setErrors({ password: "Password must be at least 6 characters long." });
+
+    if (!password || password.trim() === "") {
+      validationErrors.password = "Please enter Password.";
+    } else if (!validatePassword(password)) {
+      validationErrors.password =
+        "Password must be at least 6 characters long.";
     }
-    // const storedCredentials = JSON.parse(localStorage.getItem("users"));
-    // if (storedCredentials) {
-    //   const storedItems = JSON.parse(localStorage.getItem("users")) || [];
-    //   const foundItem = storedItems.find((item) => item.email === email);
-    //   if (foundItem) {
-    //     const storedPassword = foundItem.password;
-    //     if (password === storedPassword) {
-    //       navigate("/home");
-    //     } else {
-    //       setErrors({
-    //         ...errors,
-    //         credentials: "Invalid credentials. Login failed.",
-    //       });
-    //     }
-    //   } else {
-    //     tempErrors.credentials = "Invalid email or password.";
-    //   }
-    //   setErrors(tempErrors);
-    // } else {
-    //   setErrors("There is no data.");
-    // }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     try {
-      const response = await axios.post(
-        `${BASE_URL}/login`,
-        JSON.stringify(formData),
-        { headers: { "Content-Type": "application/json" } }
-      );
+      // const response = await axios.post(
+      //   `${BASE_URL}/login`,
+      //   JSON.stringify(formData),
+      //   { headers: { "Content-Type": "application/json" } }
+      // );
+      const response = await upsertLogin(JSON.stringify(formData));
       if (response.status === 200) {
-        setMessage(response.data.message);
+        setMessage({ type: "success", message: response.data.message });
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/home");
         setTimeout(() => {
-          setFormData({ email: "", password: "" });
+          resetForm();
+          setErrors({});
+          navigate("/home");
         }, 2000);
-      } else {
-        setErrors({ credentials: response.data.message });
+      } else if (response.status === 201) {
+        setMessage({ type: "warning", message: response.data.message });
       }
     } catch (error) {
-      setErrors({ credentials: error.response.data.message });
-      setFormData({ email: "", password: "" });
+      setMessage({ type: "warning", message: errorMessage });
     }
   };
 
@@ -119,26 +109,33 @@ function Login() {
       <Form className="transparent-box-1" onSubmit={handleSubmit}>
         <h1 className="login-div">Login Account</h1>
         {/* Email Field */}
-        <Form.Group controlId="formBasicEmail" className="email-div">
+        <Form.Group
+          controlId="formBasicEmail"
+          style={{ marginBottom: errors?.email ? "2px" : "15px" }}
+          className="email-div"
+        >
           <Form.Label className="d-flex align-items-center">
             <EnvelopeFill className="icon-div" size={18} />
             Email
           </Form.Label>
           <Form.Control
-            type="email"
-            placeholder="Enter Email"
+            type="text"
+            placeholder="Enter email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             isInvalid={!!errors.email}
-            required
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.email}
+          <Form.Control.Feedback type="invalid" style={{ marginBottom: "5px" }}>
+            {errors?.email}
           </Form.Control.Feedback>
         </Form.Group>
         {/* Password Field */}
-        <Form.Group controlId="formBasicPassword" className="mb-3">
+        <Form.Group
+          style={{ marginBottom: errors?.email ? "2px" : "15px" }}
+          controlId="formBasicPassword"
+          className="mb-3"
+        >
           <Form.Label className="d-flex align-items-center">
             <LockFill className="icon-div" size={18} />
             Password
@@ -151,7 +148,6 @@ function Login() {
               value={formData.password}
               onChange={handleChange}
               isInvalid={!!errors.password}
-              required
             />
             <InputGroup.Text
               className="viewer"
@@ -160,8 +156,8 @@ function Login() {
               {showPassword ? <EyeSlash /> : <Eye />}
             </InputGroup.Text>
           </InputGroup>
-          <Form.Control.Feedback type="invalid">
-            {errors.password}
+          <Form.Control.Feedback type="invalid" style={{ marginBottom: "5px" }}>
+            {errors?.password}
           </Form.Control.Feedback>
         </Form.Group>
         <Button variant="primary" type="submit" className="login-button">
@@ -173,19 +169,8 @@ function Login() {
             Sign Up
           </Link>
         </div>
-        {errors.credentials && (
-          <Alert variant="danger" className="alert-div">
-            {errors.credentials}
-          </Alert>
-        )}
       </Form>
-      {message !== "" && (
-        <ToastContainer position="top-end" className="p-3">
-          <Toast className="toaster-alert">
-            <ToastBody>Login Successfully done!</ToastBody>
-          </Toast>
-        </ToastContainer>
-      )}
+      {message !== "" ? <CustomToast message={message} /> : null}
     </Container>
   );
 }

@@ -14,3 +14,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.toaster-alert {
+  border-radius: 5px;
+  min-width: 200px;
+}
+
+.toaster-alert.success {
+  background-color: #edf7ed;
+  color: #78a47a;
+}
+
+.toaster-alert.warning {
+  background-color: #fdeded;
+  color: #9a7575;
+}
+
+.toaster-alert .toast-body {
+  font-size: "larger";
+  padding:10px;
+}

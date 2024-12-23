@@ -1,28 +1,42 @@
 .Registration-form {
-  max-width: 5117px !important;
-  border-radius: 0px;
+  max-width: 100% !important;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   text-align: center;
-  justify-content: center;
   flex-direction: column;
   background-image: url(../images\/FDP.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow-y: auto;
   .form-group {
     text-align: left;
-    margin-top: 10px;
+    margin-top: 7px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: gray; 
+    border-radius: 10px;
   }
 
   .transparent-box {
     background-color: rgba(255, 255, 255, 0.2);
-    padding: 70px;
+    padding: 25px 60px 20px 60px;
     border-radius: 60px;
     box-shadow: 0 0 10px #fff;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow-y: auto;
   }
 
   .main-div {
@@ -35,7 +49,7 @@
   }
 
   .mt-3 {
-    width: 87%;
+    width: 100%;
   }
 
   .form-group svg {
@@ -47,9 +61,9 @@
   }
 
   input {
-    width: 87%;
+    width: 100%;
     padding: 10px;
-    margin: 2px !important;
+    box-sizing: border-box;
   }
 
   .register-button {
@@ -57,13 +71,10 @@
     padding: 7px 15px;
     cursor: pointer;
     border-radius: 20px;
-    margin: 10px 16rem 0px 2px !important;
-    color: #fff;
-    width: 87%;
+    margin: 10px 0 0 0;
+    width: 100%;
     background-color: #1f993d !important;
     border: white !important;
-    padding: 7px 15px;
-    border-radius: 4px;
   }
 
   .register-button:hover {
@@ -72,9 +83,63 @@
 
   .login-link {
     color: white;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 768px) {
+  .Registration-form {
+    padding: 10px !important;
   }
 
-  .translate-middle {
-    transform: translate(-115%, 0%) !important;
+  .transparent-box {
+    padding: 20px 20px 20px 20px !important;
+    /* Adjust padding for smaller screens */
+    border-radius: 10px !important;
+    overflow-y: auto !important;
+    /* Slightly reduce border radius for small screens */
+  }
+
+  .register-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .transparent-box {
+    padding: 15px 15px 15px 15px !important;
+    /* Further adjust padding for very small screens */
+    max-width: 90% !important;
+    overflow-y: auto !important;
+    /* Allow form box to take more space */
+  }
+
+  .form-group {
+    margin-top: 10px !important;
+  }
+
+  .register-button {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .transparent-box {
+    padding: 15px 15px 15px 15px !important;
+    /* Further adjust padding for very small screens */
+    max-width: 90% !important;
+    overflow-y: auto !important;
+    /* Allow form box to take more space */
+  }
+
+  .form-group {
+    margin-top: 10px !important;
+  }
+
+  .register-button {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
   }
 }

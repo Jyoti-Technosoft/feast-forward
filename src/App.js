@@ -73,8 +73,22 @@ export default function App() {
             }
             path="/feedback"
           />
-            <Route element={ <Layout><JoinNowUsers /></Layout>} path="/join-now-users" /> 
-          <Route element={<Layout><Volunteers /></Layout>} path="/volunteers" /> 
+          <Route
+            element={
+              <Layout>
+                <JoinNowUsers />
+              </Layout>
+            }
+            path="/join-now-users"
+          />
+          <Route
+            element={
+              <Layout>
+                <Volunteers />
+              </Layout>
+            }
+            path="/volunteers"
+          />
         </Route>
       </Routes>
     </Router>

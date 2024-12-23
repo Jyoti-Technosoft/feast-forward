@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
     });
     await newSignUp.save();
-    res.status(200).json({ message: "Registeration successfull" });
+    res.status(200).json({ message: "Registeration successful." });
   } catch (error) {
     console.error("Error while registering user", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -40,13 +40,13 @@ const loginUser = async (req, res) => {
     }
     const passwordMatch = await bcrypt.compare(password, checkUser.password);
     if (passwordMatch) {
-      const token = jwt.sign({ userId: checkUser._id }, "77885566", {
+      const token = jwt.sign({ userId: checkUser?._id }, "77885566", {
         expiresIn: "12h",
       });
       checkUser.token = token;
       await checkUser.save();
       return res.status(200).json({
-        message: "Login succesfully done",
+        message: "Login Successfully.",
         user: {
           fullName: checkUser.fullName,
           email,
@@ -73,7 +73,7 @@ const logoutUser = async (req, res) => {
   try {
     const user = await usersSchema.findOne({ email });
     if (user) {
-      user.token = "";
+      // user.token = "";
       await user.save();
       res.status(200).json({ message: "User logged out successfully." });
     }
@@ -84,21 +84,21 @@ const logoutUser = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-      const checkUser = await usersSchema.findOne({ email });
-      if (checkUser) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        checkUser.password = hashedPassword;
-        await checkUser.save();
-        return res.status(200).json({ message: "Password updated" });
-      }
-      return res.status(500).json({ message: "User not found" });
-    } catch (error) {
-      console.error("Error while updating password:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+  const { email, password } = req.body;
+  try {
+    const checkUser = await usersSchema.findOne({ email });
+    if (checkUser) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      checkUser.password = hashedPassword;
+      await checkUser.save();
+      return res.status(200).json({ message: "Password updated" });
     }
-};  
+    return res.status(500).json({ message: "User not found" });
+  } catch (error) {
+    console.error("Error while updating password:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 // This creates a password reset token, which is stored in the database.
 // The token is then associated with the user, usually in the same database entry.
