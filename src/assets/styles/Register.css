@@ -7,13 +7,15 @@
   height: 100vh;
   text-align: center;
   flex-direction: column;
-  background-image: url(../images\/FDP.jpg);
+  /* background-image: url(../images\/FDP.jpg); */
+  background-image: url(../images/food-donate-bg.png);
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
   padding-top: 20px;
   padding-bottom: 20px;
   overflow-y: auto;
+
   .form-group {
     text-align: left;
     margin-top: 7px;
@@ -24,7 +26,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: gray; 
+    background: gray;
     border-radius: 10px;
   }
 
@@ -94,10 +96,8 @@
 
   .transparent-box {
     padding: 20px 20px 20px 20px !important;
-    /* Adjust padding for smaller screens */
     border-radius: 10px !important;
     overflow-y: auto !important;
-    /* Slightly reduce border radius for small screens */
   }
 
   .register-button {
@@ -109,10 +109,8 @@
 @media (max-width: 480px) {
   .transparent-box {
     padding: 15px 15px 15px 15px !important;
-    /* Further adjust padding for very small screens */
     max-width: 90% !important;
     overflow-y: auto !important;
-    /* Allow form box to take more space */
   }
 
   .form-group {
@@ -128,10 +126,8 @@
 @media (max-width: 390px) {
   .transparent-box {
     padding: 15px 15px 15px 15px !important;
-    /* Further adjust padding for very small screens */
     max-width: 90% !important;
     overflow-y: auto !important;
-    /* Allow form box to take more space */
   }
 
   .form-group {

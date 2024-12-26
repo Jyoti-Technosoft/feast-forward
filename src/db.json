@@ -1,0 +1,68 @@
+{
+  "carouselImages": [
+    {
+      "src": "banner_img1.jpg",
+      "alt": "First slide"
+    },
+    {
+      "src": "banner_img2.jpg",
+      "alt": "Second slide"
+    },
+    {
+      "src": "banner_img3.jpg",
+      "alt": "Third slide"
+    },
+    {
+      "src": "banner_img4.jpg",
+      "alt": "Fourth slide"
+    },
+    {
+      "src": "banner_img5.jpg",
+      "alt": "Fifth slide"
+    }
+  ],
+  "content": [
+    {
+      "title": "Helps people and communities",
+      "text": "Food donations can provide immediate relief to people and communities who are struggling with food insecurity. They can also help promote good health and well-being among vulnerable populations."
+    },
+    {
+      "title": "Supports local communities",
+      "text": "Food donations can help support local communities and save resources that would otherwise go to waste."
+    },
+    {
+      "title": "Combats child labor",
+      "text": "Food donations can help combat child labor and work towards achieving a food-secure society."
+    },
+    {
+      "title": "Improves harmony",
+      "text": "Donating food to worthy people or organizations can help counter poverty and hunger, and can also improve harmony, friendliness, and trust among residents."
+    }
+  ],
+  "secondCarouselImages": [
+    {
+      "src": "poor_child.webp",
+      "alt": "Poor Child"
+    },
+    {
+      "src": "Donate_food.jpg",
+      "alt": "Donate Food"
+    },
+    {
+      "src": "FDP_img.webp",
+      "alt": "FDP Image"
+    },
+    {
+      "src": "food-donate-bg.png",
+      "alt": "Food Donate BG"
+    },
+    {
+      "src": "round_img.jpg",
+      "alt": "Round Image"
+    },
+    {
+      "src": "round_img2.jpg",
+      "alt": "Round2 Image"
+    }
+  ]
+}

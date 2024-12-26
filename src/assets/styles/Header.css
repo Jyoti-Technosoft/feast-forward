@@ -1,4 +1,4 @@
-.Header-container {
+.header-container {
   top: 0;
   z-index: 1000;
   position: sticky;
@@ -14,7 +14,6 @@
 
 .navbar {
   background-color: #333;
-  /* height: 90px; */
 }
 
 .navbar-nav {
@@ -47,3 +46,20 @@
   padding: 0 !important;
 }
 
+.navbar-toggler{
+ margin-right: 10px;
+}
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 992px) {
+  .navbar-nav .nav-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .navbar-collapse{
+    padding-bottom: 10px;
+  }
+}

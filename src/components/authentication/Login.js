@@ -28,14 +28,21 @@ function Login() {
 
   const checkUserLoggedIn = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const token = user && user.token ? true : false;
-    setIsToken(token);
-    if (token) {
+    if (user?.token) {
       navigate("/home");
-    } else {
-      navigate("/");
     }
   };
+
+  // const checkUserLoggedIn = () => {
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   const token = user && user.token ? true : false;
+  //   // setIsToken(true);
+  //   if (token) {
+  //     navigate("/home");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -63,39 +70,29 @@ function Login() {
     e.preventDefault();
     const { email, password } = formData;
     let validationErrors = {};
-
     if (!email || email.trim() === "") {
       validationErrors.email = "Please enter email.";
     } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       validationErrors.email = "Please enter a valid email.";
     }
-
     if (!password || password.trim() === "") {
       validationErrors.password = "Please enter Password.";
     } else if (!validatePassword(password)) {
       validationErrors.password =
         "Password must be at least 6 characters long.";
     }
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
     try {
-      // const response = await axios.post(
-      //   `${BASE_URL}/login`,
-      //   JSON.stringify(formData),
-      //   { headers: { "Content-Type": "application/json" } }
-      // );
       const response = await upsertLogin(JSON.stringify(formData));
       if (response.status === 200) {
         setMessage({ type: "success", message: response.data.message });
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        setTimeout(() => {
-          resetForm();
-          setErrors({});
-          navigate("/home");
-        }, 2000);
+        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+        navigate("/home");
+        setErrors({});
+        resetForm();
       } else if (response.status === 201) {
         setMessage({ type: "warning", message: response.data.message });
       }
@@ -170,7 +167,7 @@ function Login() {
           </Link>
         </div>
       </Form>
-      {message !== "" ? <CustomToast message={message} /> : null}
+      {message ? <CustomToast message={message} /> : null}
     </Container>
   );
 }

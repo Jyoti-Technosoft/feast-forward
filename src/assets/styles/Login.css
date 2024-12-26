@@ -10,7 +10,8 @@
   text-align: center;
   justify-content: center;
   flex-direction: column;
-  background-image: url(../images\/FDP.jpg);
+  /* background-image: url(../images\/FDP.jpg); */
+  background-image: url(../images/food-donate-bg.png);
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;

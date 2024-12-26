@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import axios from "axios";
 
-import { BASE_URL } from "../app-endpoint";
+import CustomToast from "./ReusableComponents/CustomToast";
+import { upsertDonate } from "../Services/CommonServices";
+import { errorMessage } from "../Services/axiosinstance";
 import "../assets/styles/Donate.css";
 
 const Donate = () => {
@@ -19,6 +20,7 @@ const Donate = () => {
     organizationName: "",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [message, setMessage] = useState({ type: "", message: "" });
 
   const validateForm = () => {
     const errors = {};
@@ -26,7 +28,8 @@ const Donate = () => {
       errors.email = "Email address is invalid";
     }
     if (formData.contactNo && !/^[6-9]\d{9}$/.test(formData.contactNo)) {
-      errors.contactNo = "Invalid contact number. Must be 10 digits starting with 6-9";
+      errors.contactNo =
+        "Invalid contact number. Must be 10 digits starting with 6-9";
     }
     return errors;
   };
@@ -43,32 +46,19 @@ const Donate = () => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      // let donateformData = localStorage.getItem("donateformData");
-      // donateformData = donateformData ? JSON.parse(donateformData) : [];
-      // donateformData.push(formData);
-      // const updatedFormData = JSON.stringify(donateformData);
-      // localStorage.setItem("donateformData", updatedFormData);
-      // setFormData({
-      //   fullName: "",
-      //   email: "",
-      //   contactNo: "",
-      //   address: "",
-      //   mealQuantity: "",
-      //   foodType: "",
-      //   donationDate: "",
-      //   donorType: "",
-      //   organizationName: "",
-      // });
       try {
-        const response = await axios.post(
-          `${BASE_URL}/donate`,
-          JSON.stringify(formData),
-          { headers: { "Content-Type": "application/json" } }
-        );
-        if (response.status === 200) {
+        // const response = await axios.post(
+        //   `${BASE_URL}/donate`,
+        //   JSON.stringify(formData),
+        //   { headers: { "Content-Type": "application/json" } }
+        // );
+        const response = await upsertDonate(JSON.stringify(formData));
+        if (response?.status === 200) {
+          setMessage({ type: "success", message: response.data.message });
           resetFormValues();
         }
       } catch (error) {
+        setMessage({ type: "warning", message: errorMessage });
         resetFormValues();
       }
     } else {
@@ -160,7 +150,10 @@ const Donate = () => {
                   {formErrors.address}
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="donate-form-label" controlId="mealQuantity">
+              <Form.Group
+                className="donate-form-label"
+                controlId="mealQuantity"
+              >
                 <Form.Label>Meal Quantity</Form.Label>
                 <Form.Select
                   name="mealQuantity"
@@ -197,7 +190,10 @@ const Donate = () => {
                   {formErrors.foodType}
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="donate-form-label" controlId="donationDate">
+              <Form.Group
+                className="donate-form-label"
+                controlId="donationDate"
+              >
                 <Form.Label>Donation Date</Form.Label>
                 <Form.Control
                   type="date"
@@ -211,7 +207,10 @@ const Donate = () => {
                   {formErrors.donationDate}
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="donate-form-label" controlId="expirationDate">
+              <Form.Group
+                className="donate-form-label"
+                controlId="expirationDate"
+              >
                 <Form.Label>Expiration Date</Form.Label>
                 <Form.Control
                   type="date"
@@ -270,6 +269,7 @@ const Donate = () => {
           </Container>
         </div>
       </div>
+      {message !== "" ? <CustomToast message={message} /> : null}
     </div>
   );
 };

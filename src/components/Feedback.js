@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Button,
-  Toast,
-  ToastBody,
-  ToastContainer,
-} from "react-bootstrap";
-import axios from "axios";
+import { Form, Button } from "react-bootstrap";
 
-import { BASE_URL } from "../app-endpoint";
+import CustomToast from "./ReusableComponents/CustomToast";
+import {
+  upsertFeedback,
+  upsertFeedbackUpload,
+} from "../Services/CommonServices";
+import { errorMessage } from "../Services/axiosinstance";
 import "../assets/styles/Feedback.css";
 
 const Feedback = () => {
@@ -20,7 +18,7 @@ const Feedback = () => {
     userName: "",
   });
   const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ type: "", message: "" });
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
@@ -37,35 +35,45 @@ const Feedback = () => {
     setFile(e.target.files[0]);
   };
 
-  const handleUploadImage = (event) => {
+  const handleUploadImage = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("myImage", file);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
-    axios
-      .post(`${BASE_URL}/upload-images`, formData, config)
-      .then((response) => {})
-      .catch((error) => {});
+    try {
+      const formData = new FormData();
+      formData.append("myImage", file);
+      // axios
+      //   .post(`${BASE_URL}/upload-images`, formData, config)
+      //   .then((response) => {})
+      //   .catch((error) => {});
+      const response = await upsertFeedbackUpload(formData);
+      if (response?.status === 200) {
+        setMessage({ type: "success", message: "Upload Image Successfully." });
+      }
+    } catch (error) {
+      setMessage({ type: "warning", message: errorMessage });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       formData.userName = userName;
-      const response = await axios.post(
-        `${BASE_URL}/feedback`,
-        JSON.stringify(formData),
-        { headers: { "Content-Type": "application/json" } }
-      );
-      if (response.status === 200) {
-        setMessage("Your feedback sent Successfully!");
+      // const response = await axios.post(
+      //   `${BASE_URL}/feedback`,
+      //   JSON.stringify(formData),
+      //   { headers: { "Content-Type": "application/json" } }
+      // );
+      const response = await upsertFeedback(JSON.stringify(formData));
+      if (response?.status === 200) {
+        setMessage({
+          type: "success",
+          message: response.data.message ?? "Your feedback sent Successfully!",
+        });
       }
     } catch (error) {
-      setMessage("Not able to send feedback due to some error.");
+      setMessage({
+        type: "warning",
+        message: errorMessage ?? "Not able to send feedback due to some error.",
+      });
       resetFormValues();
     }
   };
@@ -169,13 +177,7 @@ const Feedback = () => {
           </Button>
         </Form>
       </div>
-      {message !== "" && (
-        <ToastContainer position="top-end" className="p-3">
-          <Toast className="toaster-alert">
-            <ToastBody>Your feedback sent Successfully!</ToastBody>
-          </Toast>
-        </ToastContainer>
-      )}
+      {message !== "" ? <CustomToast message={message} /> : null}
     </div>
   );
 };

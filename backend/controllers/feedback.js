@@ -24,9 +24,9 @@ const addFeedback = async (req, res) => {
     if (feedbackSave) {
       res
         .status(200)
-        .json({ message: "Feedback added", feedback: feedbackSave });
+        .json({ message: "Feedback added.", feedback: feedbackSave });
     } else {
-      res.status(500).json({ message: "Feedback not added" });
+      res.status(500).json({ message: "Feedback not added." });
     }
   } catch (error) {
     console.error("Error adding feedback", error);

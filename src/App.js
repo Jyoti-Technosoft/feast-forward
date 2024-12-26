@@ -30,10 +30,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route index element={<Login />} path="/" />
-        <Route element={<Registration />} path="/register" />
+        <Route exact index element={<Login />} path="/" />
+        <Route exact element={<Registration />} path="/register" />
         <Route element={<ProtectedRoute />}>
           <Route
+            exact
             path="/home"
             element={
               <Layout>
@@ -42,6 +43,7 @@ export default function App() {
             }
           />
           <Route
+            exact
             path="/about-us"
             element={
               <Layout>
@@ -50,6 +52,7 @@ export default function App() {
             }
           />
           <Route
+            exact
             path="/join-now"
             element={
               <Layout>
@@ -58,6 +61,7 @@ export default function App() {
             }
           />
           <Route
+            exact
             path="/donate"
             element={
               <Layout>
@@ -66,6 +70,7 @@ export default function App() {
             }
           />
           <Route
+            exact
             element={
               <Layout>
                 <Feedback />
@@ -74,6 +79,7 @@ export default function App() {
             path="/feedback"
           />
           <Route
+            exact
             element={
               <Layout>
                 <JoinNowUsers />
@@ -82,6 +88,7 @@ export default function App() {
             path="/join-now-users"
           />
           <Route
+            exact
             element={
               <Layout>
                 <Volunteers />

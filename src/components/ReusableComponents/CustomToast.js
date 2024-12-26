@@ -16,7 +16,6 @@ function CustomToast({ message }) {
     <ToastContainer
       position="top-center"
       className="p-4"
-      autohide
       delay={2000}
       onClose={() => setShow(false)}
     >

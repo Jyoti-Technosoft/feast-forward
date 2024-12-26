@@ -2,10 +2,24 @@
     background-color: #333;
     color: #fff;
     text-align: center;
-    position: absolute;
     width: 100%;
-}
-
-.footer-text {
-    margin: 1rem 0;
-}
+    padding: 1rem 0;
+  }
+  
+  .footer-text {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .text-gray-300 {
+    color: #e0e0e0;
+  }
+  
+  /* .hover\:text-teal-400:hover {
+    color: skyblue;
+  } */
+  
+  .border-top {
+    border-top: 1px solid gray;
+  }
+  

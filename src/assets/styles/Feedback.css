@@ -43,18 +43,18 @@
 
 .Contact-submit {
   width: 100%;
-  padding: 10px 0; 
-  font-size: 18px; 
+  padding: 10px 0;
+  font-size: 18px;
   color: #fff;
   background-color: #007bff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .Contact-submit:hover {
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
 
 .FeedbackForm-star {
@@ -64,7 +64,7 @@
   font-size: xx-large;
 }
 
-.feedback-div{
+.feedback-div {
   background-image: url(../images/foodies.jpg);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -77,4 +77,68 @@
   border-radius: 5px;
   background-color: #004494;
   color: white;
+}
+
+.feedback-content {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.feedback-card {
+  /* width: 95% !important;
+  height: 160px; */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(1, 1, 1, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feedback-card .user-profile {
+  width: 32px;               
+  height: 32px;              
+  background-color: #007bff; 
+  color: #fff;              
+  display: flex;             
+  align-items: center;      
+  justify-content: center;   
+  border-radius: 50%;        
+  font-size: 12px;           
+  font-weight: bold;        
+  text-transform: uppercase;
+  box-sizing: border-box;  
+  padding-left: 6px;
+  padding-right: 6px;  
+}
+
+.feedback-card .card-body {
+  padding: 15px;
+}
+
+.feedback-card .text-capitalize {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+.feedback-card .feedback-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.feedback-card .feedback-text::before {
+  content: '"';
+  font-size: 1.2rem;
+  color: #333;
+  vertical-align: top;
+}
+
+.feedback-card .feedback-text::after {
+  content: '"';
+  font-size: 1.2rem;
+  color: #333;
+  vertical-align: bottom;
 }

@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
       contactNo,
       city,
       address,
-      role: role || "volunteer",
+      role: role ?? "volunteer",
       password: hashedPassword,
     });
     await newSignUp.save();

@@ -10,6 +10,7 @@ import { upsertLogout } from "../Services/AuthenticationServices";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "../assets/styles/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';  
 
 function Header() {
   const navigate = useNavigate();
@@ -62,9 +63,22 @@ function Header() {
           className="logo-image"
           src={foodDonationLogo}
           alt="Food Donation Logo"
-          width="80px"
-          height="85px"
+          width="50px"
+          height="55px"
         />
+        {/* Toggler Icon for Mobile View */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -156,7 +170,7 @@ function Header() {
                   className="d-flex align-items-center nav-link dropdown-toggle"
                 >
                   <PersonCircle size={25} />
-                  <span>&nbsp;{userName}</span>
+                  <span className="text-capitalize">&nbsp;{userName}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleResetPassword}>

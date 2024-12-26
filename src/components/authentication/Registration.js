@@ -8,6 +8,7 @@ import {
   PersonCircle,
   FileEarmarkLock2,
   TelephoneFill,
+  PersonFillGear,
 } from "react-bootstrap-icons";
 import { Container, Form, Button, FormControl } from "react-bootstrap";
 
@@ -26,9 +27,23 @@ const Registration = () => {
     address: "",
     password: "",
     confirmPassword: "",
+    role: "",
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState({ type: "", message: "" });
+
+  const RoleData = [
+    {
+      id: 1,
+      value: "volunteer",
+      name: "volunteer",
+    },
+    {
+      id: 2,
+      value: "join new user",
+      name: "join new user",
+    },
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,6 +78,11 @@ const Registration = () => {
 
     if (!formData.city) {
       newErrors.city = "City is required";
+      isValid = false;
+    }
+
+    if (!formData.role) {
+      newErrors.role = "Role is required";
       isValid = false;
     }
 
@@ -124,6 +144,7 @@ const Registration = () => {
       address: "",
       password: "",
       confirmPassword: "",
+      role: "",
     });
   };
 
@@ -167,6 +188,30 @@ const Registration = () => {
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
+          </Form.Control.Feedback>
+        </Form.Group>
+        {/* Role Field */}
+        <Form.Group className="form-group" controlId="role">
+          <Form.Label className="d-flex align-items-center">
+            <PersonFillGear color="white" size={18} />
+            Role
+          </Form.Label>
+          <Form.Control
+            as="select"
+            name="role"
+            value={formData?.role}
+            onChange={handleInputChange}
+            isInvalid={!!errors.role}
+          >
+            <option value="">Select a role</option>
+            {RoleData?.map((role) => (
+              <option key={role?.id} value={role?.value}>
+                {role?.name}
+              </option>
+            ))}
+          </Form.Control>
+          <Form.Control.Feedback type="invalid">
+            {errors?.role}
           </Form.Control.Feedback>
         </Form.Group>
         {/* Contact Number Field */}
