@@ -50,11 +50,11 @@ const responsive = {
 };
 
 function Dashboard() {
-  const { carouselImages, content, secondCarouselImages } = data;
-  const [isToken, setIsToken] = useState(false);
-  const [feedbackData, setFeedbackData] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(window?.innerWidth);
+  const { carouselImages, content, secondCarouselImages } = data?.homepage;
   const navigate = useNavigate();
+
+  const [feedbackData, setFeedbackData] = useState([]);
+  const [currentImages, setCurrentImages] = useState(secondCarouselImages?.slice(0, 6));
 
   const imageMap = {
     "banner_img1.jpg": banner_img1,
@@ -114,20 +114,22 @@ function Dashboard() {
     }
   };
 
-  const generateRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextImages = secondCarouselImages?.slice(currentImages?.length, currentImages?.length + 6);
+      if (nextImages?.length > 0) {
+        setCurrentImages((prevImages) => [...prevImages?.slice(6), ...nextImages]);
+      } else {
+        setCurrentImages(secondCarouselImages?.slice(0, 6));
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [currentImages, secondCarouselImages]);
 
   useEffect(() => {
     const checkUserLoggedIn = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const token = user && user?.token ? true : false;
-      // setIsToken(token);
       return token;
     };
     const token = checkUserLoggedIn();
@@ -139,71 +141,34 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window?.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
     getFeedbackData();
   }, []);
 
-  const GallerySlider = ({ images }) => {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      pauseOnHover: true,
-      arrows: true,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 2,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 1,
-          },
-        },
-      ],
-    };
-
+  const GallerySlider = () => {
     return (
-      <div className="gallery-slider">
-        <Slider {...settings}>
-          {images?.map((image, index) => (
-            <div key={index}>
+      <div className="gallery-container">
+        {currentImages?.map((image, index) => {
+          return (
+            <div key={index} className="gallery-item">
               <img
                 src={getImageSrc(image?.src)}
                 alt={image?.alt}
                 className="gallery-image"
               />
             </div>
-          ))}
-        </Slider>
+          );
+        })}
       </div>
     );
   };
 
   const FeedbackSlider = ({ feedback }) => {
     const settings = {
-      dots: true,
-      infinite: feedback?.length > 2,
+      infinite: feedback?.length > 3,
       speed: 500,
       slidesToShow: Math?.min(3, feedback?.length),
       slidesToScroll: 1,
-      autoplay: feedback?.length > 2,
+      autoplay: feedback?.length > 3,
       autoplaySpeed: 3000,
       pauseOnHover: true,
       arrows: true,
@@ -230,43 +195,39 @@ function Dashboard() {
       return text;
     };
 
-    const getCardHeight = () => {
-      if (feedback?.length === 1) {
-        return windowWidth >= 768 ? "100px" : "160px";
+    const getCardClass = (feedbackLength) => {
+      if (feedbackLength === 1) {
+        return 'single-feedback';
+      } else if (feedbackLength === 2) {
+        return 'two-feedbacks';
+      } else {
+        return 'multiple-feedbacks';
       }
-      return "160px";
-    };
-
-    const getCardWidth = () => {
-      if (feedback?.length === 1) {
-        return "100% !important";
-      }
-      return "95% !important";
     };
 
     return (
       <div className="feedback-slider-container">
-        <Slider {...settings}>
-          {feedback?.map((feedback, index) => (
+        <Slider {...settings}
+        >
+          {feedback?.map((item, index) => (
             <div
               key={index}
-              style={{ height: getCardHeight(), width: getCardWidth() }}
-              className="card feedback-card mb-4"
+              className={`card feedback-card mb-4 ${getCardClass(feedback?.length)}`}
             >
               <div className="card-body">
                 <div className="d-flex align-items-start">
                   <div className="rounded-circle user-profile">
-                    {getInitials(feedback?.userName)}
+                    {getInitials(item?.userName)}
                   </div>
                   <div className="w-100 ms-3">
                     <div className="d-flex justify-content-between align-items-center mb-1">
                       <strong className="text-capitalize">
-                        {feedback?.userName}
+                        {item?.userName}
                       </strong>
-                      <RatingStar ratings={feedback?.ratings} />
+                      <RatingStar ratings={item?.ratings} />
                     </div>
                     <p className="feedback-text mb-0">
-                      {truncateText(feedback?.experience, 150)}
+                      {truncateText(item?.experience, 100)}
                     </p>{" "}
                   </div>
                 </div>
@@ -292,18 +253,6 @@ function Dashboard() {
             </Carousel.Item>
           );
         })}
-        {/* <Carousel.Item className="dashboard-container">
-          <img className="w-100" src={banner_img2} alt="Second slide" />
-        </Carousel.Item>
-        <Carousel.Item className="dashboard-container">
-          <img className="w-100" src={banner_img3} alt="Third slide" />
-        </Carousel.Item>
-        <Carousel.Item className="dashboard-container">
-          <img className="w-100" src={banner_img4} alt="Fourth slide" />
-        </Carousel.Item>
-        <Carousel.Item className="dashboard-container">
-          <img className="w-100" src={banner_img5} alt="Fifth slide" />
-        </Carousel.Item> */}
       </Carousel>
       <div className="content-1 row">
         <div className="section-title">
@@ -315,9 +264,6 @@ function Dashboard() {
             {content?.map((item, index) => {
               return (
                 <div key={index} className={`content-item`}>
-                  {/* <div className="icon-container">
-                  <HeartFill />{" "}
-                  </div> */}
                   <h5>{item?.title}</h5>
                   <p>{item?.text}</p>
                 </div>
@@ -342,55 +288,9 @@ function Dashboard() {
         </div>
       </div>
       <div className="feedback-content">
-        {/* Feedback section */}
         <div className="section-title-feedback">
           <h2>What People Say About Us</h2>
         </div>
-        {/* <div className="list-group">
-          {feedbackData?.map((feedback, index) => (
-            <div key={index} className="card feedback-card h-100 mb-2">
-              <div className="card-body d-flex align-items-start">
-                <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3 user-profile">
-                  <Person style={{ fontSize: "20px" }} />
-                </div>
-                <div className="w-100">
-                  <div className="d-flex justify-content-between align-items-center mb-1">
-                    <strong className="text-capitalize">
-                      {feedback?.userName}
-                    </strong>
-                    <RatingStar ratings={feedback?.ratings} />
-                  </div>
-                  <p className="mb-0">{feedback?.experience}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
-        {/* {feedbackData?.map((feedback, index) => (
-            <div key={index} className="card feedback-card mb-4">
-              <div className="card-body">
-                <div className="d-flex align-items-start">
-                  <div
-                    className="rounded-circle user-profile"
-                    // style={{
-                    //   backgroundColor: generateRandomColor(),
-                    // }}
-                  >
-                    {getInitials(feedback?.userName)}
-                  </div>
-                  <div className="w-100 ms-3">
-                    <div className="d-flex justify-content-between align-items-center mb-1">
-                      <strong className="text-capitalize">
-                        {feedback?.userName}
-                      </strong>
-                      <RatingStar ratings={feedback?.ratings} />
-                    </div>
-                    <p className="feedback-text mb-0">{feedback?.experience}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))} */}
         <FeedbackSlider feedback={feedbackData} />
       </div>
     </>

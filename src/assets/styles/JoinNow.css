@@ -1,4 +1,4 @@
-.join-now-container {
+/* .join-now-container {
   max-width: 550px;
   padding: 20px;
   border-radius: 8px;
@@ -53,5 +53,71 @@
   cursor: pointer;
   &:hover {
     background-color: #007bff;
+  }
+} */
+
+
+.join-now-container {
+  max-width: 550px;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.joinNow-label {
+  margin-bottom: 20px;
+}
+
+.joinNow-label .form-label {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  padding: 12px;
+}
+
+.form-control:focus {
+  border-color: #004494;
+  box-shadow: 0 0 0 0.25rem rgba(0, 72, 148, 0.25);
+}
+
+.join-button {
+  background-color: #004494;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.join-button:hover {
+  background-color: #007bff;
+}
+
+.join-button:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .join-now-container {
+    padding: 20px;
   }
 }

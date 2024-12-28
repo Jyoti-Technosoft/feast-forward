@@ -120,7 +120,7 @@
   padding-bottom: 10px;
 }
 
-.content-2 .box {
+/* .content-2 .box {
   font-size: 4rem;
   border: none;
   padding: 12px 20px 20px 20px;
@@ -134,6 +134,57 @@
   background-color: aliceblue;
   padding: 3vh;
   text-align: center;
+} */
+
+/* Content Container */
+.content-2 {
+  background-color: aliceblue;
+  padding: 1vh;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Box Styles */
+.content-2 .box {
+  font-size: 4rem;
+  border: none;
+  padding: 12px 10px 30px 10px;
+  margin: 0px 0px 10px 0px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 100%; 
+  max-width: 800px; 
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+/* .gallery-slider .gallery-image {
+  width: 95%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+} */
+
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+  justify-content: center;
+}
+
+.gallery-item {
+  width: 30%;
+  height: 160px; 
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 8px; 
 }
 
 .row {
@@ -143,13 +194,6 @@
 .img img {
   margin-top: 6px;
   width: -webkit-fill-available;
-}
-
-.gallery-slider .gallery-image {
-  width: 95%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
 }
 
 .section-title-feedback h2 {
@@ -226,6 +270,44 @@
   bottom: -15px !important;
 }
 
+@media (min-width: 1024px) {
+  .content-2 {
+    padding: 2vh;
+  }
+
+  .content-2 .box {
+    max-width: 800px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .content-2 {
+    padding: 1vh;
+  }
+
+  .content-2 .box {
+    width: 90%; 
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 599px) {
+  .content-2 {
+    padding: 1vh 1vw;
+  }
+
+  .content-2 .box {
+    width: 95%; 
+    max-width: 100%;
+  }
+  .gallery-item{
+    width: 40%;
+  }
+}
+
 @media (max-width: 1030px) {
   .dashboard-container {
     height: auto;
@@ -260,6 +342,7 @@
   .poor-child-image {
     width: 50% !important;
   }
+  
 }
 
 @media (max-width: 576px) {
@@ -273,5 +356,8 @@
 
   .content-item p {
     font-size: 0.9rem;
+  }
+  .gallery-item{
+    width: 40%;
   }
 }

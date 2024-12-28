@@ -64,7 +64,7 @@ const JoinNowPage = () => {
     <div>
       <div className="join-div">
         <div className="join-now align-item-center">
-          <Container className="join-now-container">
+          {/* <Container className="join-now-container">
             <Form
               onSubmit={handleSubmit}
               className="d-flex justify-content-center flex-column"
@@ -131,6 +131,79 @@ const JoinNowPage = () => {
                   {formErrors.reason}
                 </Form.Control.Feedback>
               </Form.Group>
+              <Button className="join-button" variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Container> */}
+          <Container className="join-now-container mb-6">
+            <Form onSubmit={handleSubmit}>
+              <h2>Join Now</h2>
+              <Form.Group className="joinNow-label" controlId="fullName">
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="fullName"
+                  placeholder="Enter Full Name"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  isInvalid={!!formErrors.fullName}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formErrors.fullName}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group className="joinNow-label" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  isInvalid={!!formErrors.email}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formErrors.email}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group className="joinNow-label" controlId="contactNo">
+                <Form.Label>Contact No.</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="contactNo"
+                  placeholder="Enter Contact No."
+                  value={formData.contactNo}
+                  onChange={handleChange}
+                  isInvalid={!!formErrors.contactNo}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formErrors.contactNo}
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group className="joinNow-label" controlId="reason">
+                <Form.Label>Why do you want to join us?</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name="reason"
+                  placeholder="Write a Reason..."
+                  value={formData.reason}
+                  onChange={handleChange}
+                  rows={3}
+                  isInvalid={!!formErrors.reason}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  {formErrors.reason}
+                </Form.Control.Feedback>
+              </Form.Group>
+
               <Button className="join-button" variant="primary" type="submit">
                 Submit
               </Button>

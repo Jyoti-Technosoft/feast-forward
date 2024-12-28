@@ -1,4 +1,4 @@
-.Feedback-form-container {
+/* .Feedback-form-container {
   max-width: 550px;
   margin: 15px auto;
   padding: 20px;
@@ -39,7 +39,7 @@
 .Feedback-group textarea:focus {
   border-color: #007bff;
   box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
-}
+} */
 
 .Contact-submit {
   width: 100%;
@@ -84,34 +84,62 @@
   background-color: #fff;
 }
 
-.feedback-card {
-  /* width: 95% !important;
-  height: 160px; */
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(1, 1, 1, 0.1);
-  background-color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.feedback-slider-container {
+  margin: 0px 3%;
 }
 
-.feedback-card:hover {
+.feedback-card {
+  height: 160px;
+  border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+}
+
+.single-feedback {
+  width: 65% !important;
+}
+
+.two-feedbacks {
+  width: 55% !important;
+}
+
+.multiple-feedbacks {
+  width: 95% !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #ddd !important;
+  font-size: 30px !important;
+  margin: 0px -20px !important;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.slick-prev:hover:before,
+.slick-next:hover:before {
+  color: #333 !important;
+  opacity: 1;
 }
 
 .feedback-card .user-profile {
-  width: 32px;               
-  height: 32px;              
-  background-color: #007bff; 
-  color: #fff;              
-  display: flex;             
-  align-items: center;      
-  justify-content: center;   
-  border-radius: 50%;        
-  font-size: 12px;           
-  font-weight: bold;        
+  width: 32px;
+  height: 32px;
+  background-color: #007bff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
   text-transform: uppercase;
-  box-sizing: border-box;  
+  box-sizing: border-box;
   padding-left: 6px;
-  padding-right: 6px;  
+  padding-right: 6px;
 }
 
 .feedback-card .card-body {
@@ -141,4 +169,99 @@
   font-size: 1.2rem;
   color: #333;
   vertical-align: bottom;
+}
+
+@media (max-width: 769px) {
+
+  .single-feedback,
+  .two-feedbacks,
+  .multiple-feedbacks {
+    width: 95% !important;
+  }
+
+  .feedback-card {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+  }
+}
+
+.Feedback-form-container {
+  max-width: 550px;
+  margin: 15px auto;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+.Feedback-group {
+  margin-bottom: 20px;
+}
+
+.Feedback-group .form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.Feedback-group input[type='text'],
+.Feedback-group textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.Feedback-group input[type='text']:focus,
+.Feedback-group textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.FeedbackForm-star {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+}
+
+.FeedbackForm-star .star {
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.3s ease;
+}
+
+.FeedbackForm-star .star.filled {
+  color: #ffd700;
+}
+
+.Feedback-button {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 18px;
+  color: white;
+  background-color: #004494;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Feedback-button:hover {
+  background-color: #007bff;
+}
+
+.Feedback-button:focus {
+  outline: none;
+}
+
+@media (max-width: 767px) {
+  .Feedback-form-container {
+    padding: 15px;
+  }
 }
