@@ -74,41 +74,28 @@
   "aboutuspage": {
     "aboutusSection1": [
       {
-        "sectionTitle": "Our Mission",
+        "sectionTitle": "Vision",
+        "src": "Vision",
         "content": [
-          "Our mission at [Organization Name] is to alleviate hunger and reduce food waste in our community.",
-          "We believe that access to nutritious food is a fundamental human right, and we are dedicated to ensuring that no one in our community goes to bed hungry.",
-          "Our mission is to fight food insecurity and reduce food waste by connecting donors with surplus food to local communities in need."
+          "We envision a future where food waste is significantly reduced and surplus food is efficiently redirected to support those facing food insecurity. We aim to create a sustainable, community-driven model that empowers individuals and strengthens resilience against hunger."
         ]
       },
       {
-        "sectionTitle": "Our Vision",
+        "sectionTitle": "Mission",
+        "src": "Mission",
         "content": [
-          "We envision a future where food waste is significantly reduced and surplus food is efficiently redirected to support those facing food insecurity.",
-          "We aim to create a sustainable, community-driven model that empowers individuals and strengthens resilience against hunger."
+          "Our mission at [Organization Name] is to alleviate hunger and reduce food waste in our community. We believe that access to nutritious food is a fundamental human right, and we are dedicated to ensuring that no one in our community goes to bed hungry. Our mission is to fight food insecurity and reduce food waste by connecting donors with surplus food to local communities in need."
         ]
       },
       {
-        "sectionTitle": "Our Values",
+        "sectionTitle": "Values",
+        "src": "Values",
         "content": [
-          "Compassion: We are driven by a deep sense of empathy for those we serve.",
-          "Integrity: We uphold the highest standards of honesty and transparency in our work.",
-          "Collaboration: We believe in the power of partnerships and community involvement.",
-          "Innovation: We continuously seek creative solutions to fight hunger and food waste.",
-          "We envision a world where every individual has access to nutritious meals and where no good food goes to waste."
+          "Compassion: We are driven by a deep sense of empathy for those we serve. Integrity: We uphold the highest standards of honesty and transparency in our work. Collaboration: We believe in the power of partnerships and community involvement. Innovation: We continuously seek creative solutions to fight hunger and food waste. We envision a world where every individual has access to nutritious meals and where no good food goes to waste."
         ]
       }
     ],
     "aboutusSection2": [
-      {
-        "sectionTitle": "Our Mission",
-        "content": [
-          "We are a non-profit organization composed of passionate volunteers and staff committed to making a meaningful impact in our community.",
-          "Founded in 2023, we have grown from a small group of dedicated individuals to a robust organization with diverse programs and initiatives.",
-          "We have collaborated with many individuals, organizations, and NGOs through whom we serve food.",
-          "We also serve food we receive from social functions like weddings and parties."
-        ]
-      },
       {
         "sectionTitle": "Our Impact",
         "content": [
@@ -138,6 +125,37 @@
       {
         "src": "org_img3",
         "alt": "org img3"
+      }
+    ],
+    "impactData": [
+      {
+        "number": "150+",
+        "label": "Meals Distributed",
+        "description": "Impacting communities every day."
+      },
+      {
+        "number": "75+",
+        "label": "Local Campaigns",
+        "description": "Empowering local food drives for change."
+      },
+      {
+        "number": "$10,000+",
+        "label": "Raised for Hunger Relief",
+        "description": "Your generosity fuels our mission."
+      }
+    ],
+    "points": [
+      {
+        "title": "Providing Nutritious Meals",
+        "content": "Every dollar you donate helps us serve balanced, nutritious meals to those in need."
+      },
+      {
+        "title": "Empowering Local Communities",
+        "content": "Supporting local food drives, shelters, and kitchens with essential resources."
+      },
+      {
+        "title": "Fighting Food Waste",
+        "content": "Partnering with organizations to redirect surplus food to where it's needed most."
       }
     ]
   }
