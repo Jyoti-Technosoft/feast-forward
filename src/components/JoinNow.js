@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
-import axios from "axios";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 
-import { BASE_URL } from "../app-endpoint";
+import CustomToast from "./ReusableComponents/CustomToast";
+import { upsertJoinUser } from "../Services/CommonServices";
+import { errorMessage } from "../Services/axiosinstance";
 import "../assets/styles/JoinNow.css";
+import joinUs from "../assets/images/join_us.jpg";
 
 const JoinNowPage = () => {
   const [formData, setFormData] = useState({
@@ -13,15 +15,31 @@ const JoinNowPage = () => {
     reason: "",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [message, setMessage] = useState({ type: "", message: "" });
+
+  const handleCancel = () => {
+    setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
+    setFormErrors({});
+  };
 
   const validateForm = () => {
     const errors = {};
-    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+    if (!formData?.fullName.trim()) {
+      errors.fullName = "Full name is required";
+    }
+    if (!formData?.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = "Email address is invalid";
     }
-    if (formData.contactNo && !/^[6-9]\d{9}$/.test(formData.contactNo)) {
+    if (!formData?.contactNo?.trim()) {
+      errors.contactNo = "Contact number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
       errors.contactNo =
-        "Invalid contact number. Must be 10 digits starting with 6-9";
+        "Invalid contact number, Must be 10 digits starting with 6-9.";
+    }
+    if (!formData?.reason?.trim()) {
+      errors.reason = "Reason is required";
     }
     return errors;
   };
@@ -37,23 +55,28 @@ const JoinNowPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
-    if (Object.keys(errors).length === 0) {
-      // let joinFormData = localStorage.getItem("joinFormData");
-      // joinFormData = joinFormData ? JSON.parse(joinFormData) : [];
-      // joinFormData.push(formData);
-      // const updatedFormData = JSON.stringify(joinFormData);
-      // localStorage.setItem("joinFormData", updatedFormData);
+    if (Object?.keys(errors)?.length === 0) {
       try {
-        const response = await axios.post(
-          `${BASE_URL}/joinNowUsers`,
-          JSON.stringify(formData),
-          { headers: { "Content-Type": "application/json" } }
-        );
-        if (response.status === 200) {
+        // const response = await axios.post(
+        //   `${BASE_URL}/joinNowUsers`,
+        //   JSON.stringify(formData),
+        //   { headers: { "Content-Type": "application/json" } }
+        // );
+        const response = await upsertJoinUser(JSON.stringify(formData));
+        if (response?.status === 200) {
+          console.log('response?.data?.message==>:', response?.data?.message);
+          setMessage({
+            type: "success",
+            message: response?.data?.message ?? "User Added Successfully!",
+          });
           setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
         }
       } catch (error) {
         setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
+        setMessage({
+          type: "warning",
+          message: errorMessage ?? "Not able to new user some error.",
+        });
       }
     } else {
       setFormErrors(errors);
@@ -61,156 +84,105 @@ const JoinNowPage = () => {
   };
 
   return (
-    <div>
-      <div className="join-div">
-        <div className="join-now align-item-center">
-          {/* <Container className="join-now-container">
-            <Form
-              onSubmit={handleSubmit}
-              className="d-flex justify-content-center flex-column"
-            >
-              <h2>Join Now</h2>
-              <Form.Group className="joinNow-label" controlId="fullName">
-                <Form.Label>Full Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="fullName"
-                  placeholder="Enter FullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  isInvalid={!!formErrors.fullName}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.fullName}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="joinNow-label" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="Enter Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  isInvalid={!!formErrors.email}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.email}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="joinNow-label" controlId="contactNo">
-                <Form.Label>Contact No.</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="contactNo"
-                  placeholder="Enter Contact No."
-                  value={formData.contactNo}
-                  onChange={handleChange}
-                  isInvalid={!!formErrors.contactNo}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.contactNo}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="joinNow-label" controlId="reason">
-                <Form.Label>Why do you want to join us?</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  name="reason"
-                  placeholder="Write a Reason..."
-                  value={formData.reason}
-                  onChange={handleChange}
-                  rows={3}
-                  isInvalid={!!formErrors.reason}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.reason}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Button className="join-button" variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Container> */}
-          <Container className="join-now-container mb-6">
-            <Form onSubmit={handleSubmit}>
-              <h2>Join Now</h2>
-              <Form.Group className="joinNow-label" controlId="fullName">
-                <Form.Label>Full Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="fullName"
-                  placeholder="Enter Full Name"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  isInvalid={!!formErrors.fullName}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.fullName}
-                </Form.Control.Feedback>
-              </Form.Group>
+    <div className="join-now-page">
+      <Container>
+        <Row className="align-items-center">
+          <Col md={6} className="image-column">
+            <img src={joinUs} alt="Join Us" className="join-now-image" />
+          </Col>
+          <Col md={6} className="form-column">
+            <div className="join-now-container">
+              <h4 className="join-now-heading">Join Us</h4>
+              <Form onSubmit={handleSubmit}>
+                <div className="form-fields">
+                  <Form.Group className="joinNow-label" controlId="fullName">
+                    <Form.Label>Full Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="fullName"
+                      placeholder="Enter full name"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      isInvalid={!!formErrors.fullName}
+                      // required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {formErrors.fullName}
+                    </Form.Control.Feedback>
+                  </Form.Group>
 
-              <Form.Group className="joinNow-label" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="Enter Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  isInvalid={!!formErrors.email}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.email}
-                </Form.Control.Feedback>
-              </Form.Group>
+                  <Form.Group className="joinNow-label" controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="email"
+                      placeholder="Enter email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      isInvalid={!!formErrors.email}
+                      // required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {formErrors.email}
+                    </Form.Control.Feedback>
+                  </Form.Group>
 
-              <Form.Group className="joinNow-label" controlId="contactNo">
-                <Form.Label>Contact No.</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="contactNo"
-                  placeholder="Enter Contact No."
-                  value={formData.contactNo}
-                  onChange={handleChange}
-                  isInvalid={!!formErrors.contactNo}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.contactNo}
-                </Form.Control.Feedback>
-              </Form.Group>
+                  <Form.Group className="joinNow-label" controlId="contactNo">
+                    <Form.Label>Contact No.</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="contactNo"
+                      placeholder="Enter contact no."
+                      value={formData.contactNo}
+                      onChange={handleChange}
+                      isInvalid={!!formErrors.contactNo}
+                      // required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {formErrors.contactNo}
+                    </Form.Control.Feedback>
+                  </Form.Group>
 
-              <Form.Group className="joinNow-label" controlId="reason">
-                <Form.Label>Why do you want to join us?</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  name="reason"
-                  placeholder="Write a Reason..."
-                  value={formData.reason}
-                  onChange={handleChange}
-                  rows={3}
-                  isInvalid={!!formErrors.reason}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formErrors.reason}
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <Button className="join-button" variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Container>
-        </div>
-      </div>
+                  <Form.Group className="joinNow-label" controlId="reason">
+                    <Form.Label>Provide Details</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      name="reason"
+                      placeholder="Enter your details here."
+                      value={formData.reason}
+                      onChange={handleChange}
+                      rows={3}
+                      isInvalid={!!formErrors.reason}
+                      // required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {formErrors.reason}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <div className="button-row">
+                    <Button
+                      className="small-button"
+                      variant="secondary"
+                      type="button"
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      className="small-button"
+                      variant="primary"
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </div>
+              </Form>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      {message !== "" ? <CustomToast message={message} /> : null}
     </div>
   );
 };

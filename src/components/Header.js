@@ -150,7 +150,7 @@ function Header() {
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Join Now
+                Join Us
               </NavLink>
             </li>
             <li className="nav-item">

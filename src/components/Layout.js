@@ -1,14 +1,21 @@
 import React from "react";
-
 import Header from "./Header";
 import Footer from "./Footer";
 
 const Layout = ({ children }) => {
+  const styles = {
+    layout: {
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh",
+    }
+  };
+
   return (
-    <div>
+    <div style={styles.layout}>
       <Header />
-      {children}
-      <Footer />
+      <main style={styles.content}>{children}</main>
+      <Footer style={styles.footer} />
     </div>
   );
 };

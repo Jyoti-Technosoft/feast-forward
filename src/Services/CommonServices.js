@@ -13,3 +13,6 @@ export const upsertFeedback = (postData) =>
 
 export const upsertFeedbackUpload = (postData) =>
   axiosInstance.post("/upload-images", postData);
+
+export const upsertJoinUser = (postData) =>
+  axiosInstance.post("/joinNowUsers", postData);
