@@ -20,11 +20,6 @@ function Login() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState({ type: "", message: "" });
-  const [isToken, setIsToken] = useState(false);
-
-  useEffect(() => {
-    checkUserLoggedIn();
-  }, []);
 
   const checkUserLoggedIn = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -32,17 +27,6 @@ function Login() {
       navigate("/home");
     }
   };
-
-  // const checkUserLoggedIn = () => {
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   const token = user && user.token ? true : false;
-  //   // setIsToken(true);
-  //   if (token) {
-  //     navigate("/home");
-  //   } else {
-  //     navigate("/");
-  //   }
-  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -52,10 +36,6 @@ function Login() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: "" });
-  };
-
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const validatePassword = (password) => {
@@ -100,6 +80,11 @@ function Login() {
       setMessage({ type: "warning", message: errorMessage });
     }
   };
+
+  useEffect(() => {
+    checkUserLoggedIn();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []);
 
   return (
     <Container className="login-container">

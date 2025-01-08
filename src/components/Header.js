@@ -40,7 +40,8 @@ function Header() {
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user"));
     user && setUserName(user.fullName);
-  });
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  },[]);
 
   const handleResetPassword = () => {
     navigate("/reset-password");

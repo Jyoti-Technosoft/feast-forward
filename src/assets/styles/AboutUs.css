@@ -9,7 +9,7 @@
 }
 
 .about-header {
-  background: url("../images/food-bank-bg.jpg") no-repeat center/cover;
+  background: url("../images/aboutusbg3.jpg") no-repeat center/cover;
   color: white;
   text-align: center;
   padding: 100px 20px;
@@ -279,11 +279,12 @@ h2 {
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 6px 12px;
+  /* padding: 6px 12px; */
+  padding: 11px;
   border: 1px solid #ddd;
   border-radius: 6px;
   box-sizing: border-box;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .form-group textarea {
@@ -295,7 +296,12 @@ h2 {
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: #e67e22;
-  box-shadow: 0 0 0 0.25rem rgba(0, 72, 148, 0.25);  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(0, 72, 148, 0.25);
+  outline: none;
+}
+
+.invalid-feedback{
+  text-align: left;
 }
 
 .button-row {

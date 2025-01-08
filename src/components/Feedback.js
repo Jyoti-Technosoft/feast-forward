@@ -21,11 +21,6 @@ const Feedback = () => {
   const [message, setMessage] = useState({ type: "", message: "" });
   const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-    let user = JSON.parse(localStorage.getItem("user"));
-    user && setUserName(user.fullName);
-  });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -121,6 +116,12 @@ const Feedback = () => {
     return stars;
   };
 
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    user && setUserName(user.fullName);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  },[]);
+  
   return (
     <div>
       <form onSubmit={handleUploadImage}>

@@ -8,22 +8,20 @@ import data from "../db.json";
 import { upsertContactUs } from "../Services/CommonServices";
 import { errorMessage } from "../Services/axiosinstance";
 import "../assets/styles/AboutUs.css";
-import round_img from "../assets/images/round_img.jpg";
-import round_img2 from "../assets/images/round_img2.jpg";
-import round_img3 from "../assets/images/round_img3.jpg";
+// import round_img from "../assets/images/round_img.jpg";
+// import round_img2 from "../assets/images/round_img2.jpg";
+// import round_img3 from "../assets/images/round_img3.jpg";
 import org_img1 from "../assets/images/org_img1.jpg";
 import org_img2 from "../assets/images/org_img2.jpg";
 import org_img3 from "../assets/images/org_img3.jpg";
 import Vision from "../assets/images/Vision.png";
 import Mission from "../assets/images/Mission.png";
 import Values from "../assets/images/Values.png";
-import joinUs from "../assets/images/join_us.jpg";
+import contactUs from "../assets/images/contactusbgimage.jpg"
 
 const AboutUs = () => {
   const {
     aboutusSection1,
-    aboutusSection2,
-    aboutusSection3,
     impactData,
     points,
   } = data?.aboutuspage;
@@ -52,17 +50,33 @@ const AboutUs = () => {
 
   const getImageSrc = (src) => imageMap[src] || src;
 
+  const handleCancel = () => {
+    setFormData({
+      requestType: "",
+      email: "",
+      contactNo: "",
+      message: "",
+    });
+    setErrors({});
+  };
+
   const validateForm = () => {
-    const newErrors = {};
-    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Valid Email is required";
+    const errors = {};
+    if (!formData?.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email address is invalid";
     }
-    if (formData.contactNo && !/^[6789]\d{9}$/.test(formData.contactNo)) {
-      newErrors.contactNo =
-        "Invalid contact formData.contactNo. Must be 10 digits starting with 6-9";
+    if (!formData?.contactNo?.trim()) {
+      errors.contactNo = "Contact number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.contactNo)) {
+      errors.contactNo =
+        "Invalid contact number, Must be 10 digits starting with 6-9.";
     }
-    setErrors(newErrors);
-    return newErrors;
+    if (!formData?.message?.trim()) {
+      errors.message = "Message is required";
+    }
+    return errors;
   };
 
   const handleChange = (e) => {
@@ -76,9 +90,7 @@ const AboutUs = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm();
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-    } else {
+    if (Object?.keys(errors)?.length === 0) {
       try {
         const response = await upsertContactUs(JSON.stringify(formData));
         if (response?.status === 200) {
@@ -94,6 +106,8 @@ const AboutUs = () => {
         setFormData({ requestType: "", email: "", contactNo: "", message: "" });
         setMessage({ type: "warning", message: errorMessage });
       }
+    } else {
+      setErrors(errors);
     }
   };
 
@@ -220,7 +234,7 @@ const AboutUs = () => {
         <Container>
           <Row className="align-items-center">
             <Col md={6} className="image-column">
-              <img src={joinUs} alt="Join Us" className="join-now-image" />
+              <img src={contactUs} alt="Join Us" className="join-now-image" />
             </Col>
             <Col md={6} className="form-column">
               <div className="contact-container">
@@ -230,7 +244,7 @@ const AboutUs = () => {
                 {message !== "" && <CustomToast message={message} />}
                 <Form onSubmit={handleSubmit}>
                   <div className="form-row">
-                    <Form.Group controlId="requestType" className="form-group">
+                    <Form.Group style={{ marginTop: "8px" }} controlId="requestType" className="form-group">
                       <Form.Control
                         as="select"
                         value={formData.requestType}
@@ -243,13 +257,12 @@ const AboutUs = () => {
                     </Form.Group>
                     <Form.Group controlId="email" className="form-group">
                       <Form.Control
-                        type="email"
+                        type="text"
                         name="email"
                         placeholder="Enter email"
                         value={formData.email}
                         onChange={handleChange}
                         isInvalid={!!errors.email}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors.email}
@@ -263,7 +276,6 @@ const AboutUs = () => {
                         value={formData.contactNo}
                         onChange={handleChange}
                         isInvalid={!!errors.contactNo}
-                        required
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors.contactNo}
@@ -279,7 +291,6 @@ const AboutUs = () => {
                       value={formData.message}
                       onChange={handleChange}
                       isInvalid={!!errors.message}
-                      required
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.message}
@@ -290,7 +301,7 @@ const AboutUs = () => {
                       className="small-button"
                       variant="secondary"
                       type="button"
-                      // onClick={handleCancel}
+                      onClick={handleCancel}
                     >
                       Cancel
                     </Button>
