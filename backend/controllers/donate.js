@@ -23,12 +23,13 @@ const addDonateData = async (req, res) => {
       donationDate: data.donationDate,
       donorType: data.donorType,
       organizationName: data.organizationName,
+      expirationDate: data.expirationDate
     });
     const dataSave = await newData.save();
     if (dataSave) {
-      res.status(200).json({ message: "Information added", data: dataSave });
+      res.status(200).json({ message: "Information added.", data: dataSave });
     } else {
-      res.status(500).json({ message: "Information not added" });
+      res.status(500).json({ message: "Information not added." });
     }
   } catch (error) {
     console.error("Error while adding information", error);

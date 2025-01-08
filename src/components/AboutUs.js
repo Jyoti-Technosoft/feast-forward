@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { MdRemoveRedEye } from "react-icons/md";
+import { AiOutlineAim } from "react-icons/ai";
+import { GoGoal } from "react-icons/go";
+// import { useNavigate } from "react-router-dom";
 
 import CustomToast from "./ReusableComponents/CustomToast";
 import data from "../db.json";
 import { upsertContactUs } from "../Services/CommonServices";
 import { errorMessage } from "../Services/axiosinstance";
-import "../assets/styles/AboutUs.css";
-// import round_img from "../assets/images/round_img.jpg";
-// import round_img2 from "../assets/images/round_img2.jpg";
-// import round_img3 from "../assets/images/round_img3.jpg";
 import org_img1 from "../assets/images/org_img1.jpg";
 import org_img2 from "../assets/images/org_img2.jpg";
 import org_img3 from "../assets/images/org_img3.jpg";
@@ -18,6 +17,7 @@ import Vision from "../assets/images/Vision.png";
 import Mission from "../assets/images/Mission.png";
 import Values from "../assets/images/Values.png";
 import contactUs from "../assets/images/contactusbgimage.jpg"
+import "../assets/styles/AboutUs.css";
 
 const AboutUs = () => {
   const {
@@ -25,7 +25,7 @@ const AboutUs = () => {
     impactData,
     points,
   } = data?.aboutuspage;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const duration = 3;
   const [formData, setFormData] = useState({
     requestType: "",
@@ -46,6 +46,9 @@ const AboutUs = () => {
     Vision: Vision,
     Mission: Mission,
     Values: Values,
+    Eye:<MdRemoveRedEye className="section-img-icon"/>,
+    Goal:<GoGoal className="section-img-icon"/>,
+    Aim:<AiOutlineAim className="section-img-icon"/>
   };
 
   const getImageSrc = (src) => imageMap[src] || src;
@@ -139,7 +142,7 @@ const AboutUs = () => {
     <div className="about-us">
       <div className="about-header">
         <h1>About Us</h1>
-        <p>
+        {/* <p>
           <span
             onClick={() => navigate("/home")}
             style={{ color: "#ff6600", cursor: "pointer" }}
@@ -147,7 +150,7 @@ const AboutUs = () => {
             Home
           </span>{" "}
           &gt; About Us
-        </p>
+        </p> */}
       </div>
       <section className="about-content">
         {aboutusSection1?.map((item, index) => {
@@ -171,6 +174,7 @@ const AboutUs = () => {
                     src={getImageSrc(item?.src)}
                     alt="images"
                   />
+                  {getImageSrc(item?.icon)}
                 </div>
                 {item?.content?.map((data, contentIndex) => (
                   <p key={contentIndex}>{data}</p>

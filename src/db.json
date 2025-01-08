@@ -76,6 +76,7 @@
       {
         "sectionTitle": "Vision",
         "src": "Vision",
+        "icon": "Eye",
         "content": [
           "We envision a future where food waste is significantly reduced and surplus food is efficiently redirected to support those facing food insecurity. We aim to create a sustainable, community-driven model that empowers individuals and strengthens resilience against hunger."
         ]
@@ -83,6 +84,7 @@
       {
         "sectionTitle": "Mission",
         "src": "Mission",
+        "icon": "Goal",
         "content": [
           "Our mission at [Organization Name] is to alleviate hunger and reduce food waste in our community. We believe that access to nutritious food is a fundamental human right, and we are dedicated to ensuring that no one in our community goes to bed hungry. Our mission is to fight food insecurity and reduce food waste by connecting donors with surplus food to local communities in need."
         ]
@@ -90,6 +92,7 @@
       {
         "sectionTitle": "Values",
         "src": "Values",
+        "icon": "Aim",
         "content": [
           "Compassion: We are driven by a deep sense of empathy for those we serve. Integrity: We uphold the highest standards of honesty and transparency in our work. Collaboration: We believe in the power of partnerships and community involvement. Innovation: We continuously seek creative solutions to fight hunger and food waste. We envision a world where every individual has access to nutritious meals and where no good food goes to waste."
         ]

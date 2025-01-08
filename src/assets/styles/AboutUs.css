@@ -1,5 +1,5 @@
 .about-us {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .description-container {
@@ -138,9 +138,11 @@
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 20px;
+  padding: 13px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  width: 100%;
+  max-width: 19%;
 }
 
 .impact-number {
@@ -225,7 +227,6 @@
 }
 
 .container-section2 {
-  /* margin-left: 10px; */
   color: #333;
   background-color: #fff;
   padding-bottom: 10px;
@@ -329,7 +330,7 @@ h2 {
 }
 
 .small-button:last-of-type {
-  background-color: #e67e22;
+  background-color: #f66b0e;
   color: white;
   border: none;
 }
@@ -338,7 +339,16 @@ h2 {
   background-color: #e67e22;
 }
 
+.section-img-icon{
+  display: none;
+}
+
 @media (max-width: 576px) {
+  .image-column{
+    display: none;
+    margin-top: 0px;
+  }
+
   .impact-subtitle {
     font-size: 15px !important;
   }
@@ -347,12 +357,31 @@ h2 {
     font-size: 1rem !important;
   }
 
+  .section-img{
+    display: none;
+  }
+
+  .section-img-icon{
+    display: block;
+    position: absolute;
+    font-size: 40px;
+    top:-20px;
+    left:9px;
+    color: #e67e22;
+    background: #fbfafa;
+    padding: 0 4px;
+    border-radius: 15px;
+  }
+
   .overview,
   .vision {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    border: 1px solid #ffdbbb;
+    border-radius: 4px;
+    position: relative;
   }
 
   .impact-details {
@@ -377,10 +406,26 @@ h2 {
   .impact-point-content {
     text-align: center;
   }
+  .contact-container {
+    margin-left: 0px !important;
+  }
 
+  .impact-stat{
+    width: 100%;
+    max-width: 90% !important;
+  }
+
+  .impact-stats {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
+  .image-column{
+    margin-top: 0px;
+  }
 
   .form-group {
     flex: 1;
@@ -388,10 +433,8 @@ h2 {
     margin-bottom: 5px;
   }
 
-  .impact-stats {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+  .about-header h1{
+    font-size: 30px;
   }
 
   .section-title-text {
@@ -402,8 +445,13 @@ h2 {
     flex-direction: column;
   }
 
+  .container-section2{
+    padding-bottom: 0px;
+  }
+
   .contact-container {
-    padding: 30px 20px;
+    padding: 0px 10px 20px 10px;
+    margin-left: 10px;
   }
 
   .submit-btn {
@@ -417,12 +465,9 @@ h2 {
   }
 }
 
-@media (max-width: 480px) {
-  .contact-section {
-    padding: 30px 10px;
-  }
-
-  .contact-container {
-    padding: 25px 15px;
+@media (max-width: 1024px) {
+  .impact-stat{
+    width: 100%;
+    max-width: 30%;
   }
 }
