@@ -3,7 +3,6 @@ const path = require("path");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const multer = require("multer");
 
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
@@ -34,29 +33,6 @@ app.use("/", donateRoute);
 app.use("/", contactUsRoute);
 app.use("/", feedbackRoute);
 app.use("/images", express.static("images"));
-
-const storage = multer.diskStorage({
-  destination: "./public/uploads/",
-  filename: function (req, file, cb) {
-    cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 1000000 },
-}).single("myImage");
-app.post("/upload-images", (req, res) => {
-  upload(req, res, (err) => {
-    console.log("Request file ---", req.file);
-    if (!err) {
-      return res.status(200).send(req.file);
-    } else {
-      console.error("Error during image upload:", err);
-      return res.status(500).send("Error during image upload").end();
-    }
-  });
-});
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));

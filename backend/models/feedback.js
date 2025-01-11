@@ -20,7 +20,11 @@ const feedbackSchema = new mongoose.Schema({
   },
   suggestions: {
     type: String,
-    required: true,
+    required: false,
+  },
+  image: {
+    type: String,
+    default: ""
   },
 });
 
