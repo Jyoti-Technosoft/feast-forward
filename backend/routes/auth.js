@@ -7,6 +7,8 @@ authRoutes.post("/register", authController.registerUser);
 
 authRoutes.post("/login", authController.loginUser);
 
+authRoutes.post("/updateProfile", authController.updateProfile);
+
 authRoutes.delete("/logout/:email", authController.logoutUser);
 
 authRoutes.delete("/resetPassword", authController.resetPassword);

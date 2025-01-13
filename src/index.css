@@ -46,3 +46,12 @@ code {
   font-size: "larger";
   padding:10px;
 }
+
+.profile-names{
+  background-color: #f5efea;
+  border-radius: 50%;
+  color: #e67e22;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

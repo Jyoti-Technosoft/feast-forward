@@ -69,18 +69,18 @@
   }
 
   .register-button {
-    color: #fff;
+    color: white;
     padding: 7px 15px;
     cursor: pointer;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     margin: 10px 0 0 0;
     width: 100%;
-    background-color: #1f993d !important;
-    border: white !important;
+    background-color: #f66b0e !important;
+    border: none !important;
   }
 
   .register-button:hover {
-    background-color: #135b18 !important;
+    background-color: #e67e22 !important;
   }
 
   .login-link {

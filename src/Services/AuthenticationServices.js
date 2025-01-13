@@ -6,3 +6,5 @@ export const upsertRegister = (postData) =>
   axiosInstance.post("/register", postData);
 
 export const upsertLogout = (email) => axiosInstance.delete("/logout/" + email);
+
+export const updateProfile = (postData) => axiosInstance.post(`/updateProfile`, postData);

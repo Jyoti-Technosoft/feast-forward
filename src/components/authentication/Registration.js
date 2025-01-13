@@ -13,6 +13,7 @@ import {
 import { Container, Form, Button, FormControl } from "react-bootstrap";
 
 import CustomToast from "../ReusableComponents/CustomToast";
+import { RoleData } from "../ReusableComponents/UtilityFunctions";
 import { upsertRegister } from "../../Services/AuthenticationServices";
 import { errorMessage } from "../../Services/axiosinstance";
 import "../../assets/styles/Register.css";
@@ -31,19 +32,6 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState({ type: "", message: "" });
-
-  const RoleData = [
-    {
-      id: 1,
-      value: "volunteer",
-      name: "volunteer",
-    },
-    {
-      id: 2,
-      value: "join new user",
-      name: "join new user",
-    },
-  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

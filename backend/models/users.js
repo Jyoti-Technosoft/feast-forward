@@ -36,6 +36,9 @@ const usersSchema = new mongoose.Schema({
     type: String,
     expires: "60m",
   },
+  image: {
+    type: String
+  }
 });
 
 const users = mongoose.model("users", usersSchema);

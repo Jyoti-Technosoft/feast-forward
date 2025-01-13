@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { HashLink } from "react-router-hash-link";
 import { RiKey2Fill } from "react-icons/ri";
@@ -13,16 +13,20 @@ import { MdPermContactCalendar } from "react-icons/md";
 import { RiOrganizationChart } from "react-icons/ri";
 
 import CustomToast from "./ReusableComponents/CustomToast";
+import Profile from "./Profile";
 import { upsertLogout } from "../Services/AuthenticationServices";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "../assets/styles/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { GetInitialsName } from "./ReusableComponents/UtilityFunctions";
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [userName, setUserName] = useState("");
+  const [showDialog, setShowDialog] = useState(false);
+
   const [message, setMessage] = useState({ type: "", message: "" });
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -63,7 +67,7 @@ function Header() {
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);
-
+  const tooltip = <Tooltip id="tooltip">{userName}</Tooltip>;
   return (
     <div className="header-container">
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -174,13 +178,16 @@ function Header() {
               <Dropdown>
                 <Dropdown.Toggle
                   as="div"
-                  className="d-flex align-items-center nav-link dropdown-toggle"
+                  className="d-flex align-items-center nav-link dropdown-toggle user-toggle"
                 >
-                  <IoPersonCircleOutline size={25} />
-                  <span className="text-capitalize">&nbsp;{userName}</span>
+                  {/* <IoPersonCircleOutline size={25} />
+                  <span className="text-capitalize">&nbsp;{userName}</span> */}
+                  <OverlayTrigger placement="bottom-end" overlay={tooltip}>
+                    <GetInitialsName className="username" name={userName} />
+                  </OverlayTrigger>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item className="user-info user-dropdown-item">
+                  <Dropdown.Item onClick={() => setShowDialog(true)} className="user-info user-dropdown-item">
                     <IoPersonCircleOutline size={36} />
                     <p className="user-details">
                       <span className="text-capitalize">{userName}</span>
@@ -216,6 +223,10 @@ function Header() {
         </div>
       </nav>
       {message !== "" ? <CustomToast message={message} /> : null}
+      <Profile
+        show={showDialog}
+        setShowDialog={setShowDialog}
+      />
     </div>
   );
 }

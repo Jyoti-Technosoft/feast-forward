@@ -48,11 +48,16 @@ const loginUser = async (req, res) => {
       return res.status(200).json({
         message: "Login Successfully.",
         user: {
+          _id: checkUser?._id,
           fullName: checkUser.fullName,
           email,
           password,
           token,
+          contactNo: checkUser?.contactNo ?? "",
+          address: checkUser?.address ?? "",
+          city: checkUser?.city ?? "",
           role: checkUser.role,
+          image: checkUser?.image ?? ""
         },
       });
     } else {
@@ -67,6 +72,50 @@ const loginUser = async (req, res) => {
       .json({ message: "No response from server. Please try again." });
   }
 };
+
+const updateProfile = async (req, res) => {
+  try {
+    const { fullName, email, password, role, contactNo, address, city, image, id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "ID is required" });
+    }
+
+    const user = await usersSchema.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.fullName = fullName ?? user.fullName;
+    user.email = email ?? user.email;
+    user.role = role ?? user.role;
+    user.contactNo = contactNo ?? user.contactNo;
+    user.address = address ?? user.address;
+    user.city = city ?? user.city;
+    user.image = image ?? user.image;
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      message: "Profile updated successfully.", user: {
+        _id: updatedUser?._id,
+        fullName: updatedUser.fullName,
+        email: updatedUser.email,
+        password,
+        contactNo: updatedUser?.contactNo ?? "",
+        address: updatedUser?.address ?? "",
+        city: updatedUser?.city ?? "",
+        role: updatedUser?.role ?? "",
+        image: updatedUser?.image ?? "",
+        token: updatedUser?.token ?? "",
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred", error: error.message });
+  }
+};
+
 
 const logoutUser = async (req, res) => {
   const { email } = req.params;
@@ -123,3 +172,4 @@ exports.registerUser = registerUser;
 exports.loginUser = loginUser;
 exports.logoutUser = logoutUser;
 exports.resetPassword = resetPassword;
+exports.updateProfile = updateProfile;
