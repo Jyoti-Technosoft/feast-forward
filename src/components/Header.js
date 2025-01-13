@@ -2,24 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
-import { PersonCircle } from "react-bootstrap-icons";
+import { IoPersonCircleOutline } from "react-icons/io5";
 import { HashLink } from "react-router-hash-link";
+import { RiKey2Fill } from "react-icons/ri";
+import { MdLogout } from "react-icons/md";
+import { MdLiveHelp } from "react-icons/md";
+import { HiUserPlus } from "react-icons/hi2";
+import { MdVolunteerActivism } from "react-icons/md";
+import { MdPermContactCalendar } from "react-icons/md";
+import { RiOrganizationChart } from "react-icons/ri";
 
 import CustomToast from "./ReusableComponents/CustomToast";
 import { upsertLogout } from "../Services/AuthenticationServices";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "../assets/styles/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';  
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [userName, setUserName] = useState("");
   const [message, setMessage] = useState({ type: "", message: "" });
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
     if (user?.email) {
       try {
         const response = await upsertLogout(user?.email);
@@ -41,7 +48,7 @@ function Header() {
     let user = JSON.parse(localStorage.getItem("user"));
     user && setUserName(user.fullName);
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  },[]);
+  }, []);
 
   const handleResetPassword = () => {
     navigate("/reset-password");
@@ -106,28 +113,27 @@ function Header() {
                   to="/about-us#description"
                   as="div"
                   id="aboutUsDropdown"
-                  className={`nav-link dropdown-toggle ${
-                    startsWithPath("/about-us") ? "active" : ""
-                  }`}
+                  className={`nav-link dropdown-toggle ${startsWithPath("/about-us") ? "active" : ""
+                    }`}
                 ></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#organization-link"
-                      className={`dropdown-item ${
-                        location.hash === "#organization-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
+                        }`}
                     >
+                      <RiOrganizationChart size={18} />
                       Organization
                     </HashLink>
                   </Dropdown.Item>
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#contact-us-link"
-                      className={`dropdown-item ${
-                        location.hash === "#contact-us-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#contact-us-link" ? "active" : ""
+                        }`}
                     >
+                      <MdPermContactCalendar size={18} />
                       Contact Us
                     </HashLink>
                   </Dropdown.Item>
@@ -164,29 +170,45 @@ function Header() {
                 Feedback
               </NavLink>
             </li>
-            <li className="nav-item dropdown user-info">
+            <li className="nav-item dropdown">
               <Dropdown>
                 <Dropdown.Toggle
                   as="div"
                   className="d-flex align-items-center nav-link dropdown-toggle"
                 >
-                  <PersonCircle size={25} />
+                  <IoPersonCircleOutline size={25} />
                   <span className="text-capitalize">&nbsp;{userName}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={handleResetPassword}>
+                  <Dropdown.Item className="user-info user-dropdown-item">
+                    <IoPersonCircleOutline size={36} />
+                    <p className="user-details">
+                      <span className="text-capitalize">{userName}</span>
+                      <span style={{ color: "#cbcbcb", fontSize: "13px" }}>{user?.email}</span>
+                    </p>
+                  </Dropdown.Item>
+                  <hr />
+                  <Dropdown.Item className="user-dropdown-item" onClick={handleResetPassword}>
+                    <RiKey2Fill size={18} />
                     Change Password
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleUsers}>
+                  <Dropdown.Item className="user-dropdown-item" onClick={handleLogout}>
+                    <MdLogout size={18} />
+                    Logout
+                  </Dropdown.Item>
+                  {/* <Dropdown.Divider/> */}
+                  <hr />
+                  <Dropdown.Item className="user-dropdown-item" onClick={handleUsers}>
+                    <HiUserPlus size={18} />
                     Join-Now Users
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={handleVolunteers}>
+                  <Dropdown.Item className="user-dropdown-item" onClick={handleVolunteers}>
+                    <MdVolunteerActivism size={18} />
                     Volunteer
                   </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item>Help?</Dropdown.Item>
+                  <hr />
+                  {/* <Dropdown.Divider /> */}
+                  <Dropdown.Item className="user-dropdown-item"><MdLiveHelp size={18} />Help?</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </li>
