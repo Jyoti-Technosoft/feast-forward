@@ -12,41 +12,22 @@ import { MdVolunteerActivism } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
 import { RiOrganizationChart } from "react-icons/ri";
 
-import CustomToast from "./ReusableComponents/CustomToast";
+import Logout from "./Logout";
 import Profile from "./Profile";
-import { upsertLogout } from "../Services/AuthenticationServices";
+import { GetInitialsName } from "./ReusableComponents/UtilityFunctions";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "../assets/styles/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { GetInitialsName } from "./ReusableComponents/UtilityFunctions";
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [userName, setUserName] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+  const [showDialogLogout, setShowDialogLogout] = useState(false);
 
-  const [message, setMessage] = useState({ type: "", message: "" });
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const handleLogout = async () => {
-    if (user?.email) {
-      try {
-        const response = await upsertLogout(user?.email);
-        if (response?.status === 200) {
-          setMessage({ type: "success", message: response?.data?.message });
-          setTimeout(() => {
-            window.localStorage.clear();
-            navigate("/");
-            window.location.reload();
-          }, 2000);
-        }
-      } catch (error) {
-        console.error("error", error);
-      }
-    }
-  };
 
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -199,7 +180,7 @@ function Header() {
                     <RiKey2Fill size={18} />
                     Change Password
                   </Dropdown.Item>
-                  <Dropdown.Item className="user-dropdown-item" onClick={handleLogout}>
+                  <Dropdown.Item className="user-dropdown-item" onClick={() => setShowDialogLogout(true)}>
                     <MdLogout size={18} />
                     Logout
                   </Dropdown.Item>
@@ -215,17 +196,20 @@ function Header() {
                   </Dropdown.Item>
                   <hr />
                   {/* <Dropdown.Divider /> */}
-                  <Dropdown.Item className="user-dropdown-item"><MdLiveHelp size={18} />Help?</Dropdown.Item>
+                  <Dropdown.Item className="user-dropdown-item"><MdLiveHelp size={18} />Help</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </li>
           </ul>
         </div>
       </nav>
-      {message !== "" ? <CustomToast message={message} /> : null}
       <Profile
         show={showDialog}
         setShowDialog={setShowDialog}
+      />
+      <Logout
+        show={showDialogLogout}
+        setShowDialog={setShowDialogLogout}
       />
     </div>
   );
