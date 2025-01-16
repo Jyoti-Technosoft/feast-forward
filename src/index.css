@@ -55,3 +55,10 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+.invalid-feedback {
+  font-size: 12px !important;
+  margin-top: 0px !important;
+  text-align: left;
+  display: block !important;
+}

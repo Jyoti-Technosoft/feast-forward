@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
           address: checkUser?.address ?? "",
           city: checkUser?.city ?? "",
           role: checkUser.role,
-          image: checkUser?.image ?? ""
+          image: checkUser?.image ?? "",
         },
       });
     } else {
@@ -75,7 +75,17 @@ const loginUser = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const { fullName, email, password, role, contactNo, address, city, image, id } = req.body;
+    const {
+      fullName,
+      email,
+      password,
+      role,
+      contactNo,
+      address,
+      city,
+      image,
+      id,
+    } = req.body;
 
     if (!id) {
       return res.status(400).json({ message: "ID is required" });
@@ -97,7 +107,8 @@ const updateProfile = async (req, res) => {
     const updatedUser = await user.save();
 
     res.status(200).json({
-      message: "Profile updated successfully.", user: {
+      message: "Profile updated successfully.",
+      user: {
         _id: updatedUser?._id,
         fullName: updatedUser.fullName,
         email: updatedUser.email,
@@ -108,14 +119,15 @@ const updateProfile = async (req, res) => {
         role: updatedUser?.role ?? "",
         image: updatedUser?.image ?? "",
         token: updatedUser?.token ?? "",
-      }
+      },
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 };
-
 
 const logoutUser = async (req, res) => {
   const { email } = req.params;
@@ -133,19 +145,25 @@ const logoutUser = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  const { email, password } = req.body;
+  const { email } = req;
+  const { oldPassword, newPassword } = req.body;
   try {
-    const checkUser = await usersSchema.findOne({ email });
-    if (checkUser) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      checkUser.password = hashedPassword;
-      await checkUser.save();
-      return res.status(200).json({ message: "Password updated" });
+    const user = await usersSchema.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-    return res.status(500).json({ message: "User not found" });
+
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Old password is incorrect" });
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+    return res.status(200).json({ message: "Password updated successfully." });
   } catch (error) {
     console.error("Error while updating password:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

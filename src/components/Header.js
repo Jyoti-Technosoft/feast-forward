@@ -19,7 +19,7 @@ import { GetInitialsName } from "./ReusableComponents/UtilityFunctions";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "../assets/styles/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Header() {
   const navigate = useNavigate();
@@ -100,15 +100,17 @@ function Header() {
                   to="/about-us#description"
                   as="div"
                   id="aboutUsDropdown"
-                  className={`nav-link dropdown-toggle ${startsWithPath("/about-us") ? "active" : ""
-                    }`}
+                  className={`nav-link dropdown-toggle ${
+                    startsWithPath("/about-us") ? "active" : ""
+                  }`}
                 ></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#organization-link"
-                      className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
-                        }`}
+                      className={`dropdown-item ${
+                        location.hash === "#organization-link" ? "active" : ""
+                      }`}
                     >
                       <RiOrganizationChart size={18} />
                       Organization
@@ -117,8 +119,9 @@ function Header() {
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#contact-us-link"
-                      className={`dropdown-item ${location.hash === "#contact-us-link" ? "active" : ""
-                        }`}
+                      className={`dropdown-item ${
+                        location.hash === "#contact-us-link" ? "active" : ""
+                      }`}
                     >
                       <MdPermContactCalendar size={18} />
                       Contact Us
@@ -157,11 +160,11 @@ function Header() {
                 Feedback
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <Dropdown>
+            <li className="nav-item dropdown user-dropdown">
+              <Dropdown className="user-dropdown">
                 <Dropdown.Toggle
                   as="div"
-                  className="d-flex align-items-center nav-link dropdown-toggle user-toggle"
+                  className="d-flex align-items-center nav-link dropdown-toggle"
                 >
                   {/* <IoPersonCircleOutline size={25} />
                   <span className="text-capitalize">&nbsp;{userName}</span> */}
@@ -170,50 +173,64 @@ function Header() {
                   </OverlayTrigger>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => setShowDialog(true)} className="user-info user-dropdown-item">
+                  <Dropdown.Item
+                    onClick={() => setShowDialog(true)}
+                    className="user-info user-dropdown-item"
+                  >
                     <IoPersonCircleOutline size={36} />
                     <p className="user-details">
                       <span className="text-capitalize">{userName}</span>
-                      <span style={{ color: "#cbcbcb", fontSize: "13px" }}>{user?.email}</span>
+                      <span style={{ color: "#cbcbcb", fontSize: "13px" }}>
+                        {user?.email}
+                      </span>
                     </p>
                   </Dropdown.Item>
                   <hr />
-                  <Dropdown.Item className="user-dropdown-item" onClick={handleResetPassword}>
+                  <Dropdown.Item
+                    className="user-dropdown-item"
+                    onClick={handleResetPassword}
+                  >
                     <RiKey2Fill size={18} />
                     Change Password
                   </Dropdown.Item>
-                  <Dropdown.Item className="user-dropdown-item" onClick={() => setShowDialogLogout(true)}>
+                  <Dropdown.Item
+                    className="user-dropdown-item"
+                    onClick={() => setShowDialogLogout(true)}
+                  >
                     <MdLogout size={18} />
                     Logout
                   </Dropdown.Item>
                   {/* <Dropdown.Divider/> */}
                   <hr />
-                  <Dropdown.Item className="user-dropdown-item" onClick={handleUsers}>
+                  <Dropdown.Item
+                    className="user-dropdown-item"
+                    onClick={handleUsers}
+                  >
                     <HiUserPlus size={18} />
                     Join-Now Users
                   </Dropdown.Item>
-                  <Dropdown.Item className="user-dropdown-item" onClick={handleVolunteers}>
+                  <Dropdown.Item
+                    className="user-dropdown-item"
+                    onClick={handleVolunteers}
+                  >
                     <MdVolunteerActivism size={18} />
                     Volunteer
                   </Dropdown.Item>
                   <hr />
                   {/* <Dropdown.Divider /> */}
-                  <Dropdown.Item className="user-dropdown-item"><MdLiveHelp size={18} />Help</Dropdown.Item>
+                  <Dropdown.Item className="user-dropdown-item">
+                    <MdLiveHelp size={18} />
+                    Help
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </li>
           </ul>
         </div>
       </nav>
-      <Profile
-        show={showDialog}
-        setShowDialog={setShowDialog}
-      />
-      <Logout
-        show={showDialogLogout}
-        setShowDialog={setShowDialogLogout}
-      />
-       <ResetPassword
+      <Profile show={showDialog} setShowDialog={setShowDialog} />
+      <Logout show={showDialogLogout} setShowDialog={setShowDialogLogout} />
+      <ResetPassword
         show={showDialogPassword}
         setShowDialog={setShowDialogPassword}
       />

@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal, InputGroup, FormControl } from "react-bootstrap";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 
 import CustomToast from "./ReusableComponents/CustomToast";
 import DialogBox from "./ReusableComponents/DialogBox";
+import { resetPassword } from "../Services/AuthenticationServices";
+import { errorMessage } from "../Services/axiosinstance";
 import "../assets/styles/ResetPassword.css";
 
 const ResetPassword = (props) => {
   const { show, setShowDialog } = props;
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ oldPassword: "", newPassword: "", confirmPassword: "" });
+  const [formData, setFormData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -24,13 +30,11 @@ const ResetPassword = (props) => {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
-  console.log('errors:===>', errors);
-
   const validatePassword = (password) => {
     return password.length >= 6;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let tempErrors = {};
     const { oldPassword, newPassword, confirmPassword } = formData;
@@ -43,21 +47,51 @@ const ResetPassword = (props) => {
       tempErrors.newPassword = "Password must be at least 6 characters long.";
     }
 
+    if (newPassword === "") {
+      tempErrors.newPassword = "New Password is required.";
+    } else if (!validatePassword(newPassword)) {
+      tempErrors.newPassword = "Password must be at least 6 characters long.";
+    }
+
     if (newPassword !== confirmPassword) {
       tempErrors.confirmPassword = "Passwords do not match.";
     }
 
-    console.log('tempErrors:====>', tempErrors);
     if (Object.keys(tempErrors).length === 0) {
-      navigate("/login");
+      try {
+        const response = await resetPassword(
+          JSON.stringify({ oldPassword, newPassword })
+        );
+        if (response.status === 200) {
+          setMessage({ type: "success", message: response.data.message });
+          // localStorage.setItem("user", JSON.stringify(response?.data?.user));
+          // resetForm();
+          setTimeout(() => {
+            window.localStorage.clear();
+            navigate("/");
+            window.location.reload();
+          }, 2000);
+        } else if (response.status === 201) {
+          setMessage({ type: "warning", message: response.data.message });
+        }
+      } catch (error) {
+        setMessage({ type: "warning", message: errorMessage });
+      }
     } else {
       setErrors(tempErrors);
     }
   };
 
   const resetForm = () => {
-    setShowDialog(false)
-  }
+    setFormData({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+    setErrors({});
+    setShowDialog(false);
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -72,24 +106,37 @@ const ResetPassword = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="change-passowrd-content">
           <Form className="transparent-box-1">
-            <Form.Group controlId="formBasicOldPassword" className="mb-3 password-div">
-              <FormControl
-                type="password"
-                placeholder="Old Password"
-                name="oldPassword"
-                value={formData.oldPassword}
-                onChange={handleChange}
-                isInvalid={!!errors.oldPassword}
-                required
-              />
+            <Form.Group
+              controlId="formBasicOldPassword"
+              className="mb-3 password-div"
+            >
+              <InputGroup>
+                <FormControl
+                  type="password"
+                  placeholder="Old Password"
+                  name="oldPassword"
+                  value={formData.oldPassword}
+                  onChange={handleChange}
+                  isInvalid={!!errors.oldPassword}
+                />
+                <InputGroup.Text
+                  className="viewer"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
+                </InputGroup.Text>
+              </InputGroup>
               <Form.Control.Feedback type="invalid">
                 {errors.oldPassword}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formBasicPassword" className="mb-3 password-div">
-              <InputGroup className="password-container">
+            <Form.Group
+              controlId="formBasicPassword"
+              className="mb-3 password-div"
+            >
+              <InputGroup>
                 <FormControl
                   type={showPassword ? "text" : "password"}
                   placeholder="New Password"
@@ -98,16 +145,22 @@ const ResetPassword = (props) => {
                   onChange={handleChange}
                   isInvalid={!!errors.newPassword}
                 />
-                {/* <InputGroup.Text className="viewer" onClick={togglePasswordVisibility}>
+                <InputGroup.Text
+                  className="viewer"
+                  onClick={togglePasswordVisibility}
+                >
                   {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
-                </InputGroup.Text> */}
+                </InputGroup.Text>
               </InputGroup>
               <Form.Control.Feedback type="invalid">
                 {errors.newPassword}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formBasicConfirmPassword" className="mb-3 password-div">
-              <InputGroup className="password-container">
+            <Form.Group
+              controlId="formBasicConfirmPassword"
+              className="mb-3 password-div"
+            >
+              <InputGroup>
                 <FormControl
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
@@ -116,9 +169,12 @@ const ResetPassword = (props) => {
                   onChange={handleChange}
                   isInvalid={!!errors.confirmPassword}
                 />
-                {/* <InputGroup.Text className="viewer" onClick={toggleConfirmPasswordVisibility}>
+                <InputGroup.Text
+                  className="viewer"
+                  onClick={toggleConfirmPasswordVisibility}
+                >
                   {showConfirmPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
-                </InputGroup.Text> */}
+                </InputGroup.Text>
               </InputGroup>
               <Form.Control.Feedback type="invalid">
                 {errors.confirmPassword}
@@ -135,7 +191,11 @@ const ResetPassword = (props) => {
           >
             Cancel
           </Button>
-          <Button className="small-button" variant="primary" onClick={handleSubmit}>
+          <Button
+            className="small-button"
+            variant="primary"
+            onClick={handleSubmit}
+          >
             {/* Change Password */}
             Submit
           </Button>
@@ -147,8 +207,8 @@ const ResetPassword = (props) => {
           </Link>
         </div> */}
       </>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -156,10 +216,11 @@ const ResetPassword = (props) => {
         show={show}
         onHide={() => resetForm()}
         renderChildren={renderChildren}
+        className="custom-modal"
       />
       {message !== "" ? <CustomToast message={message} /> : null}
     </>
   );
-}
+};
 
 export default ResetPassword;

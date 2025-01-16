@@ -1,12 +1,12 @@
-import React from 'react';
-import { Modal } from 'react-bootstrap';
+import React from "react";
+import { Modal } from "react-bootstrap";
 
-const DialogBox = ({ show, onHide, renderChildren }) => {
-    return (
-        <Modal show={show} onHide={onHide} centered>
-            {renderChildren()}
-        </Modal>
-    );
+const DialogBox = ({ show, onHide, renderChildren, className }) => {
+  return (
+    <Modal show={show} onHide={onHide} centered className={className}>
+      {renderChildren()}
+    </Modal>
+  );
 };
 
 export default DialogBox;

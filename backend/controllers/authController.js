@@ -17,8 +17,18 @@ const verifyUserToken = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ error: "Unauthorized - Token missing" });
     }
+
     const decodedToken = await verifyToken(token);
-    req?.user = decodedToken;
+    const user = await usersSchema.findOne({ token }).populate("email");
+    if (!user) {
+      return res
+        .status(403)
+        .json({ error: "Token expired or user not found." });
+    }
+    req._id = user._id;
+    req.role = user.role;
+    req.fullName = user.fullName;
+    req.email = user.email;
     next();
   } catch (error) {
     return handleTokenError(error, res);
@@ -39,9 +49,9 @@ const checkAdminToken = async (req, res, next) => {
       return res.status(403).json({ error: "Token Expired." });
     }
     if (userRole === "admin") {
-      req?._id = user?._id;
-      req?.role = user?.role;
-      req?.fullName = user?.fullName;
+      req._id = user._id;
+      req.role = user.role;
+      req.fullName = user.fullName;
       next();
     } else {
       return res
@@ -123,5 +133,5 @@ module.exports = {
   checkAdminToken,
   checkVolunteerToken,
   checkJoinNewUserToken,
-  verifyUserToken
+  verifyUserToken,
 };

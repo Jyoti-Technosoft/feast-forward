@@ -301,10 +301,6 @@ h2 {
   outline: none;
 }
 
-.invalid-feedback{
-  text-align: left;
-}
-
 .button-row {
   display: flex;
   justify-content: flex-end;

@@ -4,6 +4,14 @@
   position: sticky;
 }
 
+.user-dropdown .dropdown-toggle::after {
+  display: none !important;
+}
+
+.navbar-nav .nav-item.user-dropdown {
+  margin-right: 1rem;
+}
+
 .logo-image {
   margin-left: 10px;
 }
@@ -145,6 +153,11 @@ p {
 }
 
 @media (max-width: 992px) {
+
+  .navbar-nav .nav-item.user-dropdown {
+    margin-right: 2rem;
+  }
+
   .navbar-nav .nav-item {
     padding-top: 5px;
     padding-bottom: 5px;

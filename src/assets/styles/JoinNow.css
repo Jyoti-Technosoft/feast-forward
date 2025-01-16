@@ -27,10 +27,6 @@ h2 {
   margin-bottom: 3px;
 }
 
-.invalid-feedback {
-  font-size: 12px;
-}
-
 .form-control {
   border-radius: 8px;
   border: 1px solid #ddd;

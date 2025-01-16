@@ -8,3 +8,6 @@ export const upsertRegister = (postData) =>
 export const upsertLogout = (email) => axiosInstance.delete("/logout/" + email);
 
 export const updateProfile = (postData) => axiosInstance.post(`/updateProfile`, postData);
+
+export const resetPassword = (postData) =>
+  axiosInstance.post("/resetPassword", postData);

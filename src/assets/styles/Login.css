@@ -108,10 +108,10 @@
     position: relative;
   }
 
-  .invalid-feedback {
+  /* .invalid-feedback {
     display: block !important;
     margin-top: 0 !important;
-  }
+  } */
 
   .toggle-password-visibility {
     position: absolute;
