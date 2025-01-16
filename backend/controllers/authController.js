@@ -10,6 +10,21 @@ const verifyToken = async (token) => {
   }
 };
 
+// Middleware to verify token without checking roles
+const verifyUserToken = async (req, res, next) => {
+  try {
+    const token = req.headers["authorization"];
+    if (!token) {
+      return res.status(401).json({ error: "Unauthorized - Token missing" });
+    }
+    const decodedToken = await verifyToken(token);
+    req?.user = decodedToken;
+    next();
+  } catch (error) {
+    return handleTokenError(error, res);
+  }
+};
+
 // Middleware for checking if the user is an admin
 const checkAdminToken = async (req, res, next) => {
   try {
@@ -24,7 +39,6 @@ const checkAdminToken = async (req, res, next) => {
       return res.status(403).json({ error: "Token Expired." });
     }
     if (userRole === "admin") {
-      console.log('userRole admin:===>',userRole);
       req?._id = user?._id;
       req?.role = user?.role;
       req?.fullName = user?.fullName;
@@ -109,4 +123,5 @@ module.exports = {
   checkAdminToken,
   checkVolunteerToken,
   checkJoinNewUserToken,
+  verifyUserToken
 };

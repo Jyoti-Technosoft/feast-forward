@@ -11,6 +11,6 @@ authRoutes.post("/updateProfile", authController.updateProfile);
 
 authRoutes.delete("/logout/:email", authController.logoutUser);
 
-authRoutes.delete("/resetPassword", authController.resetPassword);
+authRoutes.post("/resetPassword", verifyUserToken, authController.resetPassword);
 
 module.exports = authRoutes;

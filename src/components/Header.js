@@ -14,6 +14,7 @@ import { RiOrganizationChart } from "react-icons/ri";
 
 import Logout from "./Logout";
 import Profile from "./Profile";
+import ResetPassword from "./ResetPassword";
 import { GetInitialsName } from "./ReusableComponents/UtilityFunctions";
 import foodDonationLogo from "../assets/images/Project logo.png";
 import "../assets/styles/Header.css";
@@ -26,6 +27,7 @@ function Header() {
   const [userName, setUserName] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [showDialogLogout, setShowDialogLogout] = useState(false);
+  const [showDialogPassword, setShowDialogPassword] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -36,7 +38,7 @@ function Header() {
   }, []);
 
   const handleResetPassword = () => {
-    navigate("/reset-password");
+    setShowDialogPassword(true);
   };
 
   const handleUsers = () => {
@@ -210,6 +212,10 @@ function Header() {
       <Logout
         show={showDialogLogout}
         setShowDialog={setShowDialogLogout}
+      />
+       <ResetPassword
+        show={showDialogPassword}
+        setShowDialog={setShowDialogPassword}
       />
     </div>
   );
