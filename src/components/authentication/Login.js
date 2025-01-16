@@ -24,7 +24,7 @@ function Login() {
   const checkUserLoggedIn = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user?.token) {
-      navigate("/home");
+      navigate("/");
     }
   };
 
@@ -70,7 +70,9 @@ function Login() {
       if (response.status === 200) {
         setMessage({ type: "success", message: response.data.message });
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
-        navigate("/home");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
         setErrors({});
         resetForm();
       } else if (response.status === 201) {

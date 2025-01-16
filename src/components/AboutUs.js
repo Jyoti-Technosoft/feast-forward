@@ -144,7 +144,7 @@ const AboutUs = () => {
         <h1>About Us</h1>
         {/* <p>
           <span
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/")}
             style={{ color: "#ff6600", cursor: "pointer" }}
           >
             Home

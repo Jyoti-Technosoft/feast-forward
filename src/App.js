@@ -30,73 +30,74 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route exact index element={<Login />} path="/" />
+        <Route exact element={<Login />} path="/login" />
         <Route exact element={<Registration />} path="/register" />
-        <Route element={<ProtectedRoute />}>
-          <Route
-            exact
-            path="/home"
-            element={
-              <Layout>
-                <Dashboard />
-              </Layout>
-            }
-          />
-          <Route
-            exact
-            path="/about-us"
-            element={
-              <Layout>
-                <AboutUs />
-              </Layout>
-            }
-          />
-          <Route
-            exact
-            path="/join-now"
-            element={
-              <Layout>
-                <JoinNow />
-              </Layout>
-            }
-          />
-          <Route
-            exact
-            path="/donate"
-            element={
-              <Layout>
-                <Donate />
-              </Layout>
-            }
-          />
-          <Route
-            exact
-            element={
+        {/* <Route element={<ProtectedRoute />}> */}
+        <Route
+          exact
+          path="/"
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/about-us"
+          element={
+            <Layout>
+              <AboutUs />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/join-now"
+          element={
+            <Layout>
+              <JoinNow />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/donate"
+          element={
+            <ProtectedRoute element={<Layout>
+              <Donate />
+            </Layout>} />
+          }
+        />
+        <Route
+          exact
+          element={
+            <ProtectedRoute element={
               <Layout>
                 <Feedback />
-              </Layout>
-            }
-            path="/feedback"
-          />
-          <Route
-            exact
-            element={
-              <Layout>
-                <JoinNowUsers />
-              </Layout>
-            }
-            path="/join-now-users"
-          />
-          <Route
-            exact
-            element={
-              <Layout>
-                <Volunteers />
-              </Layout>
-            }
-            path="/volunteers"
-          />
-        </Route>
+              </Layout>} />
+          }
+          path="/feedback"
+        />
+        <Route
+          exact
+          element={
+            <Layout>
+              <JoinNowUsers />
+            </Layout>
+          }
+          path="/join-now-users"
+        />
+        <Route
+          exact
+          element={
+            <Layout>
+              <Volunteers />
+            </Layout>
+          }
+          path="/volunteers"
+        />
+        {/* </Route> */}
       </Routes>
     </Router>
   );

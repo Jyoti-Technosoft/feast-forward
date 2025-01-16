@@ -28,8 +28,8 @@ const Logout = (props) => {
                     setTimeout(() => {
                         window.localStorage.clear();
                         navigate("/");
-                        window.location.reload();
-                    }, 2000);
+                        resetForm();
+                    }, 1000);
                 }
             } catch (error) {
                 console.error("error", error);

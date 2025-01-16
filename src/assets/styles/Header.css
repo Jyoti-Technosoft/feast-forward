@@ -104,6 +104,19 @@ hr {
   padding: 5px 13px 2px;
 }
 
+.user-info {
+  display: flex;
+  /* align-items: flex-start; */
+  align-items: center;
+}
+
+.user-info:hover {
+  color: #f66b0e !important;
+  /* background-color: #f9f9f9; */
+  background-color: rgb(245, 239, 234);
+  transition: background-color 0.3s ease, color 2s ease;
+}
+
 .dropdown-item svg {
   margin-right: 6px;
 }
@@ -118,16 +131,6 @@ hr {
   background-color: rgb(245, 239, 234);
   color: #f66b0e !important;
   border-radius: 4px;
-}
-
-.user-info {
-  display: flex;
-  align-items: flex-start;
-}
-
-.user-info:hover {
-  color: #242424 !important;
-  background-color: #f9f9f9;
 }
 
 .user-details {
@@ -152,6 +155,31 @@ p {
   display: none;
 }
 
+.header-login-button {
+  color: white;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  margin: 0px 1rem 0px 0px !important;
+  background-color: #f66b0e;
+  border: none !important;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-login-button svg{
+  margin-left: 4px;
+}
+
+.header-login-button:hover {
+  background-color: #e67e22;
+  transition: background-color 1s ease;
+}
+
 @media (max-width: 992px) {
 
   .navbar-nav .nav-item.user-dropdown {
@@ -161,6 +189,10 @@ p {
   .navbar-nav .nav-item {
     padding-top: 5px;
     padding-bottom: 5px;
+  }
+
+  .header-login-button{
+    margin: 3px 2rem 0px 0px !important;
   }
 
   .navbar-collapse {

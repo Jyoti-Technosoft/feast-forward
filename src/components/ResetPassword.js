@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal, InputGroup, FormControl } from "react-bootstrap";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -12,7 +12,8 @@ import "../assets/styles/ResetPassword.css";
 
 const ResetPassword = (props) => {
   const { show, setShowDialog } = props;
-  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  // const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     oldPassword: "",
@@ -64,12 +65,16 @@ const ResetPassword = (props) => {
         );
         if (response.status === 200) {
           setMessage({ type: "success", message: response.data.message });
-          // localStorage.setItem("user", JSON.stringify(response?.data?.user));
-          // resetForm();
+          const userWithNewPassword = {
+            ...user,
+            password: newPassword
+          };
+          localStorage.setItem("user", JSON.stringify(userWithNewPassword));
+          resetForm();
           setTimeout(() => {
-            window.localStorage.clear();
-            navigate("/");
-            window.location.reload();
+            // window.localStorage.clear();
+            // navigate("/login");
+            // window.location.reload();
           }, 2000);
         } else if (response.status === 201) {
           setMessage({ type: "warning", message: response.data.message });
@@ -114,7 +119,7 @@ const ResetPassword = (props) => {
             >
               <InputGroup>
                 <FormControl
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Old Password"
                   name="oldPassword"
                   value={formData.oldPassword}

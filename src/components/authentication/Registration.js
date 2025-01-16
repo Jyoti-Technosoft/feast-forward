@@ -109,7 +109,7 @@ const Registration = () => {
           setMessage({ type: "success", message: response.data.message });
           setTimeout(() => {
             resetFormValues();
-            navigate("/");
+            navigate("/login");
           }, 2000);
         } else if (response?.status === 201) {
           setMessage({ type: "warning", message: response.data.message });
@@ -304,7 +304,7 @@ const Registration = () => {
         </div>
         <div className="mt-3">
           Already have an Account?{" "}
-          <Link to="/" className="login-link">
+          <Link to="/login" className="login-link">
             Login
           </Link>
         </div>

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
-// import { Person } from "react-bootstrap-icons";
 import Slider from "react-slick";
-// import { HeartFill } from "react-bootstrap-icons";
 
 import { getFeedback } from "../Services/CommonServices";
 import data from "../db.json";
@@ -23,12 +21,6 @@ import FDP_img from "../assets/images/FDP_img.webp";
 import food_donate_bg from "../assets/images/food-donate-bg.png";
 import round_img from "../assets/images/round_img.jpg";
 import round_img2 from "../assets/images/round_img2.jpg";
-// import admin_1 from "../assets/images/admin_1.jpeg";
-// import admin_2 from "../assets/images/admin_2.webp";
-// import admin_3 from "../assets/images/admin_3.jpeg";
-// import admin_4 from "../assets/images/admin_4.webp";
-// import admin_5 from "../assets/images/admin_5.webp";
-// import admin_6 from "../assets/images/admin_6.jpeg";
 
 // const responsive = {
 //   superLargeDesktop: {
@@ -51,7 +43,7 @@ import round_img2 from "../assets/images/round_img2.jpg";
 
 function Dashboard() {
   const { carouselImages, content, secondCarouselImages } = data?.homepage;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [feedbackData, setFeedbackData] = useState([]);
   const [currentImages, setCurrentImages] = useState(secondCarouselImages?.slice(0, 6));
@@ -126,20 +118,20 @@ function Dashboard() {
     return () => clearInterval(interval);
   }, [currentImages, secondCarouselImages]);
 
-  useEffect(() => {
-    const checkUserLoggedIn = () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const token = user && user?.token ? true : false;
-      return token;
-    };
-    const token = checkUserLoggedIn();
-    if (token) {
-      navigate("/home");
-    } else {
-      navigate("/");
-    }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, []);
+  // useEffect(() => {
+  //   const checkUserLoggedIn = () => {
+  //     const user = JSON.parse(localStorage.getItem("user"));
+  //     const token = user && user?.token ? true : false;
+  //     return token;
+  //   };
+  //   const token = checkUserLoggedIn();
+  //   // if (token) {
+  //   //   navigate("/");
+  //   // } else {
+  //   //   navigate("/login");
+  //   // }
+  //   /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  // }, []);
 
   useEffect(() => {
     getFeedbackData();

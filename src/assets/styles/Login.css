@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
+    background-color: #fff;
     border: none;
     cursor: pointer;
     padding: 5px 10px;
@@ -88,8 +88,8 @@
     cursor: pointer;
     border: none;
     position: absolute;
-    right: 0;
-    top: 20px;
+    right: 1px;
+    top: 12px;
   }
 
   .icon-div {

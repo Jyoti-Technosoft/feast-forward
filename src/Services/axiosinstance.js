@@ -39,7 +39,7 @@ axiosInstance.interceptors.response.use(
     if (currentMethod === "GET") {
       if (error.response) {
         if (error.response.status === 401 || error.response.status === 403) {
-          // window.location.href = "/";
+          // window.location.href = "/login";
         } else if (
           error.response.status === 404 ||
           error.response.status === 500 ||
@@ -70,7 +70,7 @@ axiosInstance.interceptors.response.use(
           error.response.status === 403
         ) {
           errorMessage = error.response.data.message;
-          // window.location.href = "/";
+          // window.location.href = "/login";
         }
       } else {
         errorMessage = error.message;

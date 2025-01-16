@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { Dropdown, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Dropdown, Tooltip, OverlayTrigger, Button } from "react-bootstrap";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { HashLink } from "react-router-hash-link";
 import { RiKey2Fill } from "react-icons/ri";
@@ -10,7 +10,9 @@ import { MdLiveHelp } from "react-icons/md";
 import { HiUserPlus } from "react-icons/hi2";
 import { MdVolunteerActivism } from "react-icons/md";
 import { MdPermContactCalendar } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
 import { RiOrganizationChart } from "react-icons/ri";
+import { IoMdLogIn } from "react-icons/io";
 
 import Logout from "./Logout";
 import Profile from "./Profile";
@@ -28,8 +30,9 @@ function Header() {
   const [showDialog, setShowDialog] = useState(false);
   const [showDialogLogout, setShowDialogLogout] = useState(false);
   const [showDialogPassword, setShowDialogPassword] = useState(false);
-
+  const [isHovered, setIsHovered] = React.useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+  const isLoggedIn = user && user?.token ? true : false;
 
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -45,12 +48,17 @@ function Header() {
     navigate("/join-now-users");
   };
 
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   const handleVolunteers = () => {
     navigate("/volunteers");
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);
   const tooltip = <Tooltip id="tooltip">{userName}</Tooltip>;
+  const adminMenu = user?.role === "admin";
   return (
     <div className="header-container">
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -78,7 +86,7 @@ function Header() {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink
-                to="/home"
+                to="/"
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
@@ -100,17 +108,15 @@ function Header() {
                   to="/about-us#description"
                   as="div"
                   id="aboutUsDropdown"
-                  className={`nav-link dropdown-toggle ${
-                    startsWithPath("/about-us") ? "active" : ""
-                  }`}
+                  className={`nav-link dropdown-toggle ${startsWithPath("/about-us") ? "active" : ""
+                    }`}
                 ></Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#organization-link"
-                      className={`dropdown-item ${
-                        location.hash === "#organization-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#organization-link" ? "active" : ""
+                        }`}
                     >
                       <RiOrganizationChart size={18} />
                       Organization
@@ -119,9 +125,8 @@ function Header() {
                   <Dropdown.Item as="div">
                     <HashLink
                       to="/about-us#contact-us-link"
-                      className={`dropdown-item ${
-                        location.hash === "#contact-us-link" ? "active" : ""
-                      }`}
+                      className={`dropdown-item ${location.hash === "#contact-us-link" ? "active" : ""
+                        }`}
                     >
                       <MdPermContactCalendar size={18} />
                       Contact Us
@@ -130,7 +135,7 @@ function Header() {
                 </Dropdown.Menu>
               </Dropdown>
             </li>
-            <li className="nav-item">
+            {isLoggedIn ? <li className="nav-item">
               <NavLink
                 to="/donate"
                 className={({ isActive }) =>
@@ -139,7 +144,7 @@ function Header() {
               >
                 Donate
               </NavLink>
-            </li>
+            </li> : null}
             <li className="nav-item">
               <NavLink
                 to="/join-now"
@@ -150,7 +155,7 @@ function Header() {
                 Join Us
               </NavLink>
             </li>
-            <li className="nav-item">
+            {isLoggedIn ? <li className="nav-item">
               <NavLink
                 to="/feedback"
                 className={({ isActive }) =>
@@ -159,8 +164,8 @@ function Header() {
               >
                 Feedback
               </NavLink>
-            </li>
-            <li className="nav-item dropdown user-dropdown">
+            </li> : null}
+            {isLoggedIn ? <li className="nav-item dropdown user-dropdown">
               <Dropdown className="user-dropdown">
                 <Dropdown.Toggle
                   as="div"
@@ -168,7 +173,7 @@ function Header() {
                 >
                   {/* <IoPersonCircleOutline size={25} />
                   <span className="text-capitalize">&nbsp;{userName}</span> */}
-                  <OverlayTrigger placement="bottom-end" overlay={tooltip}>
+                  <OverlayTrigger placement="bottom" overlay={tooltip}>
                     <GetInitialsName className="username" name={userName} />
                   </OverlayTrigger>
                 </Dropdown.Toggle>
@@ -176,8 +181,17 @@ function Header() {
                   <Dropdown.Item
                     onClick={() => setShowDialog(true)}
                     className="user-info user-dropdown-item"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
-                    <IoPersonCircleOutline size={36} />
+                    {isHovered ? (
+                      <FaUserEdit size={28} style={{
+                        opacity: isHovered ? 1 : 0,
+                        transition: 'opacity 6s ease',
+                      }} />
+                    ) : (
+                      <IoPersonCircleOutline size={36} />
+                    )}
                     <p className="user-details">
                       <span className="text-capitalize">{userName}</span>
                       <span style={{ color: "#cbcbcb", fontSize: "13px" }}>
@@ -185,7 +199,25 @@ function Header() {
                       </span>
                     </p>
                   </Dropdown.Item>
+                  {/* <Dropdown.Divider/> */}
                   <hr />
+                  {adminMenu ? <Dropdown.Item
+                    className="user-dropdown-item"
+                    onClick={handleUsers}
+                  >
+                    <HiUserPlus size={18} />
+                    Join-Now Users
+                  </Dropdown.Item> : null}
+                  <Dropdown.Item
+                    className="user-dropdown-item"
+                    onClick={handleVolunteers}
+                  >
+                    <MdVolunteerActivism size={18} />
+                    {/* Volunteer */}
+                    Contributor
+                    {/* Donor */}
+                  </Dropdown.Item>
+                  {adminMenu ? <hr /> : null}
                   <Dropdown.Item
                     className="user-dropdown-item"
                     onClick={handleResetPassword}
@@ -193,6 +225,12 @@ function Header() {
                     <RiKey2Fill size={18} />
                     Change Password
                   </Dropdown.Item>
+                  <Dropdown.Item className="user-dropdown-item">
+                    <MdLiveHelp size={18} />
+                    FAQ
+                  </Dropdown.Item>
+                  <hr />
+                  {/* <Dropdown.Divider /> */}
                   <Dropdown.Item
                     className="user-dropdown-item"
                     onClick={() => setShowDialogLogout(true)}
@@ -200,31 +238,21 @@ function Header() {
                     <MdLogout size={18} />
                     Logout
                   </Dropdown.Item>
-                  {/* <Dropdown.Divider/> */}
-                  <hr />
-                  <Dropdown.Item
-                    className="user-dropdown-item"
-                    onClick={handleUsers}
-                  >
-                    <HiUserPlus size={18} />
-                    Join-Now Users
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className="user-dropdown-item"
-                    onClick={handleVolunteers}
-                  >
-                    <MdVolunteerActivism size={18} />
-                    Volunteer
-                  </Dropdown.Item>
-                  <hr />
-                  {/* <Dropdown.Divider /> */}
-                  <Dropdown.Item className="user-dropdown-item">
-                    <MdLiveHelp size={18} />
-                    Help
-                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </li>
+            </li> :
+              <li>
+                <Button
+                  className="header-login-button"
+                  variant="primary"
+                  type="button"
+                  onClick={() => handleLogin()}
+                >
+                  Log In
+                  <IoMdLogIn size={20} />
+                </Button>
+              </li>
+            }
           </ul>
         </div>
       </nav>
