@@ -52,8 +52,8 @@ function Header() {
     navigate("/login");
   };
 
-  const handleVolunteers = () => {
-    navigate("/volunteers");
+  const handleContributor = () => {
+    navigate("/contributor");
   };
 
   const startsWithPath = (path) => location.pathname.startsWith(path);
@@ -210,7 +210,7 @@ function Header() {
                   </Dropdown.Item> : null}
                   <Dropdown.Item
                     className="user-dropdown-item"
-                    onClick={handleVolunteers}
+                    onClick={handleContributor}
                   >
                     <MdVolunteerActivism size={18} />
                     {/* Volunteer */}

@@ -3,10 +3,14 @@ const joinNowUsersSchema = require("../models/joinNowUsers");
 const getJoinNowUsers = async (req, res) => {
   try {
     const users = await joinNowUsersSchema.find();
-    return res.status(200).json({ users });
+    return res.status(200).json({
+      message: "join now users retrieved successfully.", users
+    });
   } catch (error) {
-    console.error("Error while fetching users:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error while fetching users:", error.message);
+    return res.status(500).json({
+      message: "Internal Server Error. Please try again later."
+    });
   }
 };
 

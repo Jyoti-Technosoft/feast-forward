@@ -9,7 +9,7 @@ const Volunteers = () => {
 
     return (
         <div>
-            <h2>Volunteers</h2>
+            <h2>Contributor</h2>
             <Table className='table striped bordered hover'>
                 <thead>
                     <tr>

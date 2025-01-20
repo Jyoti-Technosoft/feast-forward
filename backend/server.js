@@ -10,6 +10,7 @@ const joinNowUsersRoute = require("./routes/joinNowUsers");
 const donateRoute = require("./routes/donate");
 const contactUsRoute = require("./routes/contactUs");
 const feedbackRoute = require("./routes/feedback");
+const contributorRoute = require("./routes/contributor");
 
 require("dotenv").config();
 const app = express();
@@ -32,6 +33,7 @@ app.use("/", joinNowUsersRoute);
 app.use("/", donateRoute);
 app.use("/", contactUsRoute);
 app.use("/", feedbackRoute);
+app.use("/", contributorRoute);
 app.use("/images", express.static("images"));
 
 app.get("*", (req, res) => {

@@ -16,3 +16,7 @@ export const upsertFeedbackUpload = (postData) =>
 
 export const upsertJoinUser = (postData) =>
   axiosInstance.post("/joinNowUsers", postData);
+
+export const getJoinNowUsers = () => axiosInstance.get("/joinNowUsers");
+
+export const getContributor = () => axiosInstance.get("/contributor");

@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
   Navigate,
-  Outlet,
 } from "react-router-dom";
 
 import Login from "./components/authentication/Login";
@@ -23,8 +22,8 @@ export default function App() {
   const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = user && user.token ? true : false;
 
-  const ProtectedRoute = () => {
-    return isLoggedIn ? <Outlet key={Math.random()} /> : <Navigate to="/" />;
+  const ProtectedRoute = ({ children }) => {
+    return isLoggedIn ? children : <Navigate to="/" />;
   };
 
   return (
@@ -64,18 +63,21 @@ export default function App() {
           exact
           path="/donate"
           element={
-            <ProtectedRoute element={<Layout>
-              <Donate />
-            </Layout>} />
+            <ProtectedRoute>
+              <Layout>
+                <Donate />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           exact
           element={
-            <ProtectedRoute element={
+            <ProtectedRoute>
               <Layout>
                 <Feedback />
-              </Layout>} />
+              </Layout>
+            </ProtectedRoute>
           }
           path="/feedback"
         />
@@ -95,7 +97,7 @@ export default function App() {
               <Volunteers />
             </Layout>
           }
-          path="/volunteers"
+          path="/contributor"
         />
         {/* </Route> */}
       </Routes>

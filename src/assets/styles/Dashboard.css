@@ -62,7 +62,7 @@
 .content-item p {
   font-size: 15px;
   color: #666;
-  margin-top: 5px;
+  margin: 5px 0px 10px 0px;
 }
 
 .icon-container {
