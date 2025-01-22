@@ -1,3 +1,229 @@
-.table {
+.main-container {
+    position: relative;
+    height: 92vh;
+    width: 100%;
+    background-image: url('../images/banner_img4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.main-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 165, 0, 0.3);
+    pointer-events: none;
+}
+
+.loading-indicator {
+    text-align: center;
+    font-size: 16px;
+    color: #e67e22;
+    margin-top: 20px;
+}
+
+.top-header {
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 170px 0px 0px 0px;
+}
+
+.top-header p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+    transition: color 3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.top-header p:hover {
+    cursor: pointer;
+    color: #e67e22;
+}
+
+.contributors-users {
+    margin: 20px auto 0px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    overflow-y: auto;
+    padding-bottom: 20px;
     height: 100vh;
+    transition: max-height 0.3s ease;
+    cursor: pointer;
+}
+
+.contributors-users::-webkit-scrollbar {
+    display: none;
+}
+
+.user-section {
+    background: #fbfafa;
+    padding: 23px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ffdbbb;
+    border-radius: 8px;
+    position: relative;
+    margin: 10px;
+    flex-basis: 30%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+}
+
+.spinner {
+    border: 8px solid #F3F3F3;
+    border-top: 8px solid rgb(215, 211, 211);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.user-section .transitioning {
+    transform: scale(1.03);
+    transition: transform 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.user-section:hover {
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+    transition: transform 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.user-section h5 {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.user-section h5:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.section-img-icon-user {
+    display: block;
+    position: absolute;
+    font-size: 30px;
+    top: 10px;
+    right: 10px;
+    color: #e67e22;
+    background: #ffdbbb;
+    padding: 5px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.user-about {
+    font-size: 0.9rem;
+    color: #898585;
+    margin-bottom: 18px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-icon {
+    font-size: 24px;
+    color: #e67e22;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #ffdbbb;
+}
+
+@media (max-width: 576px) {
+    .main-container {
+        background-image: url("../images/banner_img4.jpg");
+        background-position: top;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+
+    .main-container::before {
+        height: 100%;
+    }
+
+    .contributors-users {
+        margin: 20px auto;
+    }
+
+    .user-about {
+        font-size: 0.8rem;
+    }
+
+    .user-section h5 {
+        font-size: 18px;
+    }
+
+    .top-header {
+        padding: 100px 0px;
+    }
+
+    .top-header p {
+        font-size: 16px;
+    }
+
+    .user-section {
+        width: 100%;
+        flex-basis: 100% !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid #ffdbbb;
+    }
+
+    .loading-spinner {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .contributors-users{
+        width: 100%;
+        max-width: 100%;
+    }
+    .user-section {
+        width: 100%;
+        flex-basis: 40%;
+    }
 }

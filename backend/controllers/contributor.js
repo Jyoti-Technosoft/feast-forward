@@ -2,10 +2,10 @@ const usersSchema = require("../models/users");
 
 const getContributorUsers = async (req, res) => {
     try {
-        const users = await usersSchema?.find({ role: "volunteer" }) ?? [];
+        const contributors = await usersSchema?.find({ role: "volunteer" }) ?? [];
         return res.status(200).json({
             message: "Contributor users retrieved successfully.",
-            users
+            contributors
         });
     } catch (error) {
         console.error("Error while fetching users:", error.message);
