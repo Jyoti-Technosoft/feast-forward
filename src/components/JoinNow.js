@@ -148,7 +148,7 @@ const JoinNowPage = () => {
                     <Form.Control
                       as="textarea"
                       name="reason"
-                      placeholder="Enter your details here."
+                      placeholder="Let us know if you want to donate food, volunteer, or support in any other way."
                       value={formData.reason}
                       onChange={handleChange}
                       rows={3}

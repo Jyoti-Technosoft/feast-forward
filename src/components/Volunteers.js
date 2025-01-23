@@ -135,11 +135,11 @@ const Volunteers = () => {
                     <p>Unfortunate People</p>
                 </div>
                 {
-                    !isMobileView ? renderContributorsUsers() : null
+                    !isMobileView && displayedData?.length > 0 ? renderContributorsUsers() : null
                 }
             </div>
             {
-                isMobileView ? renderContributorsUsers() : null
+                isMobileView && displayedData?.length > 0 ? renderContributorsUsers() : null
             }
         </>
     );
