@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-
 import data from "../db.json";
 import "../assets/styles/Faq.css";
 
@@ -13,9 +12,23 @@ function Faq() {
     return (
         <>
             <div className="faq-container">
-                <div className='header-faq'>
-                    <span>Our FAQ</span>
-                    <h2>Frequently asked questions</h2>
+                <div className="background-shapes">
+                    <div className="shape circle"></div>
+                    <div className="shape square"></div>
+                    <div className="shape triangle"></div>
+                    <div className="shape circle"></div>
+                    <div className="shape square"></div>
+                    <div className="shape triangle"></div>
+                    <div className="shape circle"></div>
+                    <div className="shape square"></div>
+                    <div className="shape left circle"></div>
+                    <div className="shape right square"></div>
+                    <div className="shape left triangle"></div>
+                    <div className="shape right circle"></div>
+                    <div className="shape left square"></div>
+                </div>
+                <div className="header-faq">
+                    <h2>Our FAQ</h2>
                 </div>
                 <div className="faq-list">
                     {faqData?.map((item, index) => (
@@ -36,7 +49,7 @@ function Faq() {
                                 {activeIndex === index ? <FaChevronUp /> : <FaChevronDown />}
                             </h6>
                             <div className={`faq-answer ${activeIndex === index ? 'active' : ''}`}>
-                                {item?.answer.map((paragraph, pIndex) => (
+                                {item?.answer?.map((paragraph, pIndex) => (
                                     <p key={pIndex}>{paragraph}</p>
                                 ))}
                             </div>
@@ -44,6 +57,7 @@ function Faq() {
                     ))}
                 </div>
             </div>
+
         </>)
 }
 export default Faq;
