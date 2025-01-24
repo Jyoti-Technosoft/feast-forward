@@ -16,6 +16,7 @@ import Layout from "./components/Layout";
 import Feedback from "./components/Feedback";
 import Volunteers from "./components/Volunteers";
 import JoinNowUsers from "./components/JoinNowUsers";
+import Faq from "./components/Faq";
 import "./App.css";
 
 export default function App() {
@@ -98,6 +99,15 @@ export default function App() {
             </Layout>
           }
           path="/contributor"
+        />
+        <Route
+          exact
+          element={
+            <Layout>
+              <Faq />
+            </Layout>
+          }
+          path="/faq"
         />
         {/* </Route> */}
       </Routes>

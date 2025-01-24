@@ -52,6 +52,10 @@ function Header() {
     navigate("/login");
   };
 
+  const handleFaq = () => {
+    navigate("/faq");
+  };
+
   const handleContributor = () => {
     navigate("/contributor");
   };
@@ -225,7 +229,7 @@ function Header() {
                     <RiKey2Fill size={18} />
                     Change Password
                   </Dropdown.Item>
-                  <Dropdown.Item className="user-dropdown-item">
+                  <Dropdown.Item onClick={handleFaq} className="user-dropdown-item">
                     <MdLiveHelp size={18} />
                     FAQ
                   </Dropdown.Item>

@@ -161,5 +161,69 @@
         "content": "Partnering with organizations to redirect surplus food to where it's needed most."
       }
     ]
+  },
+  "faqpage": {
+    "faqData": [
+      {
+        "question": "What is the mission of your food donation organization?",
+        "answer": [
+          "Our mission is to alleviate hunger by providing nutritious meals to individuals and families in need. We aim to connect donors with local communities to ensure no one goes hungry."
+        ]
+      },
+      {
+        "question": "How can I donate food?",
+        "answer": [
+          "You can donate food by visiting our website to schedule a drop-off or to make a monetary donation that will be used to purchase food. We also have partnered local donation points where you can drop off food items."
+        ]
+      },
+      {
+        "question": "What types of food do you accept?",
+        "answer": [
+          "We accept non-perishable food items such as canned goods, rice, pasta, and grains. We also accept fresh produce, dairy, and meat products at certain locations. Please refer to our donation guidelines for more details."
+        ]
+      },
+      {
+        "question": "Can I donate prepared meals or homemade food?",
+        "answer": [
+          "For safety and health reasons, we only accept commercially packaged food. Unfortunately, we cannot accept homemade or prepared meals."
+        ]
+      },
+      {
+        "question": "How do I know my donation is going to a good cause?",
+        "answer": [
+          "We are a registered nonprofit organization, and all donations are used directly to support our mission of providing food to those in need. You can find detailed reports on our website about how donations are allocated."
+        ]
+      },
+      {
+        "question": "Can I volunteer to help with food distribution?",
+        "answer": [
+          "Yes! We welcome volunteers to help with food sorting, packing, and distribution. You can sign up on our website to become a volunteer and contribute your time to help those in need."
+        ]
+      },
+      {
+        "question": "Do you accept financial donations?",
+        "answer": [
+          "Absolutely! Monetary donations are greatly appreciated and allow us to purchase food, cover operational costs, and support our programs. You can donate online through our secure donation portal."
+        ]
+      },
+      {
+        "question": "What areas do you serve?",
+        "answer": [
+          "We serve local communities within [Your City/Region]. Our network of partners allows us to distribute food to various neighborhoods and areas where help is needed most."
+        ]
+      },
+      {
+        "question": "Can I host a food drive to support your cause?",
+        "answer": [
+          "Yes! Hosting a food drive is a wonderful way to support our mission. We can provide you with materials, guidelines, and support to ensure the success of your drive."
+        ]
+      },
+      {
+        "question": "How do I contact you for more information?",
+        "answer": [
+          "You can reach us through our contact page on the website, or you can email us at [email address]. We are happy to answer any questions you may have about donating, volunteering, or partnering with us."
+        ]
+      }
+    ]    
   }
 }
