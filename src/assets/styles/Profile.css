@@ -17,7 +17,7 @@
   width: 60px;
   height: 60px;
   font-weight: 500;
-  border: 1px solid #e67e22;
+  border: 1px solid var(--primary-color);
   margin-bottom: 10px;
 }
 
@@ -42,21 +42,21 @@
 }
 
 .small-button:first-of-type {
-  background-color: #a1abb2;
+  background-color: var(--cancle-color);
   color: white;
   border: none;
 }
 
 .small-button:first-of-type:hover {
-  background-color: #898e93;
+  background-color: var(--cancle-hover-color);
 }
 
 .small-button:last-of-type {
-  background-color: #f66b0e;
+  background-color: var(--primary-color);
   color: white;
   border: none;
 }
 
 .small-button:last-of-type:hover {
-  background-color: #e67e22;
+  background-color: var(--primary-color);
 }

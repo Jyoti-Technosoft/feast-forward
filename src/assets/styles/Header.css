@@ -21,7 +21,7 @@
 }
 
 .navbar {
-  background-color: #333;
+  background-color: var(--darkblack-color);
 }
 
 .navbar-nav {
@@ -76,7 +76,7 @@ hr {
 .dropdown-menu {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: var(--bg-color);
   min-width: 210px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -111,8 +111,8 @@ hr {
 }
 
 .user-info:hover {
-  color: #f66b0e !important;
-  /* background-color: #f9f9f9; */
+  color: var(--primary-color) !important;
+  /* background-color: var(--bg-color); */
   background-color: rgb(245, 239, 234);
   transition: background-color 0.3s ease, color 2s ease;
 }
@@ -123,13 +123,13 @@ hr {
 
 .dropdown-item:hover {
   background-color: rgb(245, 239, 234);
-  color: #f66b0e !important;
+  color: var(--primary-color) !important;
   border-radius: 4px;
 }
 
 .user-dropdown-item:hover {
   background-color: rgb(245, 239, 234);
-  color: #f66b0e !important;
+  color: var(--primary-color) !important;
   border-radius: 4px;
 }
 
@@ -161,7 +161,7 @@ p {
   cursor: pointer;
   border-radius: 20px;
   margin: 0px 1rem 0px 0px !important;
-  background-color: #f66b0e;
+  background-color: var(--primary-color);
   border: none !important;
   border-radius: 4px;
   font-weight: 500;
@@ -176,7 +176,7 @@ p {
 }
 
 .header-login-button:hover {
-  background-color: #e67e22;
+  background-color: var(--primary-color);
   transition: background-color 1s ease;
 }
 

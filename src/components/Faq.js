@@ -40,8 +40,8 @@ function Faq() {
                                     borderTopRightRadius: '6px',
                                     borderBottomLeftRadius: activeIndex === index ? '0px' : '6px',
                                     borderBottomRightRadius: activeIndex === index ? '0px' : '6px',
-                                    backgroundColor: activeIndex === index ? '#f5efea' : '',
-                                    color: activeIndex === index ? '#e67e22' : ''
+                                    backgroundColor: activeIndex === index ? 'var(--secondary-color)' : '',
+                                    color: activeIndex === index ? 'var(--primary-color)' : ''
                                 }}
                                 onClick={() => toggleAccordion(index)}
                             >

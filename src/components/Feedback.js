@@ -211,7 +211,7 @@ const Feedback = () => {
           </Form.Group>
           <Form.Group controlId="fileUpload" className="Feedback-group">
             <Form.Label>Upload Supporting File</Form.Label>
-            <div style={{ backgroundColor: isDragging ? 'white' : '#f5efea' }} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop} onClick={handleDivClick} className="upload-box">
+            <div style={{ backgroundColor: isDragging ? 'white' : 'var(--secondary-color)' }} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop} onClick={handleDivClick} className="upload-box">
               <HiOutlineDownload className="upload-icon" />
               {file ? file?.name : 'Upload File'}
             </div>

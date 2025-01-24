@@ -21,7 +21,7 @@
 .loading-indicator {
     text-align: center;
     font-size: 16px;
-    color: #e67e22;
+    color: var(--primary-color);
     margin-top: 20px;
 }
 
@@ -46,7 +46,7 @@
 
 .top-header p:hover {
     cursor: pointer;
-    color: #e67e22;
+    color: var(--primary-color);
 }
 
 .contributors-users {
@@ -142,7 +142,7 @@
     font-size: 30px;
     top: 10px;
     right: 10px;
-    color: #e67e22;
+    color: var(--primary-color);
     background: #ffdbbb;
     padding: 5px;
     border-radius: 15px;
@@ -163,7 +163,7 @@
 
 .social-icon {
     font-size: 24px;
-    color: #e67e22;
+    color: var(--primary-color);
     transition: color 0.3s ease;
 }
 

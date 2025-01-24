@@ -54,7 +54,7 @@
   width: 17px;
   height: 2px;
   margin-bottom: 3px;
-  background-color: #ff6600;
+  background-color: var(--primary-color);
   margin-left: 12px;
 }
 
@@ -62,14 +62,14 @@
   width: 17px;
   height: 2px;
   margin-bottom: 3px;
-  background-color: #ff6600;
+  background-color: var(--primary-color);
   margin-right: 12px;
 }
 
 .section-line-second {
   width: 32px;
   height: 2px;
-  background-color: #ff6600;
+  background-color: var(--primary-color);
 }
 
 .overview,
@@ -104,7 +104,7 @@
 
 .impact-section {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: var(--bg-color);
   text-align: center;
   margin: 10px auto 30px auto;
 }
@@ -123,7 +123,7 @@
 .impact-title {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #333;
+  color: var(--darkblack-color);
   margin-bottom: 0px;
 }
 
@@ -135,8 +135,8 @@
 }
 
 .impact-stat {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--white-color);
+  border: 1px solid var(--lightgray-color);
   border-radius: 10px;
   padding: 13px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -147,7 +147,7 @@
 
 .impact-number {
   font-size: 2rem;
-  color: #f66b0e;
+  color: var(--primary-color);
 }
 
 .impact-label {
@@ -181,8 +181,8 @@
 }
 
 .impact-point-number {
-  background: #f66b0e;
-  color: #fff;
+  background: var(--primary-color);
+  color: var(--white-color);
   font-size: 1.5rem;
   width: 40px;
   height: 40px;
@@ -195,7 +195,7 @@
 .impact-point-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
+  color: var(--darkblack-color);
 }
 
 .impact-point-content {
@@ -208,9 +208,9 @@
 
 .container-section1 {
   padding: 20px;
-  color: #333;
+  color: var(--darkblack-color);
   align-items: center;
-  background-color: #fff;
+  background-color: var(--white-color);
 }
 
 .round-image1 {
@@ -227,8 +227,8 @@
 }
 
 .container-section2 {
-  color: #333;
-  background-color: #fff;
+  color: var(--darkblack-color);
+  background-color: var(--white-color);
   padding-bottom: 10px;
 }
 
@@ -243,7 +243,7 @@
 
 .contact-section {
   padding: 10px 20px;
-  color: #333;
+  color: var(--darkblack-color);
   text-align: center;
 }
 
@@ -282,7 +282,7 @@ h2 {
   width: 100%;
   /* padding: 6px 12px; */
   padding: 11px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--lightgray-color);;
   border-radius: 6px;
   box-sizing: border-box;
   font-size: 13px;
@@ -296,7 +296,7 @@ h2 {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #e67e22;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 0.25rem rgba(0, 72, 148, 0.25);
   outline: none;
 }
@@ -316,23 +316,23 @@ h2 {
 }
 
 .small-button:first-of-type {
-  background-color: #a1abb2;
+  background-color: var(--cancle-color);
   color: white;
   border: none;
 }
 
 .small-button:first-of-type:hover {
-  background-color: #898e93;
+  background-color: var(--cancle-hover-color);
 }
 
 .small-button:last-of-type {
-  background-color: #f66b0e;
+  background-color: var(--primary-color);
   color: white;
   border: none;
 }
 
 .small-button:last-of-type:hover {
-  background-color: #e67e22;
+  background-color: var(--primary-color);
 }
 
 .section-img-icon{
@@ -363,7 +363,7 @@ h2 {
     font-size: 40px;
     top:-20px;
     left:9px;
-    color: #e67e22;
+    color: var(--primary-color);
     background: #fbfafa;
     padding: 0 4px;
     border-radius: 15px;

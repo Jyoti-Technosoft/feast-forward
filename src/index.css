@@ -5,6 +5,16 @@ html, body {
   padding: 0; 
   overflow-x: hidden; 
 }
+:root {
+  --primary-color: #e67e22; 
+  --secondary-color: #f5efea; 
+  --cancle-color: #a1abb2; 
+  --cancle-hover-color: #898e93;
+  --bg-color: #f9f9f9;
+  --white-color: #fff;
+  --darkblack-color: #333;
+  --lightgray-color: #ddd;
+}
 #root {
   height: 100%;
   width: 100%;
@@ -48,9 +58,9 @@ code {
 }
 
 .profile-names{
-  background-color: #f5efea;
+  background-color: var(--secondary-color);
   border-radius: 50%;
-  color: #e67e22;
+  color: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
