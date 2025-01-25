@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal, InputGroup, FormControl } from "react-bootstrap";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -13,7 +12,6 @@ import "../assets/styles/ResetPassword.css";
 const ResetPassword = (props) => {
   const { show, setShowDialog } = props;
   const user = JSON.parse(localStorage.getItem("user"));
-  // const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     oldPassword: "",
@@ -25,14 +23,32 @@ const ResetPassword = (props) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [message, setMessage] = useState({ type: "", message: "" });
 
+  const validatePassword = (password) => {
+    return password.length >= 6;
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
-  const validatePassword = (password) => {
-    return password.length >= 6;
+  const resetForm = () => {
+    setFormData({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+    setErrors({});
+    setShowDialog(false);
   };
 
   const handleSubmit = async (e) => {
@@ -71,11 +87,6 @@ const ResetPassword = (props) => {
           };
           localStorage.setItem("user", JSON.stringify(userWithNewPassword));
           resetForm();
-          setTimeout(() => {
-            // window.localStorage.clear();
-            // navigate("/login");
-            // window.location.reload();
-          }, 2000);
         } else if (response.status === 201) {
           setMessage({ type: "warning", message: response.data.message });
         }
@@ -85,24 +96,6 @@ const ResetPassword = (props) => {
     } else {
       setErrors(tempErrors);
     }
-  };
-
-  const resetForm = () => {
-    setFormData({
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-    setErrors({});
-    setShowDialog(false);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const renderChildren = () => {
@@ -201,16 +194,9 @@ const ResetPassword = (props) => {
             variant="primary"
             onClick={handleSubmit}
           >
-            {/* Change Password */}
             Submit
           </Button>
         </Modal.Footer>
-        {/* <div className="mt-3">
-          Remembered your password?{" "}
-          <Link to="/login" className="link-div">
-            Log in
-          </Link>
-        </div> */}
       </>
     );
   };

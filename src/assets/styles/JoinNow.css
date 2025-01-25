@@ -46,7 +46,7 @@ h2 {
 
 @media (max-width: 768px) {
   .form-fields {
-    padding: 20px;
+    padding: 0px 0px 20px;
   }
 }
 
@@ -90,9 +90,8 @@ h2 {
   font-family: 'Roboto', sans-serif;
 }
 
-.image-column {
+.image-column-join {
   text-align: center;
-  /* margin-top: 30px; */
 }
 
 .join-now-image {

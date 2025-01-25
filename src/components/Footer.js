@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Facebook,
   Twitter,
@@ -7,6 +6,7 @@ import {
   Linkedin,
   Github,
 } from "react-bootstrap-icons";
+
 import "../assets/styles/Footer.css";
 
 function Footer() {
@@ -54,7 +54,6 @@ function Footer() {
           <Github size={20} className="text-gray-300 hover:text-teal-400" />
         </a>
       </div>
-      {/* Footer Copyright */}
       <div className="border-top mt-4 pt-3">
         <p className="footer-text mb-0">
           &copy; 2024 Feast Forward. All rights reserved.

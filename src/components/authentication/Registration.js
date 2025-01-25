@@ -20,6 +20,7 @@ import "../../assets/styles/Register.css";
 
 const Registration = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -39,6 +40,19 @@ const Registration = () => {
     setErrors({ ...errors, [name]: "" });
   };
 
+  const resetFormValues = () => {
+    setFormData({
+      fullName: "",
+      email: "",
+      contactNo: "",
+      city: "",
+      address: "",
+      password: "",
+      confirmPassword: "",
+      role: "",
+    });
+  };
+  
   const validateForm = () => {
     let isValid = true;
     let newErrors = {};
@@ -99,11 +113,6 @@ const Registration = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        // const response = await axios.post(
-        //   `${BASE_URL}/register`,
-        //   JSON.stringify(formData),
-        //   { headers: { "Content-Type": "application/json" } }
-        // );
         const response = await upsertRegister(JSON.stringify(formData));
         if (response?.status === 200) {
           setMessage({ type: "success", message: response.data.message });
@@ -123,24 +132,10 @@ const Registration = () => {
     }
   };
 
-  const resetFormValues = () => {
-    setFormData({
-      fullName: "",
-      email: "",
-      contactNo: "",
-      city: "",
-      address: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
-    });
-  };
-
   return (
     <Container className="Registration-form">
       <Form onSubmit={handleSubmit} className="main-div transparent-box">
         <h1 className="login-div">Registration</h1>
-        {/* FullName Field */}
         <Form.Group className="form-group" controlId="fullName">
           <Form.Label className="d-flex align-items-center">
             <PersonCircle color="white" size={18} />
@@ -153,13 +148,11 @@ const Registration = () => {
             value={formData.fullName}
             onChange={handleInputChange}
             isInvalid={!!errors.fullName}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.fullName}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Email Field */}
         <Form.Group className="form-group" controlId="email">
           <Form.Label className="d-flex align-items-center">
             <EnvelopeFill color="white" size={18} />
@@ -172,13 +165,11 @@ const Registration = () => {
             value={formData.email}
             onChange={handleInputChange}
             isInvalid={!!errors.email}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Role Field */}
         <Form.Group className="form-group" controlId="role">
           <Form.Label className="d-flex align-items-center">
             <PersonFillGear color="white" size={18} />
@@ -202,7 +193,6 @@ const Registration = () => {
             {errors?.role}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Contact Number Field */}
         <Form.Group className="form-group" controlId="contactNo">
           <Form.Label className="d-flex align-items-center">
             <TelephoneFill color="white" size={18} />
@@ -215,13 +205,11 @@ const Registration = () => {
             value={formData.contactNo}
             onChange={handleInputChange}
             isInvalid={!!errors.contactNo}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.contactNo}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* City Field */}
         <Form.Group className="form-group" controlId="city">
           <Form.Label className="d-flex align-items-center">
             <PinMapFill color="white" size={18} />
@@ -234,13 +222,11 @@ const Registration = () => {
             value={formData.city}
             onChange={handleInputChange}
             isInvalid={!!errors.city}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.city}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Address Field */}
         <Form.Group className="form-group" controlId="address">
           <Form.Label className="d-flex align-items-center">
             <GeoAltFill color="white" size={18} />
@@ -253,13 +239,11 @@ const Registration = () => {
             value={formData.address}
             onChange={handleInputChange}
             isInvalid={!!errors.address}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.address}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Password Field */}
         <Form.Group className="form-group" controlId="password">
           <Form.Label className="d-flex align-items-center">
             <Lock color="white" size={18} />
@@ -272,13 +256,11 @@ const Registration = () => {
             value={formData.password}
             onChange={handleInputChange}
             isInvalid={!!errors.password}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Confirm Password Field */}
         <Form.Group className="form-group" controlId="confirmPassword">
           <Form.Label className="d-flex align-items-center">
             <FileEarmarkLock2 color="white" size={18} />
@@ -291,7 +273,6 @@ const Registration = () => {
             value={formData.confirmPassword}
             onChange={handleInputChange}
             isInvalid={!!errors.confirmPassword}
-            // required
           />
           <Form.Control.Feedback type="invalid">
             {errors.confirmPassword}

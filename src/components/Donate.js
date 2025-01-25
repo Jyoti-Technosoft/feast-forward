@@ -23,6 +23,14 @@ const Donate = () => {
   const [formErrors, setFormErrors] = useState({});
   const [message, setMessage] = useState({ type: "", message: "" });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (formErrors[name]) {
+      setFormErrors({ ...formErrors, [name]: "" });
+    }
+  };
+
   const handleCancel = () => {
     setFormData({
       fullName: "",
@@ -39,6 +47,21 @@ const Donate = () => {
     setFormErrors({});
   };
 
+  const resetFormValues = () => {
+    setFormData({
+      fullName: "",
+      email: "",
+      contactNo: "",
+      address: "",
+      mealQuantity: "",
+      foodType: "",
+      donationDate: "",
+      donorType: "",
+      organizationName: "",
+    });
+    setFormErrors({});
+  };
+  
   const validateForm = () => {
     const errors = {};
     if (!formData?.email.trim()) {
@@ -76,14 +99,6 @@ const Donate = () => {
     return errors;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: "" });
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
@@ -103,21 +118,6 @@ const Donate = () => {
     }
   };
 
-  const resetFormValues = () => {
-    setFormData({
-      fullName: "",
-      email: "",
-      contactNo: "",
-      address: "",
-      mealQuantity: "",
-      foodType: "",
-      donationDate: "",
-      donorType: "",
-      organizationName: "",
-    });
-    setFormErrors({});
-  };
-
   return (
     <div>
       <div className="donate-form">
@@ -132,7 +132,6 @@ const Donate = () => {
                 className="d-flex justify-content-center flex-column"
               >
                 <h2>Donate</h2>
-                {/* Row 1: Full Name and Email */}
                 <Row className="mb-1">
                   <Col md={6}>
                     <Form.Group className="donate-label me-md-3" controlId="fullName">
@@ -168,7 +167,6 @@ const Donate = () => {
                   </Col>
                 </Row>
 
-                {/* Row 2: Contact No. and Address */}
                 <Row className="mb-1">
                   <Col md={6}>
                     <Form.Group className="donate-label me-md-3" controlId="contactNo">
@@ -204,7 +202,6 @@ const Donate = () => {
                   </Col>
                 </Row>
 
-                {/* Row 3: Meal Quantity and Food Type */}
                 <Row className="mb-1">
                   <Col md={6}>
                     <Form.Group
@@ -250,7 +247,6 @@ const Donate = () => {
                   </Col>
                 </Row>
 
-                {/* Row 4: Donation Date and Expiration Date */}
                 <Row className="mb-1">
                   <Col md={6}>
                     <Form.Group
@@ -290,7 +286,6 @@ const Donate = () => {
                   </Col>
                 </Row>
 
-                {/* Row 5: Donor Type and Organization */}
                 <Row className="mb-1">
                   <Col md={6}>
                     <Form.Group className="donate-label me-md-3" controlId="donorType">

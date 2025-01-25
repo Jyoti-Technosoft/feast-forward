@@ -106,13 +106,11 @@ hr {
 
 .user-info {
   display: flex;
-  /* align-items: flex-start; */
   align-items: center;
 }
 
 .user-info:hover {
   color: var(--primary-color) !important;
-  /* background-color: var(--bg-color); */
   background-color: rgb(245, 239, 234);
   transition: background-color 0.3s ease, color 2s ease;
 }

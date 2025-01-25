@@ -4,7 +4,6 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { MdRemoveRedEye } from "react-icons/md";
 import { AiOutlineAim } from "react-icons/ai";
 import { GoGoal } from "react-icons/go";
-// import { useNavigate } from "react-router-dom";
 
 import CustomToast from "./ReusableComponents/CustomToast";
 import data from "../db.json";
@@ -25,8 +24,8 @@ const AboutUs = () => {
     impactData,
     points,
   } = data?.aboutuspage;
-  // const navigate = useNavigate();
   const duration = 3;
+
   const [formData, setFormData] = useState({
     requestType: "",
     email: "",
@@ -63,6 +62,14 @@ const AboutUs = () => {
     setErrors({});
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
+
   const validateForm = () => {
     const errors = {};
     if (!formData?.email.trim()) {
@@ -80,14 +87,6 @@ const AboutUs = () => {
       errors.message = "Message is required";
     }
     return errors;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
-    }
   };
 
   const handleSubmit = async (event) => {
@@ -142,15 +141,6 @@ const AboutUs = () => {
     <div className="about-us">
       <div className="about-header">
         <h1>About Us</h1>
-        {/* <p>
-          <span
-            onClick={() => navigate("/")}
-            style={{ color: "#ff6600", cursor: "pointer" }}
-          >
-            Home
-          </span>{" "}
-          &gt; About Us
-        </p> */}
       </div>
       <section className="about-content">
         {aboutusSection1?.map((item, index) => {

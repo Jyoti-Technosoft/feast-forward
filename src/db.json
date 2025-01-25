@@ -225,5 +225,12 @@
         ]
       }
     ]    
+  },
+  "volunteers": {
+    "foodDonationDescriptions": [
+      "These volunteers help provide food and essentials to people in need, collecting and distributing it.",
+      "Our volunteers ensure families experiencing food insecurity have access to nutritious meals daily.",
+      "Food donation volunteers collect, package, and deliver food to people in need across local areas."
+    ]    
   }
 }

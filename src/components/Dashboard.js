@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 import Slider from "react-slick";
 
-import { getFeedback } from "../Services/CommonServices";
 import data from "../db.json";
-import "../assets/styles/Dashboard.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { getFeedback } from "../Services/CommonServices";
 import banner_img1 from "../assets/images/banner_img1.jpg";
 import banner_img2 from "../assets/images/banner_img2.jpg";
 import banner_img3 from "../assets/images/banner_img3.jpg";
@@ -21,29 +16,13 @@ import FDP_img from "../assets/images/FDP_img.webp";
 import food_donate_bg from "../assets/images/food-donate-bg.png";
 import round_img from "../assets/images/round_img.jpg";
 import round_img2 from "../assets/images/round_img2.jpg";
-
-// const responsive = {
-//   superLargeDesktop: {
-//     breakpoint: { max: 4000, min: 3000 },
-//     items: 5,
-//   },
-//   desktop: {
-//     breakpoint: { max: 3000, min: 1024 },
-//     items: 3,
-//   },
-//   tablet: {
-//     breakpoint: { max: 1024, min: 464 },
-//     items: 2,
-//   },
-//   mobile: {
-//     breakpoint: { max: 464, min: 0 },
-//     items: 1,
-//   },
-// };
+import "../assets/styles/Dashboard.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Dashboard() {
   const { carouselImages, content, secondCarouselImages } = data?.homepage;
-  // const navigate = useNavigate();
 
   const [feedbackData, setFeedbackData] = useState([]);
   const [currentImages, setCurrentImages] = useState(secondCarouselImages?.slice(0, 6));
@@ -62,6 +41,16 @@ function Dashboard() {
     "round_img2.jpg": round_img2,
   };
   const getImageSrc = (src) => imageMap[src] || src;
+
+  const getInitials = (userName) => {
+    if (!userName) return "";
+    const words = userName?.trim()?.split(" ");
+    if (words?.length === 1) {
+      return words[0][0]?.toUpperCase();
+    } else {
+      return `${words[0][0]}${words[1][0]}`.toUpperCase();
+    }
+  };
 
   const getFeedbackData = async () => {
     try {
@@ -95,47 +84,6 @@ function Dashboard() {
     }
     return <div>{stars}</div>;
   };
-
-  const getInitials = (userName) => {
-    if (!userName) return "";
-    const words = userName?.trim()?.split(" ");
-    if (words?.length === 1) {
-      return words[0][0]?.toUpperCase();
-    } else {
-      return `${words[0][0]}${words[1][0]}`.toUpperCase();
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextImages = secondCarouselImages?.slice(currentImages?.length, currentImages?.length + 6);
-      if (nextImages?.length > 0) {
-        setCurrentImages((prevImages) => [...prevImages?.slice(6), ...nextImages]);
-      } else {
-        setCurrentImages(secondCarouselImages?.slice(0, 6));
-      }
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [currentImages, secondCarouselImages]);
-
-  // useEffect(() => {
-  //   const checkUserLoggedIn = () => {
-  //     const user = JSON.parse(localStorage.getItem("user"));
-  //     const token = user && user?.token ? true : false;
-  //     return token;
-  //   };
-  //   const token = checkUserLoggedIn();
-  //   // if (token) {
-  //   //   navigate("/");
-  //   // } else {
-  //   //   navigate("/login");
-  //   // }
-  //   /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  // }, []);
-
-  useEffect(() => {
-    getFeedbackData();
-  }, []);
 
   const GallerySlider = () => {
     return (
@@ -232,6 +180,22 @@ function Dashboard() {
     );
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextImages = secondCarouselImages?.slice(currentImages?.length, currentImages?.length + 6);
+      if (nextImages?.length > 0) {
+        setCurrentImages((prevImages) => [...prevImages?.slice(6), ...nextImages]);
+      } else {
+        setCurrentImages(secondCarouselImages?.slice(0, 6));
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [currentImages, secondCarouselImages]);
+
+  useEffect(() => {
+    getFeedbackData();
+  }, []);
+  
   return (
     <>
       <Carousel>

@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+
 import data from "../db.json";
 import "../assets/styles/Faq.css";
 
 function Faq() {
     const { faqData } = data?.faqpage;
+
     const [activeIndex, setActiveIndex] = useState(null);
+
     const toggleAccordion = (index) => {
         setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
     };
+
     return (
         <>
             <div className="faq-container">
@@ -57,7 +61,6 @@ function Faq() {
                     ))}
                 </div>
             </div>
-
         </>)
 }
 export default Faq;

@@ -1,27 +1,31 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FaUser, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 
+import data from "../db.json"
 import { getContributor } from "../Services/CommonServices";
 import Loading from "../assets/images/loading_gif.webp"
 import "../assets/styles/Volunteers.css";
 
 const Volunteers = () => {
     const containerRef = useRef(null);
-
+    const { foodDonationDescriptions } = data?.volunteers;
     const [contributorsData, setContributorsData] = useState([]);
     const [displayedData, setDisplayedData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 576);
 
-    const foodDonationDescriptions = [
-        "These volunteers help provide food and essentials to people in need, collecting and distributing it.",
-        "Our volunteers ensure families experiencing food insecurity have access to nutritious meals daily.",
-        "Food donation volunteers collect, package, and deliver food to people in need across local areas."
-    ];
-
     const getRandomDescription = (name) => {
         const randomIndex = Math.floor(Math.random() * foodDonationDescriptions?.length);
         return `${name}, ${foodDonationDescriptions[randomIndex]}`;
+    };
+
+    const loadMoreData = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            const nextData = contributorsData.slice(displayedData.length, displayedData.length + 3);
+            setDisplayedData((prevData) => [...prevData, ...nextData]);
+            setIsLoading(false);
+        }, 2000);
     };
 
     const getContributorsData = async () => {
@@ -69,21 +73,11 @@ const Volunteers = () => {
             </div>
             {isLoading && (
                 <div className="loading-container">
-                    {/* <div class="spinner"></div> */}
                     <img src={Loading} alt="Loading..." className="loading-spinner" />
                 </div>
             )}
         </>)
     }
-
-    const loadMoreData = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            const nextData = contributorsData.slice(displayedData.length, displayedData.length + 3);
-            setDisplayedData((prevData) => [...prevData, ...nextData]);
-            setIsLoading(false);
-        }, 2000);
-    };
 
     const handleScroll = useCallback(() => {
         const container = containerRef.current;

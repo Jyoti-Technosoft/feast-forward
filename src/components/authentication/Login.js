@@ -16,26 +16,14 @@ import "../../assets/styles/Login.css";
 
 function Login() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState({ type: "", message: "" });
 
-  const checkUserLoggedIn = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user?.token) {
-      navigate("/");
-    }
-  };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
   };
 
   const validatePassword = (password) => {
@@ -44,6 +32,19 @@ function Login() {
 
   const resetForm = () => {
     setFormData({ email: "", password: "" });
+  };
+
+  const checkUserLoggedIn = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.token) {
+      navigate("/");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const handleSubmit = async (e) => {
@@ -92,7 +93,6 @@ function Login() {
     <Container className="login-container">
       <Form className="transparent-box-1" onSubmit={handleSubmit}>
         <h1 className="login-div">Login Account</h1>
-        {/* Email Field */}
         <Form.Group
           controlId="formBasicEmail"
           style={{ marginBottom: errors?.email ? "2px" : "15px" }}
@@ -114,7 +114,6 @@ function Login() {
             {errors?.email}
           </Form.Control.Feedback>
         </Form.Group>
-        {/* Password Field */}
         <Form.Group
           style={{ marginBottom: errors?.email ? "2px" : "15px" }}
           controlId="formBasicPassword"

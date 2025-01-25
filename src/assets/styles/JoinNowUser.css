@@ -20,7 +20,6 @@
 .table-container {
   margin: 20px auto;
   width: 55%;
-  /* max-width: 55%; */
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -82,12 +81,7 @@
   align-items: center;
   cursor: pointer;
   border-radius: 8px;
-  /* max-width: 150px; */
   overflow: hidden;
-}
-
-.table-header .table-cell:hover {
-  /* background-color: #f8fafc;  */
 }
 
 .table-header .table-cell .sorting-icon {

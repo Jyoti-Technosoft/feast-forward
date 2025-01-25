@@ -11,11 +11,21 @@ import "../assets/styles/JoinNowUser.css";
 
 const JoinNowUsers = () => {
   const containerRef = useRef(null);
+
   const [joinNowUsersData, setJoinNowUsersData] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 576);
 
+  const loadMoreData = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const nextData = joinNowUsersData.slice(displayedData.length, displayedData.length + 5);
+      setDisplayedData((prevData) => [...prevData, ...nextData]);
+      setIsLoading(false);
+    }, 2000);
+  };
+  
   const getJoinNowUsersData = async () => {
     try {
       const response = await getJoinNowUsers();
@@ -59,15 +69,6 @@ const JoinNowUsers = () => {
       margin: "0px 8px 0px 0px"
     };
     return <span style={style}>{initials}</span>;
-  };
-
-  const loadMoreData = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      const nextData = joinNowUsersData.slice(displayedData.length, displayedData.length + 5);
-      setDisplayedData((prevData) => [...prevData, ...nextData]);
-      setIsLoading(false);
-    }, 2000);
   };
 
   const handleScroll = useCallback(() => {
@@ -231,7 +232,6 @@ const JoinNowUsers = () => {
         </div>
         {isLoading && (
           <div style={{ marginBottom: "0px" }} className="loading-container">
-            {/* <div class="spinner"></div> */}
             <img style={{ width: "33px", height: "33px" }} src={Loading} alt="Loading..." className="loading-spinner" />
           </div>
         )}

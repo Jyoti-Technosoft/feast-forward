@@ -4,8 +4,8 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import CustomToast from "./ReusableComponents/CustomToast";
 import { upsertJoinUser } from "../Services/CommonServices";
 import { errorMessage } from "../Services/axiosinstance";
-import "../assets/styles/JoinNow.css";
 import joinUs from "../assets/images/join_us.jpg";
+import "../assets/styles/JoinNow.css";
 
 const JoinNowPage = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +20,14 @@ const JoinNowPage = () => {
   const handleCancel = () => {
     setFormData({ fullName: "", email: "", contactNo: "", reason: "" });
     setFormErrors({});
+  };
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (formErrors[name]) {
+      setFormErrors({ ...formErrors, [name]: "" });
+    }
   };
 
   const validateForm = () => {
@@ -39,17 +47,9 @@ const JoinNowPage = () => {
         "Invalid contact number, Must be 10 digits starting with 6-9.";
     }
     if (!formData?.reason?.trim()) {
-      errors.reason = "Reason is required";
+      errors.reason = "Provide details is required";
     }
     return errors;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    if (formErrors[name]) {
-      setFormErrors({ ...formErrors, [name]: "" });
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -57,11 +57,6 @@ const JoinNowPage = () => {
     const errors = validateForm();
     if (Object?.keys(errors)?.length === 0) {
       try {
-        // const response = await axios.post(
-        //   `${BASE_URL}/joinNowUsers`,
-        //   JSON.stringify(formData),
-        //   { headers: { "Content-Type": "application/json" } }
-        // );
         const response = await upsertJoinUser(JSON.stringify(formData));
         if (response?.status === 200) {
           console.log('response?.data?.message==>:', response?.data?.message);
@@ -87,10 +82,10 @@ const JoinNowPage = () => {
     <div className="join-now-page">
       <Container>
         <Row className="align-items-center">
-          <Col md={6} className="image-column">
+          <Col lg={6} className="image-column-join">
             <img src={joinUs} alt="Join Us" className="join-now-image" />
           </Col>
-          <Col md={6} className="form-column">
+          <Col lg={6} className="form-column">
             <div className="join-now-container">
               <h4 className="join-now-heading">Join Us</h4>
               <Form onSubmit={handleSubmit}>
@@ -104,7 +99,6 @@ const JoinNowPage = () => {
                       value={formData.fullName}
                       onChange={handleChange}
                       isInvalid={!!formErrors.fullName}
-                      // required
                     />
                     <Form.Control.Feedback type="invalid">
                       {formErrors.fullName}
@@ -120,7 +114,6 @@ const JoinNowPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       isInvalid={!!formErrors.email}
-                      // required
                     />
                     <Form.Control.Feedback type="invalid">
                       {formErrors.email}
@@ -136,7 +129,6 @@ const JoinNowPage = () => {
                       value={formData.contactNo}
                       onChange={handleChange}
                       isInvalid={!!formErrors.contactNo}
-                      // required
                     />
                     <Form.Control.Feedback type="invalid">
                       {formErrors.contactNo}
@@ -153,7 +145,6 @@ const JoinNowPage = () => {
                       onChange={handleChange}
                       rows={3}
                       isInvalid={!!formErrors.reason}
-                      // required
                     />
                     <Form.Control.Feedback type="invalid">
                       {formErrors.reason}

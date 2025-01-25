@@ -11,8 +11,8 @@ import "../assets/styles/Logout.css";
 const Logout = (props) => {
     const { show, setShowDialog } = props;
     const navigate = useNavigate();
-    const [message, setMessage] = useState({ type: "", message: "" });
 
+    const [message, setMessage] = useState({ type: "", message: "" });
     const user = JSON.parse(localStorage.getItem("user"));
 
     const resetForm = () => {

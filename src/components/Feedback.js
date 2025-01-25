@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
+import { HiOutlineDownload } from "react-icons/hi";
 
 import CustomToast from "./ReusableComponents/CustomToast";
-import { HiOutlineDownload } from "react-icons/hi";
 import {
   upsertFeedback,
 } from "../Services/CommonServices";
@@ -11,6 +11,7 @@ import "../assets/styles/Feedback.css";
 
 const Feedback = () => {
   const fileInputRef = useRef(null);
+
   const [formData, setFormData] = useState({
     ratings: "",
     foodQuality: "",
@@ -24,6 +25,23 @@ const Feedback = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isDragging, setIsDragging] = useState(false);
 
+  const handleDivClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -32,12 +50,11 @@ const Feedback = () => {
     }
   };
 
-  const handleDivClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const onChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    setFile(droppedFile);
+    setIsDragging(false);
   };
 
   const handleCancel = () => {
@@ -52,20 +69,43 @@ const Feedback = () => {
     setFormErrors({});
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
+  const resetFormValues = () => {
+    setFormData({
+      ratings: "",
+      foodQuality: "",
+      experience: "",
+      suggestions: "",
+    });
+    setFile(null);
+    setFormErrors({});
   };
 
-  const handleDragLeave = () => {
-    setIsDragging(false);
+  const renderStars = (numStars) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      const isFilled = i <= numStars;
+      stars.push(
+        <span
+          key={i}
+          className={`star ${isFilled ? 'filled' : ''}`}
+          onClick={() => handleStarClick(i)}
+          role="button"
+        >
+          {isFilled ? '★' : '☆'}
+        </span>
+      );
+    }
+    return stars;
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    setFile(droppedFile);
-    setIsDragging(false);
+  const handleStarClick = (ratingValue) => {
+    setFormData({
+      ...formData,
+      ratings: formData?.ratings === ratingValue ? 0 : ratingValue,
+    });
+    if (formErrors.ratings) {
+      setFormErrors({ ...formErrors, ratings: "" });
+    }
   };
 
   const validateForm = () => {
@@ -114,45 +154,6 @@ const Feedback = () => {
     }
   };
 
-  const resetFormValues = () => {
-    setFormData({
-      ratings: "",
-      foodQuality: "",
-      experience: "",
-      suggestions: "",
-    });
-    setFile(null);
-    setFormErrors({});
-  };
-
-  const handleStarClick = (ratingValue) => {
-    setFormData({
-      ...formData,
-      ratings: formData?.ratings === ratingValue ? 0 : ratingValue,
-    });
-    if (formErrors.ratings) {
-      setFormErrors({ ...formErrors, ratings: "" });
-    }
-  };
-
-  const renderStars = (numStars) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      const isFilled = i <= numStars;
-      stars.push(
-        <span
-          key={i}
-          className={`star ${isFilled ? 'filled' : ''}`}
-          onClick={() => handleStarClick(i)}
-          role="button"
-        >
-          {isFilled ? '★' : '☆'}
-        </span>
-      );
-    }
-    return stars;
-  };
-
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user"));
     user && setUserName(user.fullName);
@@ -165,7 +166,6 @@ const Feedback = () => {
         <h2 className="text-center feedback-title">Feedback</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="ratings" className="Feedback-group">
-            {/* <Form.Label>Ratings</Form.Label> */}
             <div className="FeedbackForm-star">{renderStars(formData.ratings)}</div>
           </Form.Group>
           <span className="invalid-ratings">{formErrors.ratings}</span>

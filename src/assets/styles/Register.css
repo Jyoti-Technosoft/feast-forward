@@ -7,7 +7,6 @@
   height: 100vh;
   text-align: center;
   flex-direction: column;
-  /* background-image: url(../images\/FDP.jpg); */
   background-image: url(../images/food-donate-bg.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -16,6 +15,10 @@
   padding-bottom: 20px;
   overflow-y: auto;
 
+  h1 {
+    font-size: 2.2rem;
+  }
+
   .form-group {
     text-align: left;
     margin-top: 7px;
@@ -23,6 +26,7 @@
 
   ::-webkit-scrollbar {
     width: 5px;
+    display: none;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -48,6 +52,7 @@
   .form-label {
     font-weight: unset;
     margin-bottom: 8px;
+    font-size: 12px;
   }
 
   .mt-3 {
@@ -56,15 +61,17 @@
 
   .form-group svg {
     margin-right: 5px;
+    font-size: 12px;
   }
 
   .login-form h2 {
     text-align: center !important;
   }
 
-  input {
+  input,
+  select {
     width: 100%;
-    padding: 10px;
+    padding: 7px 10px !important;
     box-sizing: border-box;
   }
 
@@ -72,7 +79,6 @@
     color: white;
     padding: 7px 15px;
     cursor: pointer;
-    /* border-radius: 20px; */
     margin: 10px 0 0 0;
     width: 100%;
     background-color: var(--primary-color) !important;
@@ -115,6 +121,7 @@
 
   .form-group {
     margin-top: 10px !important;
+    min-width: 100% !important;
   }
 
   .register-button {

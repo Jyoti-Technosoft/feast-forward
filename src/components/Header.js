@@ -26,6 +26,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [userName, setUserName] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [showDialogLogout, setShowDialogLogout] = useState(false);
@@ -33,12 +34,6 @@ function Header() {
   const [isHovered, setIsHovered] = React.useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = user && user?.token ? true : false;
-
-  useEffect(() => {
-    let user = JSON.parse(localStorage.getItem("user"));
-    user && setUserName(user.fullName);
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, []);
 
   const handleResetPassword = () => {
     setShowDialogPassword(true);
@@ -63,6 +58,13 @@ function Header() {
   const startsWithPath = (path) => location.pathname.startsWith(path);
   const tooltip = <Tooltip id="tooltip">{userName}</Tooltip>;
   const adminMenu = user?.role === "admin";
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    user && setUserName(user.fullName);
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []);
+
   return (
     <div className="header-container">
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -73,7 +75,6 @@ function Header() {
           width="50px"
           height="55px"
         />
-        {/* Toggler Icon for Mobile View */}
         <button
           className="navbar-toggler"
           type="button"
@@ -85,7 +86,6 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -175,8 +175,6 @@ function Header() {
                   as="div"
                   className="d-flex align-items-center nav-link dropdown-toggle"
                 >
-                  {/* <IoPersonCircleOutline size={25} />
-                  <span className="text-capitalize">&nbsp;{userName}</span> */}
                   <OverlayTrigger placement="bottom" overlay={tooltip}>
                     <GetInitialsName className="username" name={userName} />
                   </OverlayTrigger>
@@ -203,7 +201,6 @@ function Header() {
                       </span>
                     </p>
                   </Dropdown.Item>
-                  {/* <Dropdown.Divider/> */}
                   <hr />
                   {adminMenu ? <Dropdown.Item
                     className="user-dropdown-item"
@@ -234,7 +231,6 @@ function Header() {
                     FAQ
                   </Dropdown.Item>
                   <hr />
-                  {/* <Dropdown.Divider /> */}
                   <Dropdown.Item
                     className="user-dropdown-item"
                     onClick={() => setShowDialogLogout(true)}

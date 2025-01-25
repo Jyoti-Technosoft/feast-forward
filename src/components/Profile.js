@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
-import { FaUser } from "react-icons/fa";
+// import { FaUser } from "react-icons/fa";
 
 import DialogBox from "./ReusableComponents/DialogBox";
 import { RoleData, GetInitialsName } from "./ReusableComponents/UtilityFunctions";
@@ -28,9 +28,9 @@ const Profile = (props) => {
         image: user?.image ?? ""
     });
 
-    const handleDivClick = () => {
-        fileInputRef.current.click();
-    };
+    // const handleDivClick = () => {
+    //     fileInputRef.current.click();
+    // };
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;

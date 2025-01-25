@@ -9,10 +9,8 @@
 .logout-icon {
     width: 40px;
     height: 40px;
-    /* background-color: #f5efea; */
     background-color: rgba(255, 0, 2, 0.13);
     border-radius: 50%;
-    /* color: #e67e22; */
     color: rgb(211, 47, 47);
     display: flex;
     justify-content: center;
@@ -39,7 +37,6 @@
 }
 
 .small-buttons:first-of-type {
-    /* background-color: #a1abb2; */
     background-color: rgba(25, 118, 210, 0.04);
     color: rgb(94, 110, 130);
     border: none;
@@ -47,12 +44,10 @@
 }
 
 .small-buttons:first-of-type:hover {
-    /* background-color: #898e93; */
     background-color: rgba(25, 118, 210, 0.04);
 }
 
 .small-buttons:last-of-type {
-    /* background-color: var(--primary-color); */
     background-color: rgb(211, 47, 47);
     color: white;
     border: none;
@@ -60,6 +55,5 @@
 }
 
 .small-buttons:last-of-type:hover {
-    /* background-color: #e67e22; */
     background-color: rgb(198, 40, 40);
 }
